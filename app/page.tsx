@@ -416,11 +416,15 @@ const AyadaCliffsPage: React.FC = () => {
                 className={`relative overflow-hidden transition-all duration-700 ease-in-out cursor-pointer
                 ${
                   selectedFeature === destination.id ? "w-[600px]" : "w-[200px]"
-                }  h-[600px]   ${destination.id % 2 === 0 ? "mt-10" : "mt-0"}`}
+                }  h-[600px]   ${
+                  destination.id % 2 === 0 ? "mt-10" : "mt-0"
+                } transition-all duration-1500 delay-75`}
                 variants={fadeIn}
                 onClick={() =>
                   setSelectedFeature(
-                    selectedFeature === destination.id ? (destination.id+1)%4: destination.id
+                    selectedFeature === destination.id
+                      ? (destination.id + 1) % 4
+                      : destination.id
                   )
                 }
                 whileHover={{
@@ -438,41 +442,18 @@ const AyadaCliffsPage: React.FC = () => {
                 <div className="absolute bottom-0 left-0 right-0  z-20 transition-all duration-500 ">
                   {selectedFeature === destination.id && (
                     <motion.div
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: "auto" }}
+                      initial={{ opacity: 0, height: "auto"}}
+                      animate={{ opacity: 1 }}
                       exit={{ opacity: 0, height: 0 }}
-                      transition={{ duration: 0.5 }}
+                      transition={{ duration: 2.5 ,delay:1.0}}
                       className="overflow-hidden h-[40%] absolute bottom-0 bg-gradient-to-t from-black/80 to-transparent p-6"
                     >
                       <h3 className={`text-2xl font-bold mb-2 `}>
                         {destination.name}
                       </h3>
                       <p className="text-lg mb-6">{destination.description}</p>
-                      <button
-                        className={`bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white rounded-full w-12 h-12 flex items-center justify-center transition-all ${
-                          selectedFeature === destination.id
-                            ? "hidden"
-                            : "hidden"
-                        }`}
-                        onClick={() => setSelectedFeature((destination.id+1)%4)}
-                      >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="h-6 w-6"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M12 4v16m8-8H4"
-                          />
-                        </svg>
-                      </button>
+                     
                     </motion.div>
-                    
                   )}
                 </div>
                 {selectedFeature !== destination.id && (
@@ -504,7 +485,7 @@ const AyadaCliffsPage: React.FC = () => {
       </motion.section>
 
       {/* Experiences Section with hover effects */}
-      <motion.section
+      {/* <motion.section
         className="py-16 bg-white"
         initial="hidden"
         whileInView="visible"
@@ -552,7 +533,7 @@ const AyadaCliffsPage: React.FC = () => {
                     transition: { duration: 0.3 },
                   }}
                 >
-                  {/* Placeholder for experience image */}
+              
                   <div className="absolute inset-0 bg-gray-200"></div>
                 </motion.div>
                 <motion.h3
@@ -582,7 +563,7 @@ const AyadaCliffsPage: React.FC = () => {
             </Link>
           </motion.div>
         </div>
-      </motion.section>
+      </motion.section> */}
 
       {/* Footer with subtle animations */}
       <motion.footer
