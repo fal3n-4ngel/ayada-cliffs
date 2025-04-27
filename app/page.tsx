@@ -1,12 +1,11 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { motion, useAnimation, useScroll, useTransform } from "framer-motion";
+import { motion, useAnimation } from "framer-motion";
 
 const AyadaCliffsPage: React.FC = () => {
   const heroControls = useAnimation();
   const featureControls = useAnimation();
-
   const [selectedFeature, setSelectedFeature] = useState<number | null>(0);
 
   const destinations = [
@@ -20,26 +19,27 @@ const AyadaCliffsPage: React.FC = () => {
     {
       id: 1,
       name: "Papanasam Beach",
-      image: "papanasam-beach.jpg",
+      image: "/papanasam-beach.jpg", // Fixed missing leading slash
       description:
         "Known as Varkala Beach, this pristine shore is believed to have holy waters that wash away sins, perfect for swimming and surrounded by natural beauty.",
     },
     {
       id: 2,
       name: "Janardanaswamy Temple",
-      image: "janardanaswamy-temple.jpg",
+      image: "/janardanaswamy-temple.jpg", // Fixed missing leading slash
       description:
         "Ancient 2,000-year-old temple dedicated to Lord Vishnu, featuring traditional Kerala architecture and peaceful spiritual surroundings.",
     },
     {
       id: 3,
       name: "Kappil Beach & Lake",
-      image: "kappil-lake.jpg",
+      image: "/kappil-lake.jpg", // Fixed missing leading slash
       description:
         "Where backwaters meet the sea, creating a stunning landscape of palm-fringed shores, perfect for boating and witnessing the merging of ecosystems.",
     },
   ];
 
+  // Animation variants
   const staggerContainer = {
     hidden: {},
     visible: {
@@ -58,24 +58,6 @@ const AyadaCliffsPage: React.FC = () => {
     },
   };
 
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 100) {
-        heroControls.start({ scale: 1.05 });
-      } else {
-        heroControls.start({ scale: 1 });
-      }
-
-      if (window.scrollY > 500) {
-        featureControls.start({ opacity: 1, y: 0 });
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [heroControls, featureControls]);
-
-  // Animation variants
   const fadeInUp = {
     hidden: { opacity: 0, y: 20 },
     visible: {
@@ -102,6 +84,23 @@ const AyadaCliffsPage: React.FC = () => {
       transition: { duration: 0.3 },
     },
   };
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 100) {
+        heroControls.start({ scale: 1.05 });
+      } else {
+        heroControls.start({ scale: 1 });
+      }
+
+      if (window.scrollY > 500) {
+        featureControls.start({ opacity: 1, y: 0 });
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [heroControls, featureControls]);
 
   return (
     <div className="min-h-screen font-serif text-black bg-white">
@@ -146,6 +145,7 @@ const AyadaCliffsPage: React.FC = () => {
           </nav>
         </div>
       </motion.header>
+
       {/* Hero Section with video background */}
       <section className="relative h-screen">
         <motion.div
@@ -225,6 +225,7 @@ const AyadaCliffsPage: React.FC = () => {
           </div>
         </div>
       </section>
+
       {/* Welcome Section with scroll animations */}
       <motion.section
         className="py-16 bg-white"
@@ -273,8 +274,12 @@ const AyadaCliffsPage: React.FC = () => {
               transition={{ duration: 0.5 }}
             >
               <div className="relative h-80 md:h-96">
-                {/* Placeholder for villa exterior image */}
-                <div className="absolute inset-0 bg-gray-200"></div>
+                {/* Using placeholder API instead of empty div */}
+                <img
+                  src="/api/placeholder/800/600"
+                  alt="Villa exterior"
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
               </div>
             </motion.div>
           </div>
@@ -326,8 +331,12 @@ const AyadaCliffsPage: React.FC = () => {
                 whileHover={{ scale: 1.03 }}
                 transition={{ duration: 0.5 }}
               >
-                {/* Placeholder for infinity pool image */}
-                <div className="absolute inset-0 bg-gray-200"></div>
+                {/* Using placeholder API instead of empty div */}
+                <img
+                  src="/api/placeholder/800/600"
+                  alt="Infinity pool"
+                  className="w-full h-full object-cover"
+                />
               </motion.div>
               <motion.div className="mb-4" variants={fadeInUp}>
                 <span className="text-xs text-gray-500 uppercase">
@@ -362,8 +371,12 @@ const AyadaCliffsPage: React.FC = () => {
                 whileHover={{ scale: 1.03 }}
                 transition={{ duration: 0.5 }}
               >
-                {/* Placeholder for villa interior image */}
-                <div className="absolute inset-0 bg-gray-200"></div>
+                {/* Using placeholder API instead of empty div */}
+                <img
+                  src="/api/placeholder/800/600"
+                  alt="Luxury suite"
+                  className="w-full h-full object-cover"
+                />
               </motion.div>
               <motion.div className="mb-4" variants={fadeInUp}>
                 <span className="text-xs text-gray-500 uppercase">
@@ -394,8 +407,9 @@ const AyadaCliffsPage: React.FC = () => {
         </div>
       </motion.section>
 
+      {/* Destinations Section with interactive panels */}
       <motion.section
-        className="py-16 bg-[#1d1d1d] min-h-full  text-white"
+        className="py-16 bg-[#1d1d1d] min-h-full text-white"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.2 }}
@@ -416,14 +430,14 @@ const AyadaCliffsPage: React.FC = () => {
                 className={`relative overflow-hidden transition-all duration-700 ease-in-out cursor-pointer
                 ${
                   selectedFeature === destination.id ? "w-[600px]" : "w-[200px]"
-                }  h-[600px]   ${
+                } h-[600px] ${
                   destination.id % 2 === 0 ? "mt-10" : "mt-0"
                 } transition-all duration-1500 delay-75`}
                 variants={fadeIn}
                 onClick={() =>
                   setSelectedFeature(
                     selectedFeature === destination.id
-                      ? (destination.id + 1) % 4
+                      ? (destination.id + 1) % destinations.length
                       : destination.id
                   )
                 }
@@ -433,32 +447,32 @@ const AyadaCliffsPage: React.FC = () => {
               >
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent z-10" />
 
+                {/* Using placeholder API for images */}
                 <img
                   src={destination.image}
                   alt={destination.name}
                   className="w-full h-full object-cover transition-all duration-700"
                 />
 
-                <div className="absolute bottom-0 left-0 right-0  z-20 transition-all duration-500 ">
+                <div className="absolute bottom-0 left-0 right-0 z-20 transition-all duration-500">
                   {selectedFeature === destination.id && (
                     <motion.div
-                      initial={{ opacity: 0, height: "auto"}}
+                      initial={{ opacity: 0, height: "auto" }}
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0, height: 0 }}
-                      transition={{ duration: 2.5 ,delay:1.0}}
+                      transition={{ duration: 1.5, delay: 0.5 }} // Optimized animation timing
                       className="overflow-hidden h-[40%] absolute bottom-0 bg-gradient-to-t from-black/80 to-transparent p-6"
                     >
-                      <h3 className={`text-2xl font-bold mb-2 `}>
+                      <h3 className="text-2xl font-bold mb-2">
                         {destination.name}
                       </h3>
                       <p className="text-lg mb-6">{destination.description}</p>
-                     
                     </motion.div>
                   )}
                 </div>
                 {selectedFeature !== destination.id && (
                   <motion.button
-                    className=" bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white rounded-full w-10 h-10 flex items-center justify-center mt-2 transition-all"
+                    className="absolute bottom-6 left-6 bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white rounded-full w-10 h-10 flex items-center justify-center transition-all"
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.95 }}
                   >
@@ -485,7 +499,7 @@ const AyadaCliffsPage: React.FC = () => {
       </motion.section>
 
       {/* Experiences Section with hover effects */}
-      {/* <motion.section
+      <motion.section
         className="py-16 bg-white"
         initial="hidden"
         whileInView="visible"
@@ -511,14 +525,17 @@ const AyadaCliffsPage: React.FC = () => {
               {
                 title: "Sunrise Yoga",
                 desc: "Begin your day with a rejuvenating yoga session on our cliff-edge platform as the sun rises over the Arabian Sea.",
+                img: "/api/placeholder/600/400"
               },
               {
                 title: "Ayurvedic Treatments",
                 desc: "Experience authentic Kerala Ayurvedic therapies in our private spa pavilion with ocean views.",
+                img: "/api/placeholder/600/400"
               },
               {
                 title: "Beach Excursions",
                 desc: "Take a private path down to Varkala Beach for swimming, sunbathing, and exploring local fishing villages.",
+                img: "/api/placeholder/600/400"
               },
             ].map((item, index) => (
               <motion.div
@@ -533,8 +550,12 @@ const AyadaCliffsPage: React.FC = () => {
                     transition: { duration: 0.3 },
                   }}
                 >
-              
-                  <div className="absolute inset-0 bg-gray-200"></div>
+                  {/* Using placeholder API instead of empty div */}
+                  <img
+                    src={item.img}
+                    alt={item.title}
+                    className="w-full h-full object-cover"
+                  />
                 </motion.div>
                 <motion.h3
                   className="text-xl font-light mb-2"
@@ -563,7 +584,7 @@ const AyadaCliffsPage: React.FC = () => {
             </Link>
           </motion.div>
         </div>
-      </motion.section> */}
+      </motion.section>
 
       {/* Footer with subtle animations */}
       <motion.footer
