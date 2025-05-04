@@ -46,7 +46,7 @@ const HeroSection = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 1.5, delay: 1 }}
-              className="mb-6 text-5xl  tracking-widest md:text-7xl josefin-sans"
+              className="mb-6 text-5xl  tracking-widest md:text-7xl josefin-sans-medium font-medium "
               style={{ color: COLORS.light }}
             >
               AYADA CLIFF

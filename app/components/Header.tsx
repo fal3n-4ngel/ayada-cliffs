@@ -124,7 +124,7 @@ const Header: React.FC<{
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transform">
           <Link href="/">
             <h1
-              className="text-2xl font-light tracking-widest"
+              className="text-2xl font-light tracking-widest josefin-sans "
               style={{ color: scrollY > 50 ? COLORS.primary : COLORS.light }}
             >
               AYADA CLIFF

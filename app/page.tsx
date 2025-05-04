@@ -7,17 +7,50 @@ import AccommodationsSection from "./components/AccommodationsSection";
 import DestinationsSection from "./components/DestinationsSection";
 import ExperienceSection from "./components/ExperienceSection";
 import Footer from "./components/Footer";
+import { motion } from "framer-motion";
+import LoadingScreen from "./loading";
+
+
 
 const AyadaCLIFFPage = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrollY, setScrollY] = useState(0);
   const [selectedFeature, setSelectedFeature] = useState(0);
+  const [loading, setLoading] = useState(true);
 
+  // Handle scroll effects
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // Handle loading state
+  useEffect(() => {
+    // Show loading screen on initial page load or refresh
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 2500); // Adjust loading time as needed
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Prevent body scroll when loading
+  useEffect(() => {
+    if (loading) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [loading]);
+
+  // Show loading screen if loading state is true
+  if (loading) {
+    return <LoadingScreen />;
+  }
 
   return (
     <div className="text-dark min-h-screen overflow-x-hidden bg-white font-light">
