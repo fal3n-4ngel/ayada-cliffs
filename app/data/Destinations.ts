@@ -2,7 +2,7 @@ export const DESTINATIONS = [
   {
     id: 0,
     name: "Varkala CLIFF",
-    image: "/varkala-CLIFF.jpg",
+    image: "/varkala-cliff.jpg",
     description:
       "Experience breathtaking views from dramatic red CLIFF overlooking the Arabian Sea, lined with shops and cafes offering the perfect sunset viewpoint.",
   },
