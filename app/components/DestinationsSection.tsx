@@ -11,33 +11,33 @@ const DestinationsSection: React.FC<{
   }> = ({ selectedFeature, setSelectedFeature }) => {
     return (
       <motion.section
-        className="min-h-full py-16"
+        className="min-h-full py-8 md:py-16"
         style={{ background: COLORS.secondary }}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.2 }}
         variants={ANIMATIONS.staggerContainer}
       >
-        <div className="container mx-auto px-4 py-16">
+        <div className="container mx-auto px-4 py-8 md:py-16">
           <motion.div
-            className="mb-16 text-center"
+            className="mb-8 md:mb-16 text-center"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.3 }}
             variants={ANIMATIONS.fadeIn}
           >
-            <span className="mb-4 block text-sm tracking-widest uppercase" style={{ color: COLORS.primary }}>
+            <span className="mb-2 md:mb-4 block text-sm tracking-widest uppercase" style={{ color: COLORS.primary }}>
               EXPLORE
             </span>
-            <h2 className="mb-6 text-4xl font-light" style={{ color: COLORS.primary }}>
+            <h2 className="mb-4 md:mb-6 text-2xl md:text-4xl font-light" style={{ color: COLORS.primary }}>
               Discover Extraordinary Destinations
             </h2>
-            <p className="mx-auto max-w-3xl text-lg" style={{ color: `${COLORS.primary}DD` }}>
+            <p className="mx-auto max-w-3xl text-base md:text-lg" style={{ color: `${COLORS.primary}DD` }}>
               Immerse yourself in the wonders of Varkala and its surrounding treasures
             </p>
           </motion.div>
   
-          <div className="flex flex-wrap items-stretch justify-center gap-4">
+          <div className="flex flex-col md:flex-row flex-wrap items-stretch justify-center gap-4">
             {DESTINATIONS.map((destination) => (
               <DestinationCard 
                 key={destination.id}
@@ -56,9 +56,4 @@ const DestinationsSection: React.FC<{
     );
   };
   
-
-  
-  
-
-
 export default DestinationsSection

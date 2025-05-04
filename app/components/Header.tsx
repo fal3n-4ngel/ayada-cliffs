@@ -145,7 +145,7 @@ const Header: React.FC<{
         </div>
 
         {/* Book button */}
-        <Link href="/reserve">
+        <Link href="/reserve" className="hidden md:block">
           <button
             className="px-6 py-2 text-sm tracking-widest transition-all duration-300"
             style={{
