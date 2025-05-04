@@ -1,0 +1,167 @@
+import React from "react";
+import { ChevronRight, Menu, X } from "lucide-react";
+import { COLORS } from "../theme/colors";
+import Link from "next/link";
+import { motion, AnimatePresence } from "framer-motion";
+import { NAV_ITEMS, SECONDARY_NAV_ITEMS } from "../data/Navigation";
+
+const NavigationMenu: React.FC<{
+  isOpen: boolean;
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}> = ({ isOpen, setIsOpen }) => {
+  return (
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.5 }}
+          className="fixed inset-0 z-40 bg-white"
+        >
+          <div className="container mx-auto h-full px-6 py-32">
+            <div className="grid h-full grid-cols-1 gap-12 md:grid-cols-2">
+              <div className="space-y-8">
+                <h3
+                  className="text-sm tracking-widest"
+                  style={{ color: COLORS.primary }}
+                >
+                  EXPERIENCE
+                </h3>
+                <nav>
+                  <ul className="space-y-6">
+                    {NAV_ITEMS.map((item, i) => (
+                      <motion.li
+                        key={i}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.1 * i }}
+                      >
+                        <Link
+                          href={item.link}
+                          className="group flex items-center justify-between text-2xl transition-all duration-300"
+                          onClick={() => setIsOpen(false)}
+                          style={{ color: COLORS.dark }}
+                        >
+                          <span>{item.name}</span>
+                          <ChevronRight
+                            size={18}
+                            className="opacity-0 transition-opacity group-hover:opacity-100"
+                          />
+                        </Link>
+                      </motion.li>
+                    ))}
+                  </ul>
+                </nav>
+              </div>
+
+              <div className="space-y-8">
+                <h3
+                  className="text-sm tracking-widest"
+                  style={{ color: COLORS.primary }}
+                >
+                  INFORMATION
+                </h3>
+                <nav>
+                  <ul className="space-y-6">
+                    {SECONDARY_NAV_ITEMS.map((item, i) => (
+                      <motion.li
+                        key={i}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.1 * (i + NAV_ITEMS.length) }}
+                      >
+                        <Link
+                          href={item.link}
+                          className="group flex items-center justify-between text-2xl transition-all duration-300"
+                          onClick={() => setIsOpen(false)}
+                          style={{ color: COLORS.dark }}
+                        >
+                          <span>{item.name}</span>
+                          <ChevronRight
+                            size={18}
+                            className="opacity-0 transition-opacity group-hover:opacity-100"
+                          />
+                        </Link>
+                      </motion.li>
+                    ))}
+                  </ul>
+                </nav>
+
+                <div className="pt-12">
+                  <p className="mb-4 text-sm" style={{ color: COLORS.primary }}>
+                    Varkala CLIFF Road, Kerala 695141, India
+                  </p>
+                  <p className="mb-1 text-sm" style={{ color: COLORS.primary }}>
+                    info@ayadacliff.com
+                  </p>
+                  <p className="text-sm" style={{ color: COLORS.primary }}>
+                    +91 12345 67890
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+};
+
+// Component for Header with Navigation
+const Header: React.FC<{
+  scrollY: number;
+  isMenuOpen: boolean;
+  setIsMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}> = ({ scrollY, isMenuOpen, setIsMenuOpen }) => {
+  return (
+    <header
+      className={`fixed top-0 z-50 w-full transition-all duration-700 ${
+        scrollY > 50 ? "bg-white py-2 shadow-md" : "bg-transparent py-6"
+      }`}
+    >
+      <div className="container mx-auto flex items-center justify-between px-6">
+        {/* Menu button */}
+        <button
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          className="z-50 text-4xl focus:outline-none"
+          style={{
+            color: scrollY > 50 || isMenuOpen ? COLORS.primary : COLORS.light,
+          }}
+        >
+          {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
+        </button>
+
+        {/* Logo */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transform">
+          <Link href="/">
+            <h1
+              className="text-2xl font-light tracking-widest"
+              style={{ color: scrollY > 50 ? COLORS.primary : COLORS.light }}
+            >
+              AYADA CLIFF
+            </h1>
+          </Link>
+        </div>
+
+        {/* Book button */}
+        <Link href="/reserve">
+          <button
+            className="px-6 py-2 text-sm tracking-widest transition-all duration-300"
+            style={{
+              color: scrollY > 50 ? COLORS.primary : COLORS.light,
+              border: `1px solid ${scrollY > 50 ? COLORS.primary : COLORS.light}`,
+            }}
+          >
+            RESERVE
+          </button>
+        </Link>
+      </div>
+
+      {/* Full-screen menu overlay */}
+      <NavigationMenu isOpen={isMenuOpen} setIsOpen={setIsMenuOpen} />
+    </header>
+  );
+};
+
+export default Header;
