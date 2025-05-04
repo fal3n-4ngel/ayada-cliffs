@@ -59,7 +59,7 @@ const HeroSection = () => {
               className="mb-10 text-lg md:text-xl"
               style={{ color: COLORS.light }}
             >
-              Luxury Ocean View Villa in Varkala, Kerala
+              Luxury Ocean View Pool Villa in Varkala, Kerala
             </motion.p>
   
             <motion.div

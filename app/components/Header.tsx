@@ -87,18 +87,6 @@ const NavigationMenu: React.FC<{
                     ))}
                   </ul>
                 </nav>
-
-                <div className="pt-12">
-                  <p className="mb-4 text-sm" style={{ color: COLORS.primary }}>
-                    Varkala CLIFF Road, Kerala 695141, India
-                  </p>
-                  <p className="mb-1 text-sm" style={{ color: COLORS.primary }}>
-                    info@ayadacliff.com
-                  </p>
-                  <p className="text-sm" style={{ color: COLORS.primary }}>
-                    +91 12345 67890
-                  </p>
-                </div>
               </div>
             </div>
           </div>
