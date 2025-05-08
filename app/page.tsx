@@ -7,8 +7,8 @@ import AccommodationsSection from "./components/AccommodationsSection";
 import DestinationsSection from "./components/DestinationsSection";
 import ExperienceSection from "./components/ExperienceSection";
 import Footer from "./components/Footer";
-import { motion } from "framer-motion";
 import LoadingScreen from "./loading";
+import CarouselSection from "./components/CarouselSection";
 
 
 
@@ -65,13 +65,15 @@ const AyadaCLIFFPage = () => {
       <IntroductionSection />
 
       <AccommodationsSection />
+      <CarouselSection/>
+      <ExperienceSection />
+
 
       <DestinationsSection
         selectedFeature={selectedFeature}
         setSelectedFeature={setSelectedFeature}
       />
 
-      <ExperienceSection />
 
       <Footer />
     </div>

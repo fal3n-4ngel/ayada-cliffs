@@ -6,7 +6,7 @@ import Link from 'next/link';
 
 const ExperienceSection = () => {
     return (
-      <section className="relative py-32" style={{ backgroundColor: `${COLORS.primary}15` }}>
+      <section className="relative py-32" style={{ backgroundColor: `white` }}>
         <div className="container mx-auto px-6">
           <div className="flex flex-col-reverse items-center md:flex-row">
             <motion.div
