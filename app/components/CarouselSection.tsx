@@ -2,28 +2,7 @@ import React, { useState } from "react";
 import { motion, AnimatePresence, PanInfo } from "framer-motion";
 import { COLORS } from "../theme/colors";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
-
-// Sample images array - replace with your own
-const IMAGES = [
-    {
-        id: 1,
-        imageSrc: "/placeholder/ocean-view-suite.avif",
-        title: "Mountain Landscape",
-        description: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatibus voluptas enim quasi hic architecto excepturi accusamus. Dolores id excepturi pariatur nemo tempora consequatur ex sunt sapiente maxime iste, blanditiis odio! Voluptatum ut "
-    },
-    {
-        id: 2,
-        imageSrc: "/placeholder/cliff-edge-villa.avif",
-        title: "Ocean View",
-        description: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatibus voluptas enim quasi hic architecto excepturi accusamus. Dolores id excepturi pariatur nemo tempora consequatur ex sunt sapiente maxime iste, blanditiis odio! Voluptatum ut "
-    },
-    {
-        id: 3,
-        imageSrc: "/placeholder/luxury-villa.jpg",
-        title: "Forest Path",
-        description: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatibus voluptas enim quasi hic architecto excepturi accusamus. Dolores id excepturi pariatur nemo tempora consequatur ex sunt sapiente maxime iste, blanditiis odio! Voluptatum ut "
-    },
-];
+import { CAROUSELITEMS } from "../data/CarouselItems";
 
 const sliderVariants = {
     incoming: (direction: number) => ({
@@ -78,8 +57,8 @@ export default function Carousel() {
         return ((((value - min) % range) + range) % range) + min;
     };
 
-    const activeImageIndex = wrap(0, IMAGES.length, imageCount);
-    const activeImage = IMAGES[activeImageIndex];
+    const activeImageIndex = wrap(0, CAROUSELITEMS.length, imageCount);
+    const activeImage = CAROUSELITEMS[activeImageIndex];
 
     const swipeToImage = (swipeDirection: number) => {
         setImageCount([imageCount + swipeDirection, swipeDirection]);
@@ -97,7 +76,7 @@ export default function Carousel() {
     };
 
     const renderProgressDots = () => {
-        return IMAGES.map((_, index) => (
+        return CAROUSELITEMS.map((_, index) => (
             <div
                 key={index}
                 onClick={() => setImageCount([index, index > activeImageIndex ? 1 : -1])}
