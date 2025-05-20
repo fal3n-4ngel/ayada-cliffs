@@ -52,7 +52,7 @@ const Footer = () => {
 
   return (
     <motion.footer
-      className="pt-24 pb-16"
+      className="h-screen flex items-center justify-center"
       style={{ 
         background: COLORS.secondary,
         backgroundImage: 'radial-gradient(circle at 90% 10%, rgba(255,255,255,0.03) 0%, transparent 40%)'
@@ -63,20 +63,20 @@ const Footer = () => {
       variants={fadeIn}
     >
       <div className="container mx-auto px-8">
-        <div className="mb-20 flex flex-col items-center">
+        <div className="mb-2 flex flex-col items-center">
           <div className="mb-6">
             <img 
               src="/images/logo/ayadaclifflogo-mark.png" 
               alt="AYADA CLIFF" 
-              className="w-48"
+              className="md:w-[15vw] w-42"
             />
           </div>
           
-          <div className="h-px w-12 my-8" style={{ backgroundColor: COLORS.primary, opacity: 0.15 }}></div>
+          <div className="h-px w-12 my-4" style={{ backgroundColor: COLORS.primary, opacity: 0.15 }}></div>
           
           <div className="max-w-md text-center">
             <p 
-              className="text-sm font-light leading-relaxed" 
+              className="text-md font-light leading-relaxed" 
               style={{ color: COLORS.primary, opacity: 0.7 }}
             >
               An intimate retreat perched on the dramatic cliffs of Varkala,
@@ -87,13 +87,13 @@ const Footer = () => {
 
       
 
-        <div className="mb-16 flex justify-center">
+        <div className="mb-8 flex justify-center">
           <div className="h-px w-full max-w-4xl" style={{ backgroundColor: COLORS.primary, opacity: 0.08 }}></div>
         </div>
 
-        <div className="mb-16 flex flex-col items-center">
+        <div className="mb-8 flex flex-col items-center">
           <h5 
-            className="mb-8 text-xs tracking-widest uppercase font-extralight"
+            className="mb-8 text-sm tracking-widest uppercase font-extralight"
             style={{ color: COLORS.primary, letterSpacing: '0.15em' }}
           >
             Follow Our Journey
@@ -104,7 +104,7 @@ const Footer = () => {
               <motion.a
                 key={social.name}
                 href={social.url}
-                className="text-xs tracking-wider font-light"
+                className="text-sm tracking-wider font-light"
                 style={{ color: COLORS.primary, opacity: 0.8 }}
                 whileHover={{ opacity: 1 }}
                 transition={{ duration: 0.3 }}
@@ -117,24 +117,24 @@ const Footer = () => {
 
         <div className="text-center">
           <p 
-            className="mb-4 text-xs font-light"
+            className="mb-4 text-sm font-light"
             style={{ color: COLORS.primary, opacity: 0.6 }}
           >
             Varkala Cliff Road, Varkala, Kerala 695141, India
           </p>
           <p 
-            className="mb-8 text-xs font-light"
+            className="mb-8 text-sm font-light"
             style={{ color: COLORS.primary, opacity: 0.6 }}
           >
             <a href="tel:+911234567890" className="hover:opacity-80">+91 12345 67890</a> · <a href="mailto:info@ayadacliff.com" className="hover:opacity-80">info@ayadacliff.com</a>
           </p>
           <p 
-            className="text-xs font-extralight"
+            className="text-sm font-extralight"
             style={{ color: COLORS.primary, opacity: 0.5 }}
           >
             © {new Date().getFullYear()} Ayada Cliff · All rights reserved
           </p>
-          <p className="text-xs font-extralight pt-10"> crafted by <a  href="mailto:deflatedpappadam@gmail.com"className='hover:text-blue-600 cursor-pointer'>Deflated Pappadam</a></p>
+          <p className="text-sm font-extralight pt-10 josefin-sans text-red-900"> Designed & Developed by <a  href="https://github.com/Deflated-Pappadam"className='hover:text-blue-600 cursor-pointer text-black  '>Deflated Pappadam</a></p>
         </div>
       </div>
     </motion.footer>
