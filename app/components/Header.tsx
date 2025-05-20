@@ -54,6 +54,18 @@ const NavigationMenu: React.FC<{
                   </ul>
                 </nav>
               </div>
+              {/* Book button */}
+              <Link href="/reserve">
+                <button
+                  className="hover:bg-opacity-10 px-6 py-2 text-sm tracking-widest transition-all duration-300 hover:bg-white"
+                  style={{
+                    color: scrollY > 50 ? COLORS.primary : COLORS.light,
+                    border: `1px solid ${scrollY > 50 ? COLORS.primary : COLORS.light}`,
+                  }}
+                >
+                  RESERVE
+                </button>
+              </Link>
 
               <div className="space-y-8">
                 <h3
@@ -109,7 +121,7 @@ const Header: React.FC<{
       }`}
     >
       {/* MOBILE */}
-      <div className="container mx-auto flex items-center justify-between px-6 md:hidden">
+      <div className="container mx-auto flex items-center justify-between px-6 py-1 md:hidden">
         <button
           onClick={() => setIsMenuOpen(!isMenuOpen)}
           className="z-50 text-4xl focus:outline-none md:hidden"
@@ -150,9 +162,9 @@ const Header: React.FC<{
           </button>
         </Link>
       </div>
-      
+
       {/* DESKTOP */}
-      <div className="container mx-auto hidden items-center justify-between px-6 md:flex py-1">
+      <div className="container mx-auto hidden items-center justify-between px-6 py-1 md:flex">
         {/* Logo */}
         <div>
           <Link href="/">
@@ -160,7 +172,7 @@ const Header: React.FC<{
               className="josefin-sans text-2xl font-light tracking-widest"
               style={{ color: scrollY > 50 ? COLORS.primary : COLORS.light }}
             >
-              <div className="flex items-center gap-4 justify-center">
+              <div className="flex items-center justify-center gap-4">
                 <img
                   src="images/logo/ayadaclifflogo-mark.png"
                   alt="Logo"
@@ -175,7 +187,7 @@ const Header: React.FC<{
             </h1>
           </Link>
         </div>
-        
+
         {/* Desktop Navigation */}
         <nav className="flex items-center">
           <ul className="flex space-x-8">
@@ -184,7 +196,9 @@ const Header: React.FC<{
                 <Link
                   href={item.link}
                   className="group text-sm font-light tracking-wider transition-all duration-300 hover:opacity-75"
-                  style={{ color: scrollY > 50 ? COLORS.primary : COLORS.light }}
+                  style={{
+                    color: scrollY > 50 ? COLORS.primary : COLORS.light,
+                  }}
                 >
                   {item.name}
                 </Link>
@@ -196,7 +210,7 @@ const Header: React.FC<{
         {/* Book button */}
         <Link href="/reserve">
           <button
-            className="px-6 py-2 text-sm tracking-widest transition-all duration-300 hover:bg-opacity-10 hover:bg-white"
+            className="hover:bg-opacity-10 px-6 py-2 text-sm tracking-widest transition-all duration-300 hover:bg-white"
             style={{
               color: scrollY > 50 ? COLORS.primary : COLORS.light,
               border: `1px solid ${scrollY > 50 ? COLORS.primary : COLORS.light}`,

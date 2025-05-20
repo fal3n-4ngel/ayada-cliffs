@@ -26,7 +26,7 @@ const staggerChildren = {
 const AccommodationsSection = () => {
   return (
     <section
-      className="relative py-10 pt-20 px-16"
+      className="relative py-10 pt-20 md:px-16 px-4"
       style={{ 
         backgroundColor: COLORS.secondary,
         backgroundImage: "radial-gradient(circle at 10% 90%, rgba(255,255,255,0.03) 0%, transparent 40%)"
@@ -69,7 +69,7 @@ const AccommodationsSection = () => {
         </motion.div>
 
         <motion.div 
-          className="grid grid-cols-1 gap-x-16 gap-y-20 md:grid-cols-3"
+          className="grid grid-cols-1 md:gap-x-16 md:gap-y-20 md:grid-cols-3"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.1 }}
