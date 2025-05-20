@@ -19,35 +19,42 @@ const AccommodationCard: React.FC<{ item: Accommodation; index: number }> = ({
         visible: {
           opacity: 1,
           y: 0,
-          transition: { duration: 0.8, delay: index * 0.2 },
+          transition: { duration: 1.2, delay: index * 0.3, ease: [0.25, 0.1, 0.25, 1] },
         },
       }}
     >
-      <div className="relative mb-6 overflow-hidden">
+      <div className="relative mb-8 overflow-hidden rounded-sm">
+        <div className="absolute inset-0 bg-black/10 opacity-0 transition-opacity duration-500 group-hover:opacity-100 z-10" />
         <img
           src={`/placeholder/${item.image}`}
           alt={item.name}
-          className="aspect-[4/5] w-full object-cover transition-transform duration-700 group-hover:scale-105"
+          className="aspect-[4/5] w-full object-cover transition-transform duration-1000 ease-out group-hover:scale-105"
+        />
+        <div 
+          className="absolute bottom-0 left-0 w-full h-1/4 bg-gradient-to-t from-black/30 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100 z-10"
         />
       </div>
       <h3
-        className="mb-4 text-2xl font-light"
+        className="mb-4 text-xl font-light tracking-wide"
         style={{ color: COLORS.primary }}
       >
         {item.name}
       </h3>
-      <p className="mb-6" style={{ color: `${COLORS.primary}DD` }}>
+      <p 
+        className="mb-8 text-sm font-light leading-relaxed" 
+        style={{ color: COLORS.primary, opacity: 0.85 }}
+      >
         {item.description}
       </p>
       <Link href={`/accommodations/${item.id}`}>
         <button
-          className="border-b pb-1 text-sm tracking-widest uppercase transition-all duration-300"
+          className="border-b pb-1 text-xs tracking-widest uppercase transition-all duration-300 group-hover:border-opacity-100"
           style={{
             color: COLORS.primary,
-            borderColor: `${COLORS.primary}40`,
+            borderColor: COLORS.primary,
           }}
         >
-          Explore
+          Discover
         </button>
       </Link>
     </motion.div>

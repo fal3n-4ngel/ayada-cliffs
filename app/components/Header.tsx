@@ -108,11 +108,11 @@ const Header: React.FC<{
         scrollY > 50 ? "bg-white py-2 shadow-md" : "bg-transparent py-6"
       }`}
     >
-      <div className="container mx-auto flex items-center justify-between px-6">
-        {/* Menu button */}
+      {/* MOBILE */}
+      <div className="container mx-auto flex items-center justify-between px-6 md:hidden">
         <button
           onClick={() => setIsMenuOpen(!isMenuOpen)}
-          className="z-50 text-4xl focus:outline-none"
+          className="z-50 text-4xl focus:outline-none md:hidden"
           style={{
             color: scrollY > 50 || isMenuOpen ? COLORS.primary : COLORS.light,
           }}
@@ -124,18 +124,79 @@ const Header: React.FC<{
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transform">
           <Link href="/">
             <h1
-              className="text-2xl font-light tracking-widest josefin-sans "
+              className="josefin-sans text-2xl font-light tracking-widest"
               style={{ color: scrollY > 50 ? COLORS.primary : COLORS.light }}
             >
-              AYADA CLIFF
+              <img
+                src="images/logo/ayadaclifflogo-typo.png"
+                alt="Logo"
+                className="w-45"
+              />
             </h1>
           </Link>
         </div>
+        <div></div>
 
         {/* Book button */}
         <Link href="/reserve" className="hidden md:block">
           <button
             className="px-6 py-2 text-sm tracking-widest transition-all duration-300"
+            style={{
+              color: scrollY > 50 ? COLORS.primary : COLORS.light,
+              border: `1px solid ${scrollY > 50 ? COLORS.primary : COLORS.light}`,
+            }}
+          >
+            RESERVE
+          </button>
+        </Link>
+      </div>
+      
+      {/* DESKTOP */}
+      <div className="container mx-auto hidden items-center justify-between px-6 md:flex py-1">
+        {/* Logo */}
+        <div>
+          <Link href="/">
+            <h1
+              className="josefin-sans text-2xl font-light tracking-widest"
+              style={{ color: scrollY > 50 ? COLORS.primary : COLORS.light }}
+            >
+              <div className="flex items-center gap-4 justify-center">
+                <img
+                  src="images/logo/ayadaclifflogo-mark.png"
+                  alt="Logo"
+                  className="w-7"
+                />
+                <img
+                  src="images/logo/ayadaclifflogo-typo.png"
+                  alt="Logo"
+                  className="w-45"
+                />
+              </div>
+            </h1>
+          </Link>
+        </div>
+        
+        {/* Desktop Navigation */}
+        <nav className="flex items-center">
+          <ul className="flex space-x-8">
+            {NAV_ITEMS.map((item, i) => (
+              <li key={i}>
+                <Link
+                  href={item.link}
+                  className="group text-sm font-light tracking-wider transition-all duration-300 hover:opacity-75"
+                  style={{ color: scrollY > 50 ? COLORS.primary : COLORS.light }}
+                >
+                  {item.name}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        {/* Book button */}
+        <Link href="/reserve">
+          <button
+            className="px-6 py-2 text-sm tracking-widest transition-all duration-300 hover:bg-opacity-10 hover:bg-white"
             style={{
               color: scrollY > 50 ? COLORS.primary : COLORS.light,
               border: `1px solid ${scrollY > 50 ? COLORS.primary : COLORS.light}`,

@@ -11,3 +11,4 @@ export interface Destination {
   image: string;
   description: string;
 }
+

@@ -22,13 +22,13 @@ export default function LoadingScreen() {
         animate={{ opacity: isVisible ? 1 : 0 }}
         transition={{ duration: 1.5, ease: "easeInOut" }}
       >
-        <motion.img          className="text-4xl md:text-5xl tracking-widest font-extralight  text-[#84321F]"
+        <motion.img          className="text-4xl md:text-5xl tracking-widest font-extralight  text-[#84321F] w-40 md:w-[12vw] mb-5"
           initial={{ opacity: 0, y: 0 }}
           animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 20 }}
           transition={{ duration: 1.8, delay: 0.3 }}
-          src="/placeholder/logo-with-text.png"
+          src="/images/logo/ayadaclifflogo.png"
           alt="AYADA CLIFF"
-          style={{ width: "250px", height: "auto" }}
+        
 
         >
           
