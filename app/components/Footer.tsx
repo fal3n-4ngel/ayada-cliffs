@@ -52,7 +52,7 @@ const Footer = () => {
 
   return (
     <motion.footer
-      className="h-screen flex items-center justify-center"
+      className="h-screen flex flex-col items-center justify-between pb-5"
       style={{ 
         background: COLORS.secondary,
         backgroundImage: 'radial-gradient(circle at 90% 10%, rgba(255,255,255,0.03) 0%, transparent 40%)'
@@ -62,6 +62,7 @@ const Footer = () => {
       viewport={{ once: true }}
       variants={fadeIn}
     >
+      <div></div>
       <div className="container mx-auto px-8">
         <div className="mb-2 flex flex-col items-center">
           <div className="mb-6">
@@ -76,7 +77,7 @@ const Footer = () => {
           
           <div className="max-w-md text-center">
             <p 
-              className="text-md font-light leading-relaxed" 
+              className="text-xl font-light leading-relaxed" 
               style={{ color: COLORS.primary, opacity: 0.7 }}
             >
               An intimate retreat perched on the dramatic cliffs of Varkala,
@@ -117,7 +118,7 @@ const Footer = () => {
 
         <div className="text-center">
           <p 
-            className="mb-4 text-sm font-light"
+            className="mb-6 text-sm font-light"
             style={{ color: COLORS.primary, opacity: 0.6 }}
           >
             Varkala Cliff Road, Varkala, Kerala 695141, India
@@ -134,7 +135,7 @@ const Footer = () => {
           >
             © {new Date().getFullYear()} Ayada Cliff · All rights reserved
           </p>
-          <p className="text-sm font-extralight pt-10 josefin-sans text-red-900"> Designed & Developed by <a  href="https://github.com/Deflated-Pappadam"className='hover:text-blue-600 cursor-pointer text-black  '>Deflated Pappadam</a></p>
+          <p className="text-sm font-extralight py-10 josefin-sans text-red-900"> Designed & Developed by <a  href="https://github.com/Deflated-Pappadam"className='hover:text-blue-600 cursor-pointer text-black  '>Deflated Pappadam</a></p>
         </div>
       </div>
     </motion.footer>
