@@ -22,8 +22,8 @@ const DestinationCard: React.FC<DestinationCardProps> = ({ destination, isSelect
     <motion.div
       className={`relative cursor-pointer overflow-hidden rounded-sm transition-all duration-700 ease-in-out 
         ${isSelected 
-          ? "w-full md:w-[450px] lg:w-[600px]" 
-          : "w-full md:w-[150px] lg:w-[200px]"
+          ? "w-full md:w-[35vw]" 
+          : "w-full md:w-[12vw]"
         } 
         h-[300px] md:h-[450px] lg:h-[600px]
         ${destination.id % 2 === 0 ? "md:mt-10" : "mt-0"}
