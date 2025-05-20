@@ -60,13 +60,13 @@ const AyadaCLIFFPage = () => {
         isMenuOpen={isMenuOpen}
         setIsMenuOpen={setIsMenuOpen}
       />
-<PageTransition />
+      <PageTransition />
       <HeroSection />
 
       <IntroductionSection />
 
       <AccommodationsSection />
-      <CarouselSection/>
+      <CarouselSection />
       <ExperienceSection />
 
 

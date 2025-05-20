@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { ChevronRight, Menu, X } from "lucide-react";
 import { COLORS } from "../theme/colors";
@@ -139,8 +140,9 @@ const Header: React.FC<{
               className="josefin-sans text-2xl font-light tracking-widest"
               style={{ color: scrollY > 50 ? COLORS.primary : COLORS.light }}
             >
+              
               <img
-                src="images/logo/ayadaclifflogo-typo.png"
+                src="/images/logo/ayadaclifflogo-typo.png"
                 alt="Logo"
                 className="w-45"
               />
@@ -174,12 +176,12 @@ const Header: React.FC<{
             >
               <div className="flex items-center justify-center gap-4">
                 <img
-                  src="images/logo/ayadaclifflogo-mark.png"
+                  src="/images/logo/ayadaclifflogo-mark.png"
                   alt="Logo"
                   className="w-7"
                 />
                 <img
-                  src="images/logo/ayadaclifflogo-typo.png"
+                  src="/images/logo/ayadaclifflogo-typo.png"
                   alt="Logo"
                   className="w-45"
                 />
