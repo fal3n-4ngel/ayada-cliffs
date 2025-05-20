@@ -9,6 +9,7 @@ import ExperienceSection from "./components/ExperienceSection";
 import Footer from "./components/Footer";
 import LoadingScreen from "./loading";
 import CarouselSection from "./components/CarouselSection";
+import PageTransition from "./components/PageTransition";
 
 
 
@@ -53,13 +54,13 @@ const AyadaCLIFFPage = () => {
   }
 
   return (
-    <div className="text-dark min-h-screen overflow-x-hidden bg-white font-light">
+    <div className="text-dark min-h-screen overflow-x-hidden bg-white font-light hide-scrollbar ">
       <Header
         scrollY={scrollY}
         isMenuOpen={isMenuOpen}
         setIsMenuOpen={setIsMenuOpen}
       />
-
+<PageTransition />
       <HeroSection />
 
       <IntroductionSection />
