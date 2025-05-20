@@ -82,9 +82,9 @@ export default function Carousel() {
         onClick={() =>
           setImageCount([index, index > activeImageIndex ? 1 : -1])
         }
-        className={`h-2 w-2 cursor-pointer rounded-full transition-all duration-300 ${
+        className={`h-[1px] w-6 cursor-pointer transition-all duration-300 ${
           index === activeImageIndex
-            ? `bg-[${COLORS.primary}] w-6`
+            ? `bg-[${COLORS.primary}] h-[2px]`
             : `bg-[${COLORS.primary}] hover:bg-white/70`
         }`}
       />
@@ -159,22 +159,22 @@ export default function Carousel() {
         </AnimatePresence>
       </div>
 
-      <div className="z-20 mt-8 flex flex-col items-center gap-6">
+      <div className="z-20 mt-8 flex flex-col items-center gap-6 text-xs">
         <div
           className="flex items-center justify-center gap-4"
           style={{ color: COLORS.primary }}
         >
           <button
             onClick={() => swipeToImage(-1)}
-            className="flex items-center rounded-full px-6 py-2 text-sm font-semibold transition-colors hover:bg-white/30"
+            className="flex items-center rounded-full px-6 py-2 font-semibold duration-500 hover:scale-95 hover:text-[##84321F70]"
           >
             <ChevronLeftIcon></ChevronLeftIcon>
             PREV
           </button>
-          <div className="flex items-center gap-2">{renderProgressDots()}</div>
+          <div className="flex items-center">{renderProgressDots()}</div>
           <button
             onClick={() => swipeToImage(1)}
-            className="flex items-center rounded-full px-6 py-2 text-sm font-semibold transition-colors hover:bg-white/30"
+            className="flex items-center rounded-full px-6 py-2 font-semibold duration-500 hover:scale-95 hover:text-[##84321F70]"
           >
             NEXT
             <ChevronRightIcon></ChevronRightIcon>
