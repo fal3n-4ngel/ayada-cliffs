@@ -134,6 +134,7 @@ const Footer = () => {
           >
             © {new Date().getFullYear()} Ayada Cliff · All rights reserved
           </p>
+          <p className="text-xs font-extralight pt-10"> crafted by <a  href="mailto:deflatedpappadam@gmail.com"className='hover:text-blue-600 cursor-pointer'>Deflated Pappadam</a></p>
         </div>
       </div>
     </motion.footer>
