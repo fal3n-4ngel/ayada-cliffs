@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 const Footer = () => {
   const fadeIn = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 100, y: 0 },
     visible: {
       opacity: 1,
       y: 0,
@@ -52,10 +52,10 @@ const Footer = () => {
 
   return (
     <motion.footer
-      className="h-screen flex flex-col items-center justify-between pb-5"
+      className=" flex flex-col items-center justify-between pb-5"
       style={{ 
         background: COLORS.secondary,
-        backgroundImage: 'radial-gradient(circle at 90% 10%, rgba(255,255,255,0.03) 0%, transparent 40%)'
+      
       }}
       initial="hidden"
       whileInView="visible"
@@ -64,27 +64,7 @@ const Footer = () => {
     >
       <div></div>
       <div className="container mx-auto px-8">
-        <div className="mb-2 flex flex-col items-center">
-          <div className="mb-6">
-            <img 
-              src="/images/logo/ayadaclifflogo-mark.png" 
-              alt="AYADA CLIFF" 
-              className="md:w-[15vw] w-42"
-            />
-          </div>
-          
-          <div className="h-px w-12 my-4" style={{ backgroundColor: COLORS.primary, opacity: 0.15 }}></div>
-          
-          <div className="max-w-md text-center">
-            <p 
-              className="text-xl font-light leading-relaxed" 
-              style={{ color: COLORS.primary, opacity: 0.7 }}
-            >
-              An intimate retreat perched on the dramatic cliffs of Varkala,
-              where tranquility and natural beauty create an unforgettable sanctuary
-            </p>
-          </div>
-        </div>
+      
 
       
 

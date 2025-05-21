@@ -17,18 +17,13 @@ const NavigationMenu: React.FC<{
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.2 }}
           className="fixed inset-0 z-40 bg-white"
         >
-          <div className="container mx-auto h-full px-6 py-32">
+          <div className="container mx-auto h-full px-6 py-24">
             <div className="grid h-full grid-cols-1 gap-12 md:grid-cols-2">
               <div className="space-y-8">
-                <h3
-                  className="text-sm tracking-widest"
-                  style={{ color: COLORS.primary }}
-                >
-                  EXPERIENCE
-                </h3>
+              
                 <nav>
                   <ul className="space-y-6">
                     {NAV_ITEMS.map((item, i) => (
@@ -60,8 +55,8 @@ const NavigationMenu: React.FC<{
                 <button
                   className="hover:bg-opacity-10 px-6 py-2 text-sm tracking-widest transition-all duration-300 hover:bg-white"
                   style={{
-                    color: scrollY > 50 ? COLORS.primary : COLORS.light,
-                    border: `1px solid ${scrollY > 50 ? COLORS.primary : COLORS.light}`,
+                    color:  COLORS.primary ,
+                    border: `1px solid ${ COLORS.primary}`,
                   }}
                 >
                   RESERVE
@@ -151,18 +146,7 @@ const Header: React.FC<{
         </div>
         <div></div>
 
-        {/* Book button */}
-        <Link href="/reserve" className="hidden md:block">
-          <button
-            className="px-6 py-2 text-sm tracking-widest transition-all duration-300"
-            style={{
-              color: scrollY > 50 ? COLORS.primary : COLORS.light,
-              border: `1px solid ${scrollY > 50 ? COLORS.primary : COLORS.light}`,
-            }}
-          >
-            RESERVE
-          </button>
-        </Link>
+     
       </div>
 
       {/* DESKTOP */}

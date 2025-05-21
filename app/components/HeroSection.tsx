@@ -61,10 +61,10 @@ const HeroSection = () => {
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1.5, delay: 1.2 }}
-              className="mb-10 w-80 md:w-[40vw]"
+              className="mb-10 w-80 md:w-[45vw]"
             >
               <img 
-                src="/images/logo/ayadaclifflogo-typo.png" 
+                src="/images/logo/ayadaclifflogotypo-white.png" 
                 alt="AYADA CLIFF" 
                 className="w-full"
               />

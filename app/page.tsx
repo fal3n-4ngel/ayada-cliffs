@@ -10,8 +10,8 @@ import Footer from "./components/Footer";
 import LoadingScreen from "./loading";
 import CarouselSection from "./components/CarouselSection";
 import PageTransition from "./components/PageTransition";
-
-
+import { COLORS } from "./theme/colors";
+import LogoFooterCard from "./components/LogoFooterCard";
 
 const AyadaCLIFFPage = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -39,12 +39,12 @@ const AyadaCLIFFPage = () => {
   // Prevent body scroll when loading
   useEffect(() => {
     if (loading) {
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = '';
+      document.body.style.overflow = "";
     }
     return () => {
-      document.body.style.overflow = '';
+      document.body.style.overflow = "";
     };
   }, [loading]);
 
@@ -54,7 +54,7 @@ const AyadaCLIFFPage = () => {
   }
 
   return (
-    <div className="text-dark min-h-screen overflow-x-hidden bg-white font-light hide-scrollbar ">
+    <div className="text-dark hide-scrollbar min-h-screen overflow-x-hidden bg-white font-light">
       <Header
         scrollY={scrollY}
         isMenuOpen={isMenuOpen}
@@ -69,12 +69,13 @@ const AyadaCLIFFPage = () => {
       <CarouselSection />
       <ExperienceSection />
 
-
       <DestinationsSection
         selectedFeature={selectedFeature}
         setSelectedFeature={setSelectedFeature}
       />
 
+
+      <LogoFooterCard/>
 
       <Footer />
     </div>

@@ -10,7 +10,6 @@ import {
   Phone,
   MapPin,
   Check,
-  ArrowDown,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -24,7 +23,6 @@ import {
   SelectItem,
 } from "@/components/ui/select";
 import Header from "@/app/components/Header";
-import { motion } from "framer-motion";
 import { COLORS } from "@/app/theme/colors";
 import { DAYS, MONTHS } from "@/app/data/Reserve";
 
@@ -63,6 +61,7 @@ const ReservationsPage: React.FC = () => {
     specialRequest: "",
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   // Helper functions
   const getDaysInMonth = (month: number, year: number): number => {
@@ -165,12 +164,38 @@ const ReservationsPage: React.FC = () => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent): void => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // In a real application, we'd send the data to the server
     setIsSubmitted(true);
+    console.log("Form data submitted:", formData);
 
-    // In a real scenario, you would send an email to reserve@ayadacliff.com with the form data
+    const response = await fetch("/api/send-email", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: `${formData.prefix} ${formData.firstName} ${formData.lastName}`,
+        email: formData.email,
+        phone: formData.phone,
+        arrival: formatDate(selectedArrival),
+        departure: formatDate(selectedDeparture),
+        adults: adultCount,
+        children: childrenCount,
+        guestInfo: formData,
+      }),
+    });
+    if (!response.ok) {
+      console.error("Error sending email:", response.statusText);
+      return;
+    }
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.error || "Something went wrong");
+    }
+
     console.log("Reservation data to be emailed to reserve@ayadacliff.com:", {
       arrival: formatDate(selectedArrival),
       departure: formatDate(selectedDeparture),
@@ -187,7 +212,7 @@ const ReservationsPage: React.FC = () => {
 
     // Add empty cells for days before the first day of the month
     for (let i = 0; i < firstDay; i++) {
-      days.push(<td key={`empty-${i}`} className="p-2"></td>);
+      days.push(<td key={`empty-${i}`} className="p-1 md:p-2"></td>);
     }
 
     // Add cells for each day of the month
@@ -199,7 +224,9 @@ const ReservationsPage: React.FC = () => {
       days.push(
         <td
           key={day}
-          className={`cursor-pointer p-2 text-center ${isSelected ? "bg-opacity-20" : "hover:bg-opacity-10"}`}
+          className={`cursor-pointer p-1 text-center md:p-2 ${
+            isSelected ? "bg-opacity-20" : "hover:bg-opacity-10"
+          }`}
           onClick={() => handleDateSelect(day, month, year)}
           style={{
             backgroundColor: isSelected ? COLORS.primary : "",
@@ -207,7 +234,7 @@ const ReservationsPage: React.FC = () => {
           }}
         >
           <div
-            className={`mx-auto flex h-8 w-8 items-center justify-center rounded-full ${isArrival || isDeparture ? "" : ""}`}
+            className={`mx-auto flex h-6 w-6 items-center justify-center rounded-full md:h-8 md:w-8`}
             style={{
               backgroundColor:
                 isArrival || isDeparture ? COLORS.primary : "transparent",
@@ -241,7 +268,9 @@ const ReservationsPage: React.FC = () => {
     if (cells.length > 0) {
       // Fill in any remaining cells in the last row
       while (cells.length < 7) {
-        cells.push(<td key={`empty-end-${cells.length}`} className="p-2"></td>);
+        cells.push(
+          <td key={`empty-end-${cells.length}`} className="p-1 md:p-2"></td>,
+        );
       }
       rows.push(<tr key="row-last">{cells}</tr>);
     }
@@ -250,19 +279,19 @@ const ReservationsPage: React.FC = () => {
       <div>
         <div className="mb-4 text-center">
           <h3
-            className="font-light tracking-wider uppercase"
+            className="text-sm font-light tracking-wider uppercase md:text-base"
             style={{ color: COLORS.primary }}
           >
             {MONTHS[month]} {year}
           </h3>
         </div>
-        <table className="w-full text-sm">
+        <table className="w-full text-xs md:text-sm">
           <thead>
             <tr>
-              {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((day) => (
+              {["S", "M", "T", "W", "T", "F", "S"].map((day, index) => (
                 <th
-                  key={day}
-                  className="p-2 font-light"
+                  key={index}
+                  className="p-1 font-light md:p-2"
                   style={{ color: COLORS.primary }}
                 >
                   {day}
@@ -307,12 +336,10 @@ const ReservationsPage: React.FC = () => {
     () => selectedArrival !== null && selectedDeparture !== null,
     [selectedArrival, selectedDeparture],
   );
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [scrollY, setScrollY] = useState(0);
-  const [selectedFeature, setSelectedFeature] = useState(0);
+
   return (
     <div
-      className="page-content hide-scrollbar flex min-h-screen flex-col items-center justify-center overflow-x-hidden"
+      className="flex min-h-screen flex-col items-center justify-center overflow-x-hidden"
       style={{ backgroundColor: COLORS.secondary, color: COLORS.dark }}
     >
       <Header
@@ -321,20 +348,23 @@ const ReservationsPage: React.FC = () => {
         setIsMenuOpen={setIsMenuOpen}
       />
 
-      <main className="container mx-auto px-6 py-12">
+      <main className="container mx-auto w-full px-4 py-8 md:px-6 md:py-12">
         {!isSubmitted ? (
           <>
             {selectedView === "calendar" && (
-              <div>
-                <div className="mb-8 text-center">
+              <div className="mx-auto max-w-6xl">
+                <div className="mb-6 text-center md:mb-8">
                   <h2
-                    className="mb-2 text-2xl font-light"
+                    className="mb-2 text-xl font-light md:text-2xl"
                     style={{ color: COLORS.primary }}
                   >
                     Select your dates
                   </h2>
                   {selectedArrival && (
-                    <div className="text-sm" style={{ color: COLORS.primary }}>
+                    <div
+                      className="text-xs md:text-sm"
+                      style={{ color: COLORS.primary }}
+                    >
                       {selectedDeparture ? (
                         <span>
                           {formatDate(selectedArrival)} -{" "}
@@ -350,22 +380,23 @@ const ReservationsPage: React.FC = () => {
                   )}
                 </div>
 
-                <div className="mb-8 flex items-center justify-center">
+                <div className="mb-6 flex flex-col items-center justify-center md:mb-8 md:flex-row">
                   <Button
                     onClick={handlePrevMonth}
                     variant="ghost"
                     size="icon"
                     style={{ color: COLORS.primary }}
                     aria-label="Previous month"
+                    className="mb-2 md:mb-0"
                   >
-                    <ArrowLeft className="h-5 w-5" />
+                    <ArrowLeft className="h-4 w-4 md:h-5 md:w-5" />
                   </Button>
 
-                  <div className="mx-4 grid w-full max-w-4xl grid-cols-1 gap-8 md:grid-cols-2">
-                    <div className="bg-white p-6 shadow-sm">
+                  <div className="mx-auto grid w-full max-w-4xl grid-cols-1 gap-4 md:mx-4 md:grid-cols-2 md:gap-8">
+                    <div className="rounded-md bg-white p-3 shadow-sm md:p-6">
                       {currentMonthCalendar}
                     </div>
-                    <div className="bg-white p-6 shadow-sm">
+                    <div className="rounded-md bg-white p-3 shadow-sm md:p-6">
                       {nextMonthCalendar}
                     </div>
                   </div>
@@ -376,12 +407,13 @@ const ReservationsPage: React.FC = () => {
                     size="icon"
                     style={{ color: COLORS.primary }}
                     aria-label="Next month"
+                    className="mt-2 md:mt-0"
                   >
-                    <ArrowRight className="h-5 w-5" />
+                    <ArrowRight className="h-4 w-4 md:h-5 md:w-5" />
                   </Button>
                 </div>
 
-                <div className="mx-auto mb-8 grid w-full max-w-xl grid-cols-1 gap-4 md:grid-cols-2">
+                <div className="mx-auto mb-6 grid w-full max-w-xl grid-cols-1 gap-4 sm:grid-cols-2 md:mb-8">
                   <div>
                     <Label
                       className="mb-2 block text-xs font-light tracking-widest uppercase"
@@ -459,7 +491,7 @@ const ReservationsPage: React.FC = () => {
                       }
                     }}
                     disabled={!canCheckAvailability}
-                    className="px-10 py-6 tracking-widest uppercase"
+                    className="px-6 py-2 text-sm tracking-widest uppercase md:px-10 md:py-6 md:text-base"
                     style={{
                       backgroundColor: COLORS.primary,
                       color: COLORS.light,
@@ -473,42 +505,43 @@ const ReservationsPage: React.FC = () => {
             )}
 
             {selectedView === "details" && (
-              <div className="grid grid-cols-1 gap-12 p-15 md:grid-cols-2">
+              <div className="mx-auto grid max-w-6xl grid-cols-1 gap-8 md:gap-12 lg:grid-cols-2">
                 <div>
                   <Button
                     onClick={() => setSelectedView("calendar")}
                     variant="ghost"
-                    className="mb-6 flex items-center text-sm font-light"
+                    className="mb-4 flex items-center text-xs font-light md:mb-6 md:text-sm"
                     style={{ color: COLORS.primary }}
                   >
-                    <ArrowLeft className="mr-2 h-4 w-4" /> Edit dates
+                    <ArrowLeft className="mr-1 h-3 w-3 md:mr-2 md:h-4 md:w-4" />{" "}
+                    Edit dates
                   </Button>
 
-                  <div className="mb-12">
+                  <div className="mb-8 md:mb-12">
                     <h2
-                      className="mb-8 text-2xl font-light"
+                      className="mb-6 text-xl font-light md:mb-8 md:text-2xl"
                       style={{ color: COLORS.primary }}
                     >
                       Confirm your stay
                     </h2>
 
                     <div
-                      className="border-opacity-20 mb-8 border-b pb-8"
+                      className="border-opacity-20 mb-6 border-b pb-6 md:mb-8 md:pb-8"
                       style={{ borderColor: COLORS.primary }}
                     >
                       <h3
-                        className="mb-4 text-sm font-light tracking-widest uppercase"
+                        className="mb-3 text-xs font-light tracking-widest uppercase md:mb-4 md:text-sm"
                         style={{ color: COLORS.primary }}
                       >
                         Stay Information
                       </h3>
                       <div className="mb-2 flex items-center">
                         <Calendar
-                          className="mr-2 h-4 w-4 opacity-70"
+                          className="mr-2 h-3 w-3 opacity-70 md:h-4 md:w-4"
                           style={{ color: COLORS.primary }}
                         />
                         <span
-                          className="font-light"
+                          className="text-sm font-light"
                           style={{ color: COLORS.primary }}
                         >
                           Arrival: {formatDate(selectedArrival)}
@@ -516,11 +549,11 @@ const ReservationsPage: React.FC = () => {
                       </div>
                       <div className="mb-2 flex items-center">
                         <Calendar
-                          className="mr-2 h-4 w-4 opacity-70"
+                          className="mr-2 h-3 w-3 opacity-70 md:h-4 md:w-4"
                           style={{ color: COLORS.primary }}
                         />
                         <span
-                          className="font-light"
+                          className="text-sm font-light"
                           style={{ color: COLORS.primary }}
                         >
                           Departure: {formatDate(selectedDeparture)}
@@ -539,16 +572,16 @@ const ReservationsPage: React.FC = () => {
                     </div>
 
                     <form onSubmit={handleSubmit}>
-                      <div className="mb-8">
+                      <div className="mb-6 md:mb-8">
                         <h3
-                          className="mb-4 text-sm font-light tracking-widest uppercase"
+                          className="mb-3 text-xs font-light tracking-widest uppercase md:mb-4 md:text-sm"
                           style={{ color: COLORS.primary }}
                         >
                           Guest Information
                         </h3>
 
                         <div className="mb-4 grid grid-cols-1 gap-4">
-                          <div className="grid grid-cols-3 gap-4">
+                          <div className="grid grid-cols-3 gap-2 md:gap-4">
                             <div>
                               <Select
                                 value={formData.prefix}
@@ -560,7 +593,7 @@ const ReservationsPage: React.FC = () => {
                                 }
                               >
                                 <SelectTrigger
-                                  className="w-full border"
+                                  className="w-full border text-xs md:text-sm"
                                   style={{
                                     borderColor: COLORS.primary,
                                     color: COLORS.primary,
@@ -583,7 +616,7 @@ const ReservationsPage: React.FC = () => {
                                 placeholder="First Name"
                                 value={formData.firstName}
                                 onChange={handleFormChange}
-                                className="w-full border"
+                                className="w-full border text-xs md:text-sm"
                                 style={{
                                   borderColor: COLORS.primary,
                                   color: COLORS.primary,
@@ -599,7 +632,7 @@ const ReservationsPage: React.FC = () => {
                             placeholder="Last Name"
                             value={formData.lastName}
                             onChange={handleFormChange}
-                            className="w-full border"
+                            className="w-full border text-xs md:text-sm"
                             style={{
                               borderColor: COLORS.primary,
                               color: COLORS.primary,
@@ -607,11 +640,11 @@ const ReservationsPage: React.FC = () => {
                             required
                           />
 
-                          <div className="grid grid-cols-2 gap-4">
+                          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                             <div className="relative">
                               <div className="pointer-events-none absolute top-1/2 left-3 -translate-y-1/2 transform">
                                 <Mail
-                                  className="h-4 w-4"
+                                  className="h-3 w-3 md:h-4 md:w-4"
                                   style={{
                                     color: COLORS.primary,
                                     opacity: 0.7,
@@ -624,7 +657,7 @@ const ReservationsPage: React.FC = () => {
                                 placeholder="Email"
                                 value={formData.email}
                                 onChange={handleFormChange}
-                                className="w-full border pl-10"
+                                className="w-full border pl-8 text-xs md:pl-10 md:text-sm"
                                 style={{
                                   borderColor: COLORS.primary,
                                   color: COLORS.primary,
@@ -635,7 +668,7 @@ const ReservationsPage: React.FC = () => {
                             <div className="relative">
                               <div className="pointer-events-none absolute top-1/2 left-3 -translate-y-1/2 transform">
                                 <Phone
-                                  className="h-4 w-4"
+                                  className="h-3 w-3 md:h-4 md:w-4"
                                   style={{
                                     color: COLORS.primary,
                                     opacity: 0.7,
@@ -648,7 +681,7 @@ const ReservationsPage: React.FC = () => {
                                 placeholder="Phone Number"
                                 value={formData.phone}
                                 onChange={handleFormChange}
-                                className="w-full border pl-10"
+                                className="w-full border pl-8 text-xs md:pl-10 md:text-sm"
                                 style={{
                                   borderColor: COLORS.primary,
                                   color: COLORS.primary,
@@ -660,9 +693,9 @@ const ReservationsPage: React.FC = () => {
                         </div>
                       </div>
 
-                      <div className="mb-8">
+                      <div className="mb-6 md:mb-8">
                         <h3
-                          className="mb-4 text-sm font-light tracking-widest uppercase"
+                          className="mb-3 text-xs font-light tracking-widest uppercase md:mb-4 md:text-sm"
                           style={{ color: COLORS.primary }}
                         >
                           Special Requests
@@ -672,7 +705,7 @@ const ReservationsPage: React.FC = () => {
                           placeholder="Any special requests or requirements..."
                           value={formData.specialRequest}
                           onChange={handleFormChange}
-                          className="h-32 w-full border"
+                          className="h-24 w-full border text-xs md:h-32 md:text-sm"
                           style={{
                             borderColor: COLORS.primary,
                             color: COLORS.primary,
@@ -680,10 +713,10 @@ const ReservationsPage: React.FC = () => {
                         />
                       </div>
 
-                      <div className="mb-8 text-center">
+                      <div className="mb-6 text-center md:mb-8">
                         <Button
                           type="submit"
-                          className="w-full px-12 py-6 tracking-widest uppercase md:w-auto"
+                          className="w-full px-8 py-3 text-xs tracking-widest uppercase sm:w-auto md:px-12 md:py-6 md:text-sm"
                           style={{
                             backgroundColor: COLORS.primary,
                             color: COLORS.light,
@@ -705,36 +738,36 @@ const ReservationsPage: React.FC = () => {
                   </div>
                 </div>
 
-                <div>
-                  <div className="sticky top-4 bg-white p-6 shadow-sm">
+                <div className="hidden md:block">
+                  <div className="sticky top-4 rounded-md bg-white p-4 shadow-sm md:p-6">
                     <h2
-                      className="mb-6 text-xl font-light"
+                      className="mb-4 text-lg font-light md:mb-6 md:text-xl"
                       style={{ color: COLORS.primary }}
                     >
                       Stay summary
                     </h2>
 
-                    <div className="mb-6">
+                    <div className="mb-4 md:mb-6">
                       <h3
-                        className="mb-6 text-2xl font-light"
+                        className="mb-4 text-xl font-light md:mb-6 md:text-2xl"
                         style={{ color: COLORS.primary }}
                       >
                         Ayada Cliffs
                       </h3>
-                      <div className="mb-3 flex items-start">
+                      <div className="mb-2 flex items-start md:mb-3">
                         <MapPin
-                          className="mt-0.5 mr-2 h-4 w-4"
+                          className="mt-0.5 mr-2 h-3 w-3 md:h-4 md:w-4"
                           style={{ color: COLORS.primary, opacity: 0.7 }}
                         />
                         <span
-                          className="font-light"
+                          className="text-sm font-light"
                           style={{ color: COLORS.primary }}
                         >
                           Coastal Road, Clifftop Gardens, Ocean View
                         </span>
                       </div>
                       <p
-                        className="mb-6 text-sm font-light"
+                        className="mb-4 text-xs font-light md:mb-6 md:text-sm"
                         style={{ color: COLORS.primary, opacity: 0.8 }}
                       >
                         Perched on dramatic coastal cliffs, Ayada Cliffs offers
@@ -744,21 +777,21 @@ const ReservationsPage: React.FC = () => {
                     </div>
 
                     <div
-                      className="border-opacity-20 mb-6 border-t border-b py-4"
+                      className="border-opacity-20 mb-4 border-t border-b py-3 md:mb-6 md:py-4"
                       style={{ borderColor: COLORS.primary }}
                     >
-                      <div className="mb-2">
+                      <div className="mb-1 md:mb-2">
                         <div
-                          className="text-sm font-light"
+                          className="text-xs font-light md:text-sm"
                           style={{ color: COLORS.primary }}
                         >
                           <span className="font-medium">Arriving:</span>{" "}
                           {formatDate(selectedArrival)}
                         </div>
                       </div>
-                      <div className="mb-2">
+                      <div className="mb-1 md:mb-2">
                         <div
-                          className="text-sm font-light"
+                          className="text-xs font-light md:text-sm"
                           style={{ color: COLORS.primary }}
                         >
                           <span className="font-medium">Departing:</span>{" "}
@@ -767,12 +800,12 @@ const ReservationsPage: React.FC = () => {
                       </div>
                       <div>
                         <div
-                          className="text-sm font-light"
+                          className="text-xs font-light md:text-sm"
                           style={{ color: COLORS.primary }}
                         >
                           <span className="font-medium">Guests:</span>{" "}
-                          {adultCount} Adult{adultCount !== 1 ? "s" : ""},{" "}
-                          {childrenCount}{" "}
+                          {adultCount} Adult
+                          {adultCount !== 1 ? "s" : ""}, {childrenCount}{" "}
                           {childrenCount === 1 ? "Child" : "Children"}
                         </div>
                       </div>
@@ -781,13 +814,13 @@ const ReservationsPage: React.FC = () => {
                     <div>
                       <div className="mb-4">
                         <h4
-                          className="mb-2 text-lg font-light"
+                          className="mb-2 text-base font-light md:text-lg"
                           style={{ color: COLORS.primary }}
                         >
                           Ocean View Villa
                         </h4>
                         <p
-                          className="text-sm font-light"
+                          className="text-xs font-light md:text-sm"
                           style={{ color: COLORS.primary, opacity: 0.8 }}
                         >
                           A luxurious retreat with private infinity pool and
@@ -804,18 +837,6 @@ const ReservationsPage: React.FC = () => {
                           className="text-center text-xs font-light"
                           style={{ color: COLORS.primary, opacity: 0.7 }}
                         >
-                          Rates starting from
-                        </p>
-                        <p
-                          className="text-center text-2xl font-light"
-                          style={{ color: COLORS.primary }}
-                        >
-                          $850 <span className="text-sm">per night</span>
-                        </p>
-                        <p
-                          className="text-center text-xs font-light"
-                          style={{ color: COLORS.primary, opacity: 0.7 }}
-                        >
                           Includes taxes & fees
                         </p>
                       </div>
@@ -823,7 +844,78 @@ const ReservationsPage: React.FC = () => {
                       <img
                         src="/api/placeholder/800/400"
                         alt="Ocean View Villa"
-                        className="mb-4 h-48 w-full object-cover"
+                        className="mb-4 h-40 w-full rounded-md object-cover md:h-48"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Mobile summary card - only shown on small screens */}
+                <div className="mb-6 block md:hidden">
+                  <div className="rounded-md bg-white p-4 shadow-sm">
+                    <h3
+                      className="mb-3 text-lg font-light"
+                      style={{ color: COLORS.primary }}
+                    >
+                      Stay summary
+                    </h3>
+
+                    <div className="mb-3 flex items-start">
+                      <MapPin
+                        className="mt-0.5 mr-2 h-3 w-3"
+                        style={{ color: COLORS.primary, opacity: 0.7 }}
+                      />
+                      <span
+                        className="text-xs font-light"
+                        style={{ color: COLORS.primary }}
+                      >
+                        Coastal Road, Clifftop Gardens
+                      </span>
+                    </div>
+
+                    <div
+                      className="border-opacity-20 mb-3 border-t border-b py-3"
+                      style={{ borderColor: COLORS.primary }}
+                    >
+                      <div className="grid grid-cols-2 gap-2">
+                        <div
+                          className="text-xs font-light"
+                          style={{ color: COLORS.primary }}
+                        >
+                          <span className="font-medium">Arriving:</span>
+                          <br />
+                          {formatDate(selectedArrival)}
+                        </div>
+                        <div
+                          className="text-xs font-light"
+                          style={{ color: COLORS.primary }}
+                        >
+                          <span className="font-medium">Departing:</span>
+                          <br />
+                          {formatDate(selectedDeparture)}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <h4
+                          className="text-sm font-light"
+                          style={{ color: COLORS.primary }}
+                        >
+                          Ocean View Villa
+                        </h4>
+                        <p
+                          className="text-xs font-light"
+                          style={{ color: COLORS.primary, opacity: 0.7 }}
+                        >
+                          Rates from $850/night
+                        </p>
+                      </div>
+                      <img
+                        src="/api/placeholder/800/400"
+                        alt="Ocean View Villa"
+                        className="h-16 w-24 rounded-md object-cover"
                       />
                     </div>
                   </div>
@@ -832,46 +924,52 @@ const ReservationsPage: React.FC = () => {
             )}
           </>
         ) : (
-          <div className="mx-auto max-w-xl py-12 text-center">
-            <div className="mb-6 flex justify-center">
+          <div className="mx-auto max-w-xl px-4 py-8 text-center md:py-12">
+            <div className="mb-4 flex justify-center md:mb-6">
               <div
-                className="bg-opacity-20 flex h-16 w-16 items-center justify-center rounded-full"
+                className="bg-opacity-20 flex h-12 w-12 items-center justify-center rounded-full md:h-16 md:w-16"
                 style={{ backgroundColor: COLORS.primary }}
               >
-                <Check className="h-8 w-8" style={{ color: COLORS.primary }} />
+                <Check
+                  className="h-6 w-6 md:h-8 md:w-8"
+                  style={{ color: COLORS.primary }}
+                />
               </div>
             </div>
 
             <h2
-              className="mb-4 text-2xl font-light"
+              className="mb-3 text-xl font-light md:mb-4 md:text-2xl"
               style={{ color: COLORS.primary }}
             >
               Reservation Request Submitted
             </h2>
 
-            <p className="mb-8 font-light" style={{ color: COLORS.primary }}>
+            <p
+              className="mb-6 text-sm font-light md:mb-8 md:text-base"
+              style={{ color: COLORS.primary }}
+            >
               Thank you for your reservation request. Your details have been
               sent to our reservations team at{" "}
               <span className="font-medium">reserve@ayadacliff.com</span>. We
               will contact you shortly to confirm your stay.
             </p>
 
-            <div className="mb-8 bg-white p-6 text-left shadow-sm">
+            <div className="mb-6 rounded-md bg-white p-4 text-left shadow-sm md:mb-8 md:p-6">
               <h3
-                className="mb-4 text-lg font-light"
+                className="mb-3 text-base font-light md:mb-4 md:text-lg"
                 style={{ color: COLORS.primary }}
               >
                 Reservation Summary
               </h3>
 
-              <div className="mb-4">
+              <div className="mb-3 md:mb-4">
                 <div className="mb-2 flex items-center">
                   <Calendar
-                    className="mr-2 h-4 w-4 opacity-70"
+                    className="mr-2 h-3 w-3 opacity-70 md:h-4 md:w-4"
                     style={{ color: COLORS.primary }}
                   />
                   <span
-                    className="text-sm font-light"
+                    className="text-xs font-light md:text-sm"
                     style={{ color: COLORS.primary }}
                   >
                     <span className="font-medium">Arrival:</span>{" "}
@@ -880,11 +978,11 @@ const ReservationsPage: React.FC = () => {
                 </div>
                 <div className="mb-2 flex items-center">
                   <Calendar
-                    className="mr-2 h-4 w-4 opacity-70"
+                    className="mr-2 h-3 w-3 opacity-70 md:h-4 md:w-4"
                     style={{ color: COLORS.primary }}
                   />
                   <span
-                    className="text-sm font-light"
+                    className="text-xs font-light md:text-sm"
                     style={{ color: COLORS.primary }}
                   >
                     <span className="font-medium">Departure:</span>{" "}
@@ -893,7 +991,7 @@ const ReservationsPage: React.FC = () => {
                 </div>
                 <div className="flex items-center">
                   <div
-                    className="text-sm font-light"
+                    className="text-xs font-light md:text-sm"
                     style={{ color: COLORS.primary }}
                   >
                     <span className="font-medium">Guests:</span> {adultCount}{" "}
@@ -904,40 +1002,42 @@ const ReservationsPage: React.FC = () => {
               </div>
 
               <div
-                className="border-opacity-20 border-t pt-4"
+                className="border-opacity-20 border-t pt-3 md:pt-4"
                 style={{ borderColor: COLORS.primary }}
               >
                 <div
-                  className="mb-1 text-sm font-light"
+                  className="mb-1 text-xs font-light md:text-sm"
                   style={{ color: COLORS.primary }}
                 >
                   <span className="font-medium">Name:</span> {formData.prefix}{" "}
                   {formData.firstName} {formData.lastName}
                 </div>
                 <div
-                  className="mb-1 text-sm font-light"
+                  className="mb-1 text-xs font-light md:text-sm"
                   style={{ color: COLORS.primary }}
                 >
                   <span className="font-medium">Email:</span> {formData.email}
                 </div>
                 <div
-                  className="mb-1 text-sm font-light"
+                  className="mb-1 text-xs font-light md:text-sm"
                   style={{ color: COLORS.primary }}
                 >
                   <span className="font-medium">Phone:</span> {formData.phone}
                 </div>
-                <div
-                  className="text-sm font-light"
-                  style={{ color: COLORS.primary }}
-                >
-                  <span className="font-medium">Special Requests:</span>{" "}
-                  {formData.specialRequest || "None"}
-                </div>
+                {formData.specialRequest && (
+                  <div
+                    className="text-xs font-light md:text-sm"
+                    style={{ color: COLORS.primary }}
+                  >
+                    <span className="font-medium">Special Requests:</span>{" "}
+                    {formData.specialRequest}
+                  </div>
+                )}
               </div>
             </div>
             <Button
               onClick={resetForm}
-              className="px-10 py-6 tracking-widest uppercase"
+              className="px-6 py-2 text-xs tracking-widest uppercase md:px-10 md:py-6 md:text-sm"
               style={{ backgroundColor: COLORS.primary, color: COLORS.light }}
             >
               Make Another Reservation
@@ -948,4 +1048,5 @@ const ReservationsPage: React.FC = () => {
     </div>
   );
 };
+
 export default ReservationsPage;
