@@ -10,7 +10,7 @@ const AccommodationCard: React.FC<{ item: Accommodation; index: number }> = ({
 }) => {
   return (
     <motion.div
-      className="group"
+      className="group pb-5"
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, amount: 0.3 }}
@@ -41,7 +41,7 @@ const AccommodationCard: React.FC<{ item: Accommodation; index: number }> = ({
         {item.name}
       </h3>
       <p 
-        className="mb-8 text-sm font-light leading-relaxed" 
+        className="mb-4 text-sm font-light leading-relaxed" 
         style={{ color: COLORS.primary, opacity: 0.85 }}
       >
         {item.description}

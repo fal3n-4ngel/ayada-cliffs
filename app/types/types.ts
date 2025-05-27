@@ -1,8 +1,9 @@
 export interface Accommodation {
-  id: string;
-  image: string;
+  id: number|string;
   name: string;
   description: string;
+  image: string;
+  price?: string;
 }
 
 export interface Destination {
@@ -11,4 +12,3 @@ export interface Destination {
   image: string;
   description: string;
 }
-

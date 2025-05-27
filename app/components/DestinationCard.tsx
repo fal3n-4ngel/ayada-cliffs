@@ -61,7 +61,7 @@ const DestinationCard: React.FC<DestinationCardProps> = ({ destination, isSelect
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
+            transition={{ duration: 0.8, ease: "easeOut" ,delay:1.0}}
             className="p-6 md:p-8 lg:p-10"
           >
             {/* Thin decorative line */}
@@ -98,7 +98,7 @@ const DestinationCard: React.FC<DestinationCardProps> = ({ destination, isSelect
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 1.5,delay: 0.5 }}
             className="p-6 md:p-8"
           >
             {/* Minimalist label for non-selected state */}
