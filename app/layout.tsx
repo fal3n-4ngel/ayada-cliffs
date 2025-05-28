@@ -22,7 +22,7 @@ export const josefinSans = Josefin_Sans({
 
 export const metadata: Metadata = {
   title: "AYADA CLIFF",
-  description: "Luxury Ocean View Pool Villa in Varkala, Kerala",
+  description: "Luxury Ocean View Private Pool Villas · Varkala, Kerala",
   keywords: [
     "Ayada Cliff",
     "Varkala Villa",

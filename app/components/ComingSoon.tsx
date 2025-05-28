@@ -85,7 +85,7 @@ const ComingSoonPage = () => {
               className="mx-auto max-w-2xl text-base leading-relaxed font-light md:text-lg"
               style={{ color: COLORS.dark, opacity: 0.8 }}
             >
-              Luxury Ocean View Pool Villa · Varkala, Kerala
+              Luxury Ocean View Private Pool Villas · Varkala, Kerala
             </p>
           </div>
         </div>
