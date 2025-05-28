@@ -19,7 +19,7 @@ const AyadaCLIFFPage = () => {
   const [selectedFeature, setSelectedFeature] = useState(0);
   const [loading, setLoading] = useState(true);
 
-  const prodEnvironment = "production";
+  const [prodEnvironment,setProdEnvironment] = useState("development");
 
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY);
