@@ -10,8 +10,8 @@ import Footer from "./components/Footer";
 import LoadingScreen from "./loading";
 import CarouselSection from "./components/CarouselSection";
 import PageTransition from "./components/PageTransition";
-import { COLORS } from "./theme/colors";
 import LogoFooterCard from "./components/LogoFooterCard";
+import ComingSoonPage from "./components/ComingSoon";
 
 const AyadaCLIFFPage = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -19,24 +19,22 @@ const AyadaCLIFFPage = () => {
   const [selectedFeature, setSelectedFeature] = useState(0);
   const [loading, setLoading] = useState(true);
 
-  // Handle scroll effects
+  const prodEnvironment = "production";
+
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Handle loading state
   useEffect(() => {
-    // Show loading screen on initial page load or refresh
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 2500); // Adjust loading time as needed
+    }, 2500);
 
     return () => clearTimeout(timer);
   }, []);
 
-  // Prevent body scroll when loading
   useEffect(() => {
     if (loading) {
       document.body.style.overflow = "hidden";
@@ -48,10 +46,19 @@ const AyadaCLIFFPage = () => {
     };
   }, [loading]);
 
-  // Show loading screen if loading state is true
   if (loading) {
     return <LoadingScreen />;
   }
+
+
+  if (prodEnvironment === "production") {
+    return (
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-white">
+        <ComingSoonPage />
+      </div>
+    );
+  }
+
 
   return (
     <div className="text-dark hide-scrollbar min-h-screen overflow-x-hidden bg-white font-light">
@@ -74,8 +81,7 @@ const AyadaCLIFFPage = () => {
         setSelectedFeature={setSelectedFeature}
       />
 
-
-      <LogoFooterCard/>
+      <LogoFooterCard />
 
       <Footer />
     </div>
