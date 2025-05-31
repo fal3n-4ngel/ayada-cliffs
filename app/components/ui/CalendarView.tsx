@@ -5,7 +5,7 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 import React, { JSX } from "react";
 
 type CalendarViewProps = {
-  selectedVilla: Villa|null;
+  selectedVilla: Villa | null;
   selectedArrival: Date | null;
   selectedDeparture: Date | null;
   onDateSelect: (day: number, month: number, year: number) => void;
@@ -110,7 +110,7 @@ const CalendarView: React.FC<CalendarViewProps> = ({
           }}
         >
           <div
-            className="mx-auto flex h-8 w-8 items-center justify-center rounded-full"
+            className="mx-auto flex h-6 w-6 items-center justify-center rounded-full md:h-10 md:w-10"
             style={{
               backgroundColor:
                 isArrival || isDeparture ? COLORS.primary : "transparent",
@@ -150,7 +150,7 @@ const CalendarView: React.FC<CalendarViewProps> = ({
 
     return (
       <div>
-        <div className="mb-4 text-center">
+        <div className="md:text-md mb-4 text-center text-sm">
           <h3
             className="text-base font-light tracking-wider uppercase"
             style={{ color: COLORS.primary }}
