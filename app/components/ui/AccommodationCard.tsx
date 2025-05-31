@@ -1,6 +1,6 @@
 import React from "react";
-import { Accommodation } from "../types/types";
-import { COLORS } from "../theme/colors";
+import { Accommodation } from "../../types/types";
+import { COLORS } from "../../theme/colors";
 import Link from "next/link";
 import { motion } from "framer-motion";
 

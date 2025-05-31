@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { COLORS } from "../theme/colors";
-import { ANIMATIONS } from "../data/Animations";
+import { COLORS } from "../../theme/colors";
+import { ANIMATIONS } from "../../data/Animations";
 import { Plus } from "lucide-react";
 
 interface Destination {

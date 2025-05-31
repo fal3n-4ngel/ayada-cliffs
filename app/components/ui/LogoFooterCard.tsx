@@ -1,5 +1,5 @@
 import React from 'react'
-import { COLORS } from '../theme/colors'
+import { COLORS } from '../../theme/colors'
 
 function LogoFooterCard() {
   return (

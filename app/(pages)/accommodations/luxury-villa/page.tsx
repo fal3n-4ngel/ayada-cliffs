@@ -2,8 +2,8 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { COLORS } from '@/app/theme/colors';
-import Footer from '@/app/components/Footer';
-import Header from '@/app/components/Header';
+import Footer from '@/app/components/sections/Footer';
+import Header from '@/app/components/sections/Header';
 
 export default function VillaSuite() {
     const [isLoaded, setIsLoaded] = useState(false);

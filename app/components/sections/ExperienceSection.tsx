@@ -1,5 +1,5 @@
 import React from "react";
-import { COLORS } from "../theme/colors";
+import { COLORS } from "../../theme/colors";
 import { motion } from "framer-motion";
 import Link from "next/link";
 
@@ -59,6 +59,7 @@ const ExperienceSection = () => {
   return (
     <section
       className="relative py-32"
+      id="experiences"
       style={{
         backgroundColor: "white",
         backgroundImage:

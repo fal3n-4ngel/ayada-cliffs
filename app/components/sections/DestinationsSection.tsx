@@ -1,9 +1,10 @@
 import React from 'react';
-import { COLORS } from '../theme/colors';
+import { COLORS } from '../../theme/colors';
 import { motion } from "framer-motion";
-import { ANIMATIONS } from '../data/Animations';
-import { DESTINATIONS } from '../data/Destinations';
-import DestinationCard from './DestinationCard';
+import { ANIMATIONS } from '../../data/Animations';
+import { DESTINATIONS } from '../../data/Destinations';
+import DestinationCard from '../ui/DestinationCard';
+import { useRouter } from 'next/navigation';
 
 interface DestinationsSectionProps {
   selectedFeature: number;
@@ -11,9 +12,12 @@ interface DestinationsSectionProps {
 }
 
 const DestinationsSection: React.FC<DestinationsSectionProps> = ({ selectedFeature, setSelectedFeature }) => {
+
+  const router = useRouter();
   return (
     <motion.section
       className="py-20"
+      id='destinations'
       style={{ background: COLORS.secondary }}
       initial="hidden"
       whileInView="visible"
@@ -54,11 +58,7 @@ const DestinationsSection: React.FC<DestinationsSectionProps> = ({ selectedFeatu
               key={destination.id}
               destination={destination}
               isSelected={selectedFeature === destination.id}
-              onSelect={() => setSelectedFeature(
-                selectedFeature === destination.id
-                  ? (destination.id + 1) % DESTINATIONS.length
-                  : destination.id
-              )}
+              onSelect={() =>selectedFeature === destination.id? router.push(destination.url): setSelectedFeature(destination.id)}
             />
           ))}
         </div>

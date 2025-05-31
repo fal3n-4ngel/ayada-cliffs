@@ -1,8 +1,8 @@
 import React from "react";
-import { COLORS } from "../theme/colors";
+import { COLORS } from "../../theme/colors";
 import { motion } from "framer-motion";
-import AccommodationCard from "./AccommodationCard";
-import { ACCOMMODATIONS } from "../data/Accomodations";
+import AccommodationCard from "../ui/AccommodationCard";
+import { ACCOMMODATIONS } from "../../data/Accomodations";
 
 const fadeIn = {
   hidden: { opacity: 0, y: 30 },
@@ -26,7 +26,7 @@ const staggerChildren = {
 const AccommodationsSection = () => {
   return (
     <section
-      className="relative py-10 pt-20 md:px-16 px-4"
+      className="relative py-10 pt-20 md:px-16 px-4" id="stay"
       style={{ 
         backgroundColor: COLORS.secondary,
         backgroundImage: "radial-gradient(circle at 10% 90%, rgba(255,255,255,0.03) 0%, transparent 40%)"
