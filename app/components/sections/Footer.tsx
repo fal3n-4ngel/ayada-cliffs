@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useState, useRef, useEffect } from "react";
 import { COLORS } from "../../theme/colors";
 import { motion, useInView, useMotionValue, useSpring } from "framer-motion";
@@ -14,7 +14,6 @@ const Footer = () => {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
   const springConfig = { damping: 25, stiffness: 150 };
-
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -136,16 +135,16 @@ const Footer = () => {
 
       <div className="relative z-10 container mx-auto px-8 py-20">
         {/* Main content grid */}
-        <div className="mb-20 grid grid-cols-1 gap-16 lg:grid-cols-12">
+        <div className="mb-20 grid gap-16 md:grid-cols-1 lg:grid-cols-12">
           {/* Brand section */}
           <motion.div
             className="space-y-8 lg:col-span-5"
             variants={itemVariants}
           >
-            <div className="flex w-[400px] items-center justify-center">
+            <div className="flex items-center justify-center md:w-[400px]">
               <motion.img
                 src="/images/logo/ayadaclifflogo.png"
-                className="mb-4 h-auto w-[350px]"
+                className="mb-4 h-auto w-[60vw] md:w-[350px]"
                 style={{ color: COLORS.primary }}
                 whileHover={{ scale: 1.02 }}
                 transition={{ duration: 0.3 }}
@@ -155,7 +154,7 @@ const Footer = () => {
 
           {/* Navigation links */}
           <motion.div
-            className="grid grid-cols-1 gap-12 md:grid-cols-3 lg:col-span-7"
+            className="grid grid-cols-2 gap-12 md:grid-cols-3 lg:col-span-7"
             variants={itemVariants}
           >
             {footerLinks.map((section, sectionIndex) => (
@@ -205,7 +204,7 @@ const Footer = () => {
               </div>
             ))}
             {/* Contact info with hover effects */}
-            <div className="space-y-4">
+            <div className="col-span-2 space-y-4 md:col-span-1">
               <motion.div whileHover={{ x: 10 }} transition={{ duration: 0.3 }}>
                 <p
                   className="mb-4 text-sm font-medium tracking-widest uppercase"
