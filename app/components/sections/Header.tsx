@@ -28,7 +28,7 @@ interface NavItemProps {
 // Constants
 const LOGO_PATHS = {
   mark: "/images/logo/ayadaclifflogo-mark.png",
-  typo: "/images/logo/ayadaclifflogo-typo.png"
+  typo: "/images/logo/ayadaclifflogo-typo.png",
 } as const;
 
 const ANIMATION_VARIANTS = {
@@ -36,27 +36,28 @@ const ANIMATION_VARIANTS = {
     initial: { opacity: 0 },
     animate: { opacity: 1 },
     exit: { opacity: 0 },
-    transition: { duration: 0.2 }
+    transition: { duration: 0.2 },
   },
   navItem: {
     initial: { opacity: 0, y: 20 },
-    animate: { opacity: 1, y: 0 }
-  }
+    animate: { opacity: 1, y: 0 },
+  },
 } as const;
 
 // Utility function for dynamic styles
 const getColorByScroll = (scrollY: number, isMenuOpen: boolean = false) => ({
-  text: scrollY > 50 || isMenuOpen ? COLORS.dark: COLORS.light,
-  border: scrollY > 50 ? COLORS.primary : COLORS.light
+  text: scrollY > 50 || isMenuOpen ? COLORS.dark : COLORS.light,
+  border: scrollY > 50 ? COLORS.primary : COLORS.light,
+  primary: COLORS.primary,
 });
 
 // Sub-components
-const Logo: React.FC<{ scrollY: number; isMobile?: boolean }> = ({ 
-  scrollY, 
-  isMobile = false 
+const Logo: React.FC<{ scrollY: number; isMobile?: boolean }> = ({
+  scrollY,
+  isMobile = false,
 }) => {
   const logoColor = getColorByScroll(scrollY).text;
-  
+
   return (
     <Link href="/">
       <h1
@@ -64,18 +65,10 @@ const Logo: React.FC<{ scrollY: number; isMobile?: boolean }> = ({
         style={{ color: logoColor }}
       >
         {isMobile ? (
-          <img
-            src={LOGO_PATHS.typo}
-            alt="Ayada Cliff Logo"
-            className="w-45"
-          />
+          <img src={LOGO_PATHS.typo} alt="Ayada Cliff Logo" className="w-45" />
         ) : (
           <div className="flex items-center justify-center gap-4">
-            <img
-              src={LOGO_PATHS.mark}
-              alt="Ayada Cliff Mark"
-              className="w-7"
-            />
+            <img src={LOGO_PATHS.mark} alt="Ayada Cliff Mark" className="w-7" />
             <img
               src={LOGO_PATHS.typo}
               alt="Ayada Cliff Typography"
@@ -88,20 +81,16 @@ const Logo: React.FC<{ scrollY: number; isMobile?: boolean }> = ({
   );
 };
 
-const ReserveButton: React.FC<{ scrollY: number; href?: string }> = ({ 
-  scrollY, 
-  href = "/reserve" 
+const ReserveButton: React.FC<{ scrollY: number; href?: string }> = ({
+  scrollY,
+  href = "/reserve",
 }) => {
   const colors = getColorByScroll(scrollY);
-  
+
   return (
     <Link href={href}>
       <button
-        className="hover:bg-opacity-10 px-6 py-2 text-sm tracking-widest transition-all duration-300 hover:bg-white"
-        style={{
-          color: colors.text,
-          border: `1px solid ${colors.border}`,
-        }}
+        className={`hover:bg-opacity-10 px-6 py-2 text-sm tracking-widest transition-all duration-300 bg-[${colors.primary}] text-white`}
       >
         RESERVE
       </button>
@@ -109,7 +98,12 @@ const ReserveButton: React.FC<{ scrollY: number; href?: string }> = ({
   );
 };
 
-const NavItem: React.FC<NavItemProps> = ({ item, index, onClick, delay = 0.1 }) => (
+const NavItem: React.FC<NavItemProps> = ({
+  item,
+  index,
+  onClick,
+  delay = 0.1,
+}) => (
   <motion.li
     initial={ANIMATION_VARIANTS.navItem.initial}
     animate={ANIMATION_VARIANTS.navItem.animate}
@@ -132,7 +126,7 @@ const NavItem: React.FC<NavItemProps> = ({ item, index, onClick, delay = 0.1 }) 
 
 const DesktopNavigation: React.FC<{ scrollY: number }> = ({ scrollY }) => {
   const textColor = getColorByScroll(scrollY).text;
-  
+
   return (
     <nav className="flex items-center">
       <ul className="flex space-x-8">
@@ -158,7 +152,7 @@ const MobileMenuButton: React.FC<{
   scrollY: number;
 }> = ({ isMenuOpen, onClick, scrollY }) => {
   const iconColor = getColorByScroll(scrollY, isMenuOpen).text;
-  
+
   return (
     <button
       onClick={onClick}
@@ -171,9 +165,12 @@ const MobileMenuButton: React.FC<{
   );
 };
 
-const NavigationMenu: React.FC<NavigationMenuProps> = ({ isOpen, setIsOpen }) => {
+const NavigationMenu: React.FC<NavigationMenuProps> = ({
+  isOpen,
+  setIsOpen,
+}) => {
   const closeMenu = () => setIsOpen(false);
-  
+
   return (
     <AnimatePresence>
       {isOpen && (
@@ -197,7 +194,7 @@ const NavigationMenu: React.FC<NavigationMenuProps> = ({ isOpen, setIsOpen }) =>
                     ))}
                   </ul>
                 </nav>
-                
+
                 <ReserveButton scrollY={0} />
               </div>
 
@@ -231,14 +228,19 @@ const NavigationMenu: React.FC<NavigationMenuProps> = ({ isOpen, setIsOpen }) =>
   );
 };
 
-const Header: React.FC<HeaderProps> = ({ scrollY, isMenuOpen, setIsMenuOpen }) => {
+const Header: React.FC<HeaderProps> = ({
+  scrollY,
+  isMenuOpen,
+  setIsMenuOpen,
+}) => {
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
-  
-  const headerClasses = useMemo(() => 
-    `fixed top-0 z-50 w-full transition-all duration-700 ${
-      scrollY > 50 ? "bg-white py-2 shadow-md" : "bg-transparent py-6"
-    }`,
-    [scrollY]
+
+  const headerClasses = useMemo(
+    () =>
+      `fixed top-0 z-50 w-full transition-all duration-700 ${
+        scrollY > 50 ? "bg-white py-2 shadow-md" : "bg-transparent py-6"
+      }`,
+    [scrollY],
   );
 
   return (
@@ -251,11 +253,11 @@ const Header: React.FC<HeaderProps> = ({ scrollY, isMenuOpen, setIsMenuOpen }) =
             onClick={toggleMenu}
             scrollY={scrollY}
           />
-          
+
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transform">
             <Logo scrollY={scrollY} isMobile />
           </div>
-          
+
           {/* Spacer for layout balance */}
           <div />
         </div>

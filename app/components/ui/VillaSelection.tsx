@@ -45,12 +45,12 @@ const VillaSelection: React.FC<VillaSelectionProps> = ({ selectedVilla, onVillaS
             }
             onClick={() => onVillaSelect(villa)}
           >
-            <div className="grid gap-0 md:grid-cols-2 h-100">
+            <div className="grid gap-0 md:grid-cols-2 md:h-100">
               <div className="relative ">
                 <img
                   src={villa.image}
                   alt={villa.name}
-                  className="h-full w-full object-cover"
+                  className="w-full object-cover h-100"
                 />
                 <div className="absolute top-4 right-4 rounded-full bg-white px-3 py-1">
                   <span
