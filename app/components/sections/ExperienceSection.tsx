@@ -6,27 +6,27 @@ import Link from "next/link";
 const ExperienceSection = () => {
   const experiences = [
     {
-      id: "infinity-pool",
-      title: "Cliffside Infinity Pool",
+      id: "private-pool",
+      title: "Private Pool Escape",
       description:
-        "Float between sky and sea in our signature infinity pool, where the boundaries between water and horizon dissolve into an endless canvas of blue.",
-      image: "/placeholder/infinity-pool.avif",
+        "Step into your own secluded paradise with a private plunge pool. Designed for intimate moments and serene relaxation, this peaceful outdoor space features a shaded dining nook, sun-kissed deck, and tranquil greenery — the perfect spot to unwind under Kerala’s coastal sky.",
+      image: "images/villa-pool.jpg",
       position: "right",
     },
     {
       id: "private-dining",
-      title: "Private Sunset Dining",
+      title: "Sunset Dining",
       description:
         "Experience intimate culinary moments under the stars, as our chefs create bespoke dining experiences on your private terrace overlooking the Arabian Sea.",
-      image: "/placeholder/infinity-pool.avif",
+      image: "/images/night-dining.jpg",
       position: "left",
     },
     {
       id: "ayurvedic-spa",
-      title: "Ayurvedic Wellness Rituals",
+      title: "Serene Evenings by the Sea",
       description:
-        "Surrender to ancient healing practices in our tranquil spa sanctuary, where time-honored Ayurvedic treatments restore harmony to body and mind.",
-      image: "/placeholder/infinity-pool.avif",
+        "Unwind in a cozy, wood-accented bedroom where soft lighting, ocean breezes, and open garden views create the perfect blend of comfort and coastal calm.",
+      image: "images/serene-evening.jpg",
       position: "right",
     },
   ];
@@ -166,7 +166,7 @@ const ExperienceSection = () => {
                     {experience.description}
                   </p>
 
-                  <Link href={`/experiences/${experience.id}`}>
+                  <Link href={`/gallery`}>
                     <button
                       className="hover:border-opacity-100 border-b pb-1 text-xs tracking-widest uppercase transition-all duration-300"
                       style={{
