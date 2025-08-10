@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { ArrowDown } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 const COLORS = {
   light: "#ffffff",
@@ -81,9 +82,10 @@ const HeroSection = () => {
                   : "translate-y-4 opacity-0"
               }`}
             >
-              <img
-                src="images/logo/ayadaclifflogotypo-white.png"
+              <Image
+                src="/images/logo/ayadaclifflogotypo-white.png"
                 alt="AYADA CLIFF"
+                fill
                 className="w-full"
               />
             </div>

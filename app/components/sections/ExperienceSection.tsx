@@ -2,6 +2,7 @@ import React from "react";
 import { COLORS } from "../../theme/colors";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 
 const ExperienceSection = () => {
   const experiences = [
@@ -10,7 +11,7 @@ const ExperienceSection = () => {
       title: "Private Pool Escape",
       description:
         "Step into your own secluded paradise with a private plunge pool. Designed for intimate moments and serene relaxation, this peaceful outdoor space features a shaded dining nook, sun-kissed deck, and tranquil greenery — the perfect spot to unwind under Kerala’s coastal sky.",
-      image: "images/villa-pool.jpg",
+      image: "/images/villa-pool.webp",
       position: "right",
     },
     {
@@ -18,7 +19,7 @@ const ExperienceSection = () => {
       title: "Sunset Dining",
       description:
         "Experience intimate culinary moments under the stars, as our chefs create bespoke dining experiences on your private terrace overlooking the Arabian Sea.",
-      image: "/images/night-dining.jpg",
+      image: "/images/night-dining.webp",
       position: "left",
     },
     {
@@ -26,7 +27,7 @@ const ExperienceSection = () => {
       title: "Serene Evenings by the Sea",
       description:
         "Unwind in a cozy, wood-accented bedroom where soft lighting, ocean breezes, and open garden views create the perfect blend of comfort and coastal calm.",
-      image: "images/serene-evening.jpg",
+      image: "/images/serene-evening.webp",
       position: "right",
     },
   ];
@@ -123,10 +124,11 @@ const ExperienceSection = () => {
               >
                 <div className="relative aspect-[4/3] overflow-hidden">
                   <div className="absolute inset-0 z-10 shadow-inner" />
-                  <img
+                  <Image
                     src={experience.image}
                     alt={experience.title}
-                    className="h-full w-full object-cover transition-transform duration-1000 ease-out hover:scale-105"
+                    fill
+                    className="object-cover transition-transform duration-1000 ease-out group-hover:scale-105"
                   />
                 </div>
               </motion.div>

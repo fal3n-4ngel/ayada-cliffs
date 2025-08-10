@@ -5,6 +5,7 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { COLORS } from "../../theme/colors";
 import { NAV_ITEMS, SECONDARY_NAV_ITEMS } from "../../data/Navigation";
+import Image from "next/image";
 
 // Types
 interface NavigationMenuProps {
@@ -65,13 +66,27 @@ const Logo: React.FC<{ scrollY: number; isMobile?: boolean }> = ({
         style={{ color: logoColor }}
       >
         {isMobile ? (
-          <img src={LOGO_PATHS.typo} alt="Ayada Cliff Logo" className="w-45" />
+          <Image
+            src={LOGO_PATHS.typo}
+            alt="Ayada Cliff Logo"
+            width={180}
+            height={40}
+            className="w-45"
+          />
         ) : (
           <div className="flex items-center justify-center gap-4">
-            <img src={LOGO_PATHS.mark} alt="Ayada Cliff Mark" className="w-7" />
-            <img
+            <Image
+              src={LOGO_PATHS.mark}
+              alt="Ayada Cliff Mark"
+              width={28}
+              height={28}
+              className="w-7"
+            />
+            <Image
               src={LOGO_PATHS.typo}
               alt="Ayada Cliff Typography"
+              width={180}
+              height={40}
               className="w-45"
             />
           </div>
@@ -237,8 +252,7 @@ const Header: React.FC<HeaderProps> = ({
 
   const headerClasses = useMemo(
     () =>
-      `fixed top-0 z-50 w-full transition-all duration-700 ${
-        scrollY > 50 ? "bg-white py-2 shadow-md" : "bg-transparent py-6"
+      `fixed top-0 z-50 w-full transition-all duration-700 ${scrollY > 50 ? "bg-white py-2 shadow-md" : "bg-transparent py-6"
       }`,
     [scrollY],
   );
