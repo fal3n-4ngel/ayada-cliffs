@@ -23,7 +23,7 @@ const AccommodationCard: React.FC<{ item: Accommodation; index: number }> = ({
 }) => {
   return (
     <motion.div
-      className="group max-w-md mx-auto w-full"
+      className="group max-w-3xl mx-auto w-full"
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, amount: 0.2 }}
@@ -31,7 +31,7 @@ const AccommodationCard: React.FC<{ item: Accommodation; index: number }> = ({
       transition={{ delay: index * 0.2 }}
     >
       {/* Image Container with Enhanced Hover Effects */}
-      <div className="relative mb-6 overflow-hidden rounded-lg shadow-lg">
+      <a  href={`/accommodations/${item.id}`} className="relative mb-6 overflow-hidden rounded-lg shadow-lg">
         <div className="absolute inset-0 bg-black/20 opacity-0 transition-all duration-700 group-hover:opacity-100 z-20" />
         
         {/* Gradient Overlay */}
@@ -40,7 +40,7 @@ const AccommodationCard: React.FC<{ item: Accommodation; index: number }> = ({
         />
         
         {/* Next.js Image with optimizations */}
-        <div className="relative aspect-[4/5] w-full overflow-hidden">
+        <div className="relative aspect-[5/4] w-full overflow-hidden">
           <Image
             src={item.image}
             alt={item.name}
@@ -59,7 +59,7 @@ const AccommodationCard: React.FC<{ item: Accommodation; index: number }> = ({
           className="absolute top-4 left-4 w-8 h-8 border-l-2 border-t-2 opacity-0 transition-all duration-500 group-hover:opacity-30"
           style={{ borderColor: COLORS.primary }}
         />
-      </div>
+      </a>
 
       {/* Content Section */}
       <div className="px-2">

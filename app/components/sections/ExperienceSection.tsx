@@ -192,7 +192,7 @@ const ExperienceSection = () => {
           viewport={{ once: true, amount: 0.3 }}
           variants={fadeIn}
         >
-          <Link href="/experiences">
+          <Link href="/gallery">
             <button
               className="hover:bg-opacity-5 border px-10 py-4 text-xs tracking-widest uppercase transition-all duration-500"
               style={{
