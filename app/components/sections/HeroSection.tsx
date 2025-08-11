@@ -8,7 +8,7 @@ const COLORS = {
 };
 
 const HeroSection = () => {
-  const [isLoaded, setIsLoaded] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(true);
 
   useEffect(() => {
     setIsLoaded(true);
@@ -23,7 +23,7 @@ const HeroSection = () => {
             isLoaded ? "scale-100 opacity-100" : "scale-105 opacity-0"
           }`}
         >
-          <video
+          {/* <video
             className="h-full w-full object-cover"
             autoPlay
             loop
@@ -36,13 +36,14 @@ const HeroSection = () => {
               type="video/mp4"
               className="h-full w-full"
             />
-          </video>
+          </video> */}
+          <img src="/images/hero-bg (1).jpg" alt="Hero Background" className="h-full w-full object-cover" />
 
           {/* Overlay for better text visibility */}
           <div className="absolute inset-0 bg-black/50"></div>
 
           {/* Elegant gradient overlay */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/60"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-black/1W0 via-transparent to-black/40"></div>
         </div>
       </div>
 
@@ -55,6 +56,8 @@ const HeroSection = () => {
               isLoaded ? "opacity-100" : "opacity-0"
             }`}
           >
+            {/* Logo with subtle animation */}
+            
             {/* Thin line above logo */}
             <div
               className={`mb-6 h-px bg-white/70 transition-all delay-800 duration-1200 ${
@@ -82,10 +85,10 @@ const HeroSection = () => {
                   : "translate-y-4 opacity-0"
               }`}
             >
-              <Image
+              <img
                 src="/images/logo/ayadaclifflogotypo-white.png"
                 alt="AYADA CLIFF"
-                fill
+                width={320}
                 className="w-full"
               />
             </div>

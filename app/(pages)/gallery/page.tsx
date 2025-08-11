@@ -31,108 +31,91 @@ type NavigationDirection = 'next' | 'prev';
 type Category = "All" | "Villas" | "Interiors" | "Views" | "Dining" | "Wellness" | "Beach" | "Gardens" | "Amenities";
 
 
-
-// Gallery images data
 const galleryImages: GalleryImage[] = [
   {
     id: 1,
-    src: "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800&h=1200&fit=crop",
-    alt: "Ocean View Villa Exterior",
+    src: "/images/ocean-haven/gallery/1.webp",
+    alt: "Villa Pool at Night",
     category: "Villas",
-    title: "Ocean View Villa",
-    height: "tall"
-  },
-  {
-    id: 2,
-    src: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800&h=600&fit=crop",
-    alt: "Infinity Pool Sunset",
-    category: "Amenities",
-    title: "Infinity Pool",
+    title: "Ocean Haven Pool",
     height: "medium"
   },
   {
-    id: 3,
-    src: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&h=800&fit=crop",
-    alt: "Luxury Bedroom Interior",
+    id: 2,
+    src: "/images/ocean-haven/gallery/2.webp",
+    alt: "Bedroom Interior",
     category: "Interiors",
-    title: "Master Suite",
+    title: "Cozy Bedroom",
+    height: "square"
+  },
+  {
+    id: 3,
+    src: "/images/ocean-haven/gallery/3.webp",
+    alt: "Living Area with TV",
+    category: "Interiors",
+    title: "Modern Living Room",
     height: "square"
   },
   {
     id: 4,
-    src: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&h=1000&fit=crop",
-    alt: "Coastal Cliff Views",
+    src: "/images/ocean-haven/gallery/4.webp",
+    alt: "Evening View with Palm Trees",
     category: "Views",
-    title: "Clifftop Gardens",
+    title: "Evening Vibes",
     height: "tall"
   },
   {
     id: 5,
-    src: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&h=600&fit=crop",
-    alt: "Fine Dining Restaurant",
+    src: "/images/ocean-edge/gallery/1.webp",
+    alt: "Outdoor Dining Area",
     category: "Dining",
-    title: "Ocean Restaurant",
+    title: "Terrace Dining",
     height: "medium"
   },
   {
     id: 6,
-    src: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&h=800&fit=crop",
-    alt: "Spa Treatment Room",
-    category: "Wellness",
-    title: "Spa Sanctuary",
-    height: "square"
-  },
-  {
-    id: 7,
-    src: "https://images.unsplash.com/photo-1582719508461-905c673771fd?w=800&h=1200&fit=crop",
-    alt: "Private Beach Access",
-    category: "Beach",
-    title: "Private Beach",
+    src: "/images/ocean-edge/gallery/2.webp",
+    alt: "Garden Walkway",
+    category: "Gardens",
+    title: "Garden Retreat",
     height: "tall"
   },
   {
-    id: 8,
-    src: "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800&h=600&fit=crop",
-    alt: "Villa Living Area",
+    id: 7,
+    src: "/images/ocean-edge/gallery/3.webp",
+    alt: "Bright Bedroom Interior",
     category: "Interiors",
-    title: "Living Pavilion",
+    title: "Sunlit Bedroom",
+    height: "square"
+  },
+  {
+    id: 8,
+    src: "/images/ocean-edge/gallery/4.webp",
+    alt: "Dining Area",
+    category: "Dining",
+    title: "Indoor Dining",
     height: "medium"
   },
   {
     id: 9,
-    src: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&h=800&fit=crop",
-    alt: "Sunset Terrace",
-    category: "Views",
-    title: "Sunset Terrace",
-    height: "square"
-  },
-  {
-    id: 10,
-    src: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&h=1000&fit=crop",
-    alt: "Garden Pathway",
-    category: "Gardens",
-    title: "Tropical Gardens",
-    height: "tall"
-  },
-  {
-    id: 11,
-    src: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&h=600&fit=crop",
-    alt: "Yoga Pavilion",
-    category: "Wellness",
-    title: "Yoga Pavilion",
+    src: "/images/ocean-edge/gallery/5.webp",
+    alt: "Poolside View",
+    category: "Amenities",
+    title: "Pool Escape",
     height: "medium"
   },
   {
-    id: 12,
-    src: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800&h=800&fit=crop",
-    alt: "Pool Villa Night",
-    category: "Villas",
-    title: "Evening Ambiance",
-    height: "square"
+    id: 10,
+    src: "/images/ocean-edge/gallery/6.webp",
+    alt: "Seaside Deck",
+    category: "Views",
+    title: "Ocean Deck",
+    height: "tall"
   }
 ];
 
-const categories: Category[] = ["All", "Villas", "Interiors", "Views", "Dining", "Wellness", "Beach", "Gardens", "Amenities"];
+
+const categories: Category[] = ["All", "Interiors", "Views", "Dining", "Beach", "Gardens", "Amenities"];
 
 const GalleryPage: React.FC = () => {
   const [scrollY, setScrollY] = useState<number>(0);
@@ -240,7 +223,7 @@ const GalleryPage: React.FC = () => {
       <div 
         className="relative h-screen flex items-center justify-center overflow-hidden"
         style={{
-          backgroundImage: 'url(https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=1920&h=1080&fit=crop)',
+          backgroundImage: 'url(/images/forest-path.webp)',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundAttachment: 'fixed'
