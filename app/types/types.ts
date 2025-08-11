@@ -12,3 +12,24 @@ export interface Destination {
   image: string;
   description: string;
 }
+
+export interface Villa {
+  id: string | number;
+  name: string;
+  image: string;
+  price: string;
+  maxGuests: number;
+  bedrooms: number;
+  description: string;
+  features: string[];
+  amenities: string[];
+}
+
+export type FormData = {
+  prefix: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  specialRequest: string;
+}

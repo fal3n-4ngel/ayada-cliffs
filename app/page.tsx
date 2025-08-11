@@ -1,16 +1,16 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import Header from "./components/Header";
-import HeroSection from "./components/HeroSection";
-import IntroductionSection from "./components/IntroductionSection";
-import AccommodationsSection from "./components/AccommodationsSection";
-import DestinationsSection from "./components/DestinationsSection";
-import ExperienceSection from "./components/ExperienceSection";
-import Footer from "./components/Footer";
+import Header from "./components/sections/Header";
+import HeroSection from "./components/sections/HeroSection";
+import IntroductionSection from "./components/sections/IntroductionSection";
+import AccommodationsSection from "./components/sections/AccommodationsSection";
+import DestinationsSection from "./components/sections/DestinationsSection";
+import ExperienceSection from "./components/sections/ExperienceSection";
+import Footer from "./components/sections/Footer";
 import LoadingScreen from "./loading";
-import CarouselSection from "./components/CarouselSection";
+import CarouselSection from "./components/sections/CarouselSection";
 import PageTransition from "./components/PageTransition";
-import LogoFooterCard from "./components/LogoFooterCard";
+import LogoFooterCard from "./components/ui/LogoFooterCard";
 import ComingSoonPage from "./components/ComingSoon";
 
 const AyadaCLIFFPage = () => {
@@ -19,7 +19,7 @@ const AyadaCLIFFPage = () => {
   const [selectedFeature, setSelectedFeature] = useState(0);
   const [loading, setLoading] = useState(true);
 
-  const prodEnvironment = "production";
+  const [prodEnvironment, setProdEnvironment] = useState("development");
 
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY);
@@ -50,7 +50,6 @@ const AyadaCLIFFPage = () => {
     return <LoadingScreen />;
   }
 
-
   if (prodEnvironment === "production") {
     return (
       <div className="fixed inset-0 z-50 flex items-center justify-center bg-white">
@@ -58,7 +57,6 @@ const AyadaCLIFFPage = () => {
       </div>
     );
   }
-
 
   return (
     <div className="text-dark hide-scrollbar min-h-screen overflow-x-hidden bg-white font-light">
@@ -81,7 +79,7 @@ const AyadaCLIFFPage = () => {
         setSelectedFeature={setSelectedFeature}
       />
 
-      <LogoFooterCard />
+      {/* <LogoFooterCard /> */}
 
       <Footer />
     </div>

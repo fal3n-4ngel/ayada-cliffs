@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import Header from "./components/Header";
+import Header from "./components/sections/Header";
 
 export default function NotFound() {
   // Animation variants
