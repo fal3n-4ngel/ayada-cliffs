@@ -216,9 +216,11 @@ const Footer = () => {
                   className="mb-8 text-base font-light"
                   style={{ color: COLORS.primary, opacity: 0.8 }}
                 >
-                  Varkala Cliff Road, Varkala
+                  Vettakada, Edava PO
                   <br />
-                  Kerala 695141, India
+                  Varkala, Thiruvananthapuram
+                  <br />
+                  Kerala 695311, India
                 </p>
               </motion.div>
 
@@ -236,7 +238,8 @@ const Footer = () => {
                     style={{ color: COLORS.primary, opacity: 0.8 }}
                     whileHover={{ opacity: 1 }}
                   >
-                    +91 12345 67890
+                    +91 8891916663
+
                   </motion.a>
                   <motion.a
                     href="mailto:info@ayadacliff.com"
