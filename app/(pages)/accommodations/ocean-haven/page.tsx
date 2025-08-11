@@ -70,36 +70,36 @@ export default function OceanHavenPoolVilla() {
     }, [galleryImages.length]);
 
     // Villa features organized by category
-    const villaFeatures = useMemo(() => [
-        { icon: <Waves className="w-5 h-5" />, text: "Private infinity-style pool with ocean views" },
-        { icon: <Droplets className="w-5 h-5" />, text: "Barefoot open-sky shower" },
-        { icon: <Coffee className="w-5 h-5" />, text: "Deckside dining area" },
-        { icon: <Eye className="w-5 h-5" />, text: "50-inch Google TV" },
-        { icon: <Coffee className="w-5 h-5" />, text: "Mini bar fridge & Modern electric kettle" },
-        { icon: <Bath className="w-5 h-5" />, text: "Hot and cold water in bathroom" },
-        { icon: <Home className="w-5 h-5" />, text: "Warm, traditional lighting design" },
-        { icon: <Home className="w-5 h-5" />, text: "Spacious garden with dining space" },
-        { icon: <Home className="w-5 h-5" />, text: "Padipura-style gated entrance with intercom" }
+  const villaFeatures = useMemo(() => [
+        { icon: <Waves className="w-5 h-5" />, text: "Spacious private pool with dedicated filtration system" },
+        { icon: <Home className="w-5 h-5" />, text: "Traditional Kerala Padipura entrance to villa compound" },
+        { icon: <Eye className="w-5 h-5" />, text: "Full-length folding doors for seamless indoor-outdoor living" },
+        { icon: <Coffee className="w-5 h-5" />, text: "Pool deck dining area for romantic or private meals" },
+        { icon: <Bath className="w-5 h-5" />, text: "Private garden sanctuary with total privacy" },
+        { icon: <Droplets className="w-5 h-5" />, text: "Barefoot open-sky shower in the garden" },
+        { icon: <Eye className="w-5 h-5" />, text: "Bathroom with oval glass skylight for natural sunlight" },
+        { icon: <MapPin className="w-5 h-5" />, text: "Just steps from beach - watch fishermen & surfers daily" },
+        { icon: <Home className="w-5 h-5" />, text: "ABB intercom system for seamless communication" }
     ], []);
 
     const interiorFeatures = useMemo(() => [
-        { icon: <Eye className="w-5 h-5" />, text: "Full-length folding doors for seamless indoor-outdoor flow" },
-        { icon: <Home className="w-5 h-5" />, text: "Natural wood flooring and ceiling throughout" },
-        { icon: <Home className="w-5 h-5" />, text: "Traditional coastal-style furniture" },
-        { icon: <Eye className="w-5 h-5" />, text: "Large windows connecting with nature" },
-        { icon: <Bath className="w-5 h-5" />, text: "Sky-view glass rain shower" },
-        { icon: <Home className="w-5 h-5" />, text: "Warm, inviting atmosphere with privacy" }
+        { icon: <Home className="w-5 h-5" />, text: "Natural wooden ceiling & flooring with coastal furniture" },
+        { icon: <Home className="w-5 h-5" />, text: "Warm traditional lighting for comfort and ambience" },
+        { icon: <Bed className="w-5 h-5" />, text: "Generously sized master bedroom with luxury king-size bed" },
+        { icon: <Bath className="w-5 h-5" />, text: "Elegant bathroom with high-end fittings & rain shower" },
+        { icon: <Eye className="w-5 h-5" />, text: "50-inch Google Smart TV with streaming capabilities" },
+        { icon: <Coffee className="w-5 h-5" />, text: "Mitsubishi AC, mini-bar fridge & modern electric kettle" }
     ], []);
 
     const guestServices = useMemo(() => [
-        { icon: <Users className="w-5 h-5" />, text: "Villa Host for personalized assistance" },
-        { icon: <Utensils className="w-5 h-5" />, text: "Private Chef available for Kerala & international cuisine" },
-        { icon: <Users className="w-5 h-5" />, text: "Night Security & Guest Relations Officer" },
-        { icon: <Home className="w-5 h-5" />, text: "Daily housekeeping by dedicated staff" },
-        { icon: <MapPin className="w-5 h-5" />, text: "Just a short walk to the beach" },
-        { icon: <Eye className="w-5 h-5" />, text: "Overlooking daily life of local fishermen for authentic coastal charm" }
+        { icon: <Users className="w-5 h-5" />, text: "Dedicated villa host for discreet personalised service" },
+        { icon: <Utensils className="w-5 h-5" />, text: "Private chef & cooking classes available on request" },
+        { icon: <Home className="w-5 h-5" />, text: "Daily housekeeping service & premium toiletries" },
+        { icon: <Coffee className="w-5 h-5" />, text: "Complimentary high-speed Wi-Fi & plush bath linens" },
+        { icon: <Home className="w-5 h-5" />, text: "In-room safe for valuables & hot & cold water" },
+        { icon: <Eye className="w-5 h-5" />, text: "Total privacy with lush garden surroundings" }
     ], []);
-
+    
     return (
         <div className="min-h-screen bg-stone-50 text-stone-800">
             {/* Header */}

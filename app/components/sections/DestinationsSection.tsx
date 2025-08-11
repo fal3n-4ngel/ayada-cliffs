@@ -19,10 +19,7 @@ const DestinationsSection: React.FC<DestinationsSectionProps> = ({ selectedFeatu
       className="py-20"
       id='destinations'
       style={{ background: COLORS.secondary }}
-      initial="hidden"
-      whileInView="visible"
       viewport={{ once: true, amount: 0.2 }}
-      variants={ANIMATIONS.staggerContainer}
     >
       <div className="container mx-auto px-6">
         {/* Refined section header */}

@@ -84,7 +84,7 @@ const HeroSection = () => {
             }`}
             style={{ color: COLORS.light }}
           >
-            Luxury Ocean View Pool Villa · Varkala, Kerala
+            Luxury Private Pool Beach Resort - Varkala, Kerala
           </p>
 
           {/* Button */}

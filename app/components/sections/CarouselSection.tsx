@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { CAROUSELITEMS } from "../../data/CarouselItems";
 import { COLORS } from "../../theme/colors";
 import Image from "next/image";
 
+// Move variants outside component to prevent recreation
 const sliderVariants = {
   incoming: (direction: number) => ({
     x: direction > 0 ? "90%" : "-90%",
@@ -19,8 +20,8 @@ const sliderVariants = {
 };
 
 const sliderTransition = {
-  duration: 2.5,
-  ease: [0.56, 0.03, 0.12, 1.04],
+  duration: 0.8, // More relaxed timing
+  ease: [0.25, 0.46, 0.45, 0.94], // Gentle ease out
 };
 
 const descriptionVariants = {
@@ -28,16 +29,15 @@ const descriptionVariants = {
     x: direction > 0 ? "150%" : "-150%",
     y: direction > 0 ? "20px" : "-20px",
     opacity: 0,
-    transition: { duration: 2 },
   }),
   active: {
     x: 0,
     y: 0,
     opacity: 1,
     transition: {
-      delay: 0.3,
-      duration: 2,
-      ease: [0.16, 1, 0.3, 1],
+      delay: 0.2, // Relaxed delay
+      duration: 0.6, // More relaxed
+      ease: [0.25, 0.46, 0.45, 0.94], // Gentle ease
     },
   },
   exit: (direction: number) => ({
@@ -45,8 +45,8 @@ const descriptionVariants = {
     y: direction > 0 ? "-20px" : "20px",
     opacity: 0,
     transition: {
-      duration: 5,
-      ease: [0.6, 0.1, 0.05, 0.95],
+      duration: 0.4, // Gentle exit
+      ease: [0.55, 0.085, 0.68, 0.53], // Smooth ease in
     },
   }),
 };
@@ -54,11 +54,7 @@ const descriptionVariants = {
 export default function CarouselSection() {
   const [[imageCount, direction], setImageCount] = useState([0, 0]);
 
-  interface WrapFn {
-    (min: number, max: number, value: number): number;
-  }
-
-  const wrap: WrapFn = (min, max, value) => {
+  const wrap = (min: number, max: number, value: number): number => {
     const range = max - min;
     return ((((value - min) % range) + range) % range) + min;
   };
@@ -66,15 +62,11 @@ export default function CarouselSection() {
   const activeImageIndex = wrap(0, CAROUSELITEMS.length, imageCount);
   const activeImage = CAROUSELITEMS[activeImageIndex];
 
-  interface SwipeToImageFn {
-    (swipeDirection: number): void;
-  }
-
-  const swipeToImage: SwipeToImageFn = (swipeDirection) => {
+  const swipeToImage = useCallback((swipeDirection: number) => {
     setImageCount([imageCount + swipeDirection, swipeDirection]);
-  };
+  }, [imageCount]);
 
-  const dragEndHandler = (dragInfo: { offset: { x: number } }) => {
+  const dragEndHandler = useCallback((dragInfo: { offset: { x: number } }) => {
     const draggedDistance = dragInfo.offset.x;
     const swipeThreshold = 50;
 
@@ -83,7 +75,7 @@ export default function CarouselSection() {
     } else if (draggedDistance < -swipeThreshold) {
       swipeToImage(1);
     }
-  };
+  }, [swipeToImage]);
 
   const renderProgressDots = () => {
     return CAROUSELITEMS.map((_, index) => (
@@ -92,8 +84,9 @@ export default function CarouselSection() {
         onClick={() =>
           setImageCount([index, index > activeImageIndex ? 1 : -1])
         }
-        className={`h-[1px] w-8 transition-all duration-500 hover:opacity-80 ${index === activeImageIndex ? "h-[2px] opacity-100" : "opacity-40"
-          }`}
+        className={`h-[1px] w-8 transition-all duration-300 hover:opacity-80 ${
+          index === activeImageIndex ? "h-[2px] opacity-100" : "opacity-40"
+        }`}
         style={{ backgroundColor: COLORS.primary }}
         aria-label={`Go to slide ${index + 1}`}
       />
@@ -153,7 +146,7 @@ export default function CarouselSection() {
             transition={sliderTransition}
             drag="x"
             dragConstraints={{ left: 0, right: 0 }}
-            dragElastic={1}
+            dragElastic={0.2} // More subtle drag feel
             onDragEnd={(_, dragInfo) => dragEndHandler(dragInfo)}
             className="absolute inset-0 flex cursor-grab items-center justify-center active:cursor-grabbing"
           >
@@ -162,14 +155,15 @@ export default function CarouselSection() {
               <div className="relative h-full w-full rounded-2xl overflow-hidden shadow-2xl">
                 <Image
                   src={activeImage.imageSrc}
-                  alt="Background"
+                  alt={activeImage.title || "Carousel image"}
                   fill
                   priority
                   className="object-cover"
+                  sizes="(max-width: 768px) 90vw, 70vw"
                 />
-                {/* Subtle overlay for better text readability */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
               </div>
+              
               {/* Description Card */}
               <motion.div
                 key={`desc-${imageCount}`}
@@ -178,8 +172,9 @@ export default function CarouselSection() {
                 initial="incoming"
                 animate="active"
                 exit="exit"
-                className={`absolute ${activeImage.id % 2 === 0 ? "-top-6" : "-bottom-6"
-                  } -right-6 max-w-sm`}
+                className={`absolute ${
+                  activeImage.id % 2 === 0 ? "-top-6" : "-bottom-6"
+                } -right-6 max-w-sm`}
               >
                 <div
                   className="rounded-xl border p-6 shadow-xl backdrop-blur-sm"
