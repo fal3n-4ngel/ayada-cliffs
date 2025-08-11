@@ -83,7 +83,7 @@ const IntroductionSection = () => {
                 />
                 
                 <motion.img
-                src="/images/night-image.jpg"
+                src="/images/night-image.webp"
                   alt="Villa exterior overlooking the Arabian Sea"
                   className="h-full w-full object-cover transition-transform duration-700"
                   whileHover={{ scale: 1.02 }}

@@ -42,7 +42,7 @@ const ComingSoonPage = () => {
               }`}
             >
               <img
-                src="images/logo/ayadaclifflogo-typo.png"
+                src="/images/logo/ayadaclifflogo-typo.png"
                 alt="AYADA CLIFF"
                 className="w-full"
               />

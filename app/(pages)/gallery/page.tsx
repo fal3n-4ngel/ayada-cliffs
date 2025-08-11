@@ -100,10 +100,10 @@ const GalleryPage: React.FC = () => {
       (entries) => {
         entries.forEach((entry) => {
           const el = entry.target as HTMLElement;
-            if (entry.isIntersecting) {
-              el.classList.add("reveal-visible");
-              observerRef.current?.unobserve(el);
-            }
+          if (entry.isIntersecting) {
+            el.classList.add("reveal-visible");
+            observerRef.current?.unobserve(el);
+          }
         });
       },
       { threshold: 0.12, rootMargin: "40px 0px 0px 0px" }
@@ -225,19 +225,19 @@ const GalleryPage: React.FC = () => {
               style={{ color: COLORS.light }}
             />
           </div>
-            <h1
-              className="mb-4 text-4xl font-light tracking-wider md:text-6xl lg:text-7xl"
-              style={{ color: COLORS.light }}
-            >
-              GALLERY
-            </h1>
-            <p
-              className="mx-auto max-w-2xl text-lg font-light tracking-wide opacity-90 md:text-xl"
-              style={{ color: COLORS.light }}
-            >
-              Discover the beauty and tranquility of AYADA CLIFF through our
-              curated collection of moments
-            </p>
+          <h1
+            className="mb-4 text-4xl font-light tracking-wider md:text-6xl lg:text-7xl"
+            style={{ color: COLORS.light }}
+          >
+            GALLERY
+          </h1>
+          <p
+            className="mx-auto max-w-2xl text-lg font-light tracking-wide opacity-90 md:text-xl"
+            style={{ color: COLORS.light }}
+          >
+            Discover the beauty and tranquility of AYADA CLIFF through our
+            curated collection of moments
+          </p>
         </div>
       </div>
 
@@ -255,11 +255,10 @@ const GalleryPage: React.FC = () => {
                   key={c}
                   onClick={() => setSelectedCategory(c)}
                   variant="ghost"
-                  className={`px-4 py-2 text-xs md:text-sm font-light tracking-wider transition-colors ${
-                    active
+                  className={`px-4 py-2 text-xs md:text-sm font-light tracking-wider transition-colors ${active
                       ? "shadow-sm"
                       : "hover:bg-white/5 focus-visible:ring-1"
-                  }`}
+                    }`}
                   style={{
                     backgroundColor: active ? COLORS.primary : "transparent",
                     color: active ? COLORS.secondary : COLORS.primary,

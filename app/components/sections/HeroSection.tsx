@@ -28,7 +28,7 @@ const HeroSection = () => {
           }`}
         >
           <Image
-        src="/images/hero-bg (1).jpg"
+        src="/images/hero-bg (1).webp"
         alt="Hero Background"
         fill
         priority // Preload for instant render

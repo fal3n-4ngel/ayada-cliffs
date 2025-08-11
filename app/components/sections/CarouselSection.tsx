@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { CAROUSELITEMS } from "../../data/CarouselItems";
 import { COLORS } from "../../theme/colors";
+import Image from "next/image";
 
 const sliderVariants = {
   incoming: (direction: number) => ({
@@ -91,9 +92,8 @@ export default function CarouselSection() {
         onClick={() =>
           setImageCount([index, index > activeImageIndex ? 1 : -1])
         }
-        className={`h-[1px] w-8 transition-all duration-500 hover:opacity-80 ${
-          index === activeImageIndex ? "h-[2px] opacity-100" : "opacity-40"
-        }`}
+        className={`h-[1px] w-8 transition-all duration-500 hover:opacity-80 ${index === activeImageIndex ? "h-[2px] opacity-100" : "opacity-40"
+          }`}
         style={{ backgroundColor: COLORS.primary }}
         aria-label={`Go to slide ${index + 1}`}
       />
@@ -159,14 +159,17 @@ export default function CarouselSection() {
           >
             <div className="relative h-full w-full max-w-[70vw]">
               {/* Main Image */}
-              <div
-                className="h-full w-full rounded-2xl bg-cover bg-center shadow-2xl"
-                style={{ backgroundImage: `url(${activeImage.imageSrc})` }}
-              >
+              <div className="relative h-full w-full rounded-2xl overflow-hidden shadow-2xl">
+                <Image
+                  src={activeImage.imageSrc}
+                  alt="Background"
+                  fill
+                  priority
+                  className="object-cover"
+                />
                 {/* Subtle overlay for better text readability */}
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-t from-black/20 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
               </div>
-
               {/* Description Card */}
               <motion.div
                 key={`desc-${imageCount}`}
@@ -175,9 +178,8 @@ export default function CarouselSection() {
                 initial="incoming"
                 animate="active"
                 exit="exit"
-                className={`absolute ${
-                  activeImage.id % 2 === 0 ? "-top-6" : "-bottom-6"
-                } -right-6 max-w-sm`}
+                className={`absolute ${activeImage.id % 2 === 0 ? "-top-6" : "-bottom-6"
+                  } -right-6 max-w-sm`}
               >
                 <div
                   className="rounded-xl border p-6 shadow-xl backdrop-blur-sm"
