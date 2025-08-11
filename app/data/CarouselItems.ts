@@ -1,9 +1,9 @@
 export const CAROUSELITEMS = [
-    {
+     {
         id: 1,
-        imageSrc: "placeholder/cliff-edge-villa.avif",
-        title: "Mountain Landscape",
-        description: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatibus voluptas enim quasi hic architecto excepturi accusamus. Dolores id excepturi pariatur nemo tempora consequatur ex sunt sapiente maxime iste, blanditiis odio! Voluptatum ut"
+        imageSrc: "images/ocean-front.jpg",
+        title: "Beachfront Escape",
+        description: "Wake up to uninterrupted views of the Arabian Sea. Our villas sit right on the edge of the Varkala cliffs, offering direct ocean-facing serenity and sea breeze all day long."
     },
     {
         id: 2,
