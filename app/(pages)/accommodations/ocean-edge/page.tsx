@@ -434,7 +434,7 @@ export default function OceanEdgePoolVilla() {
             {/* Footer */}
             <footer className="py-12 px-6 bg-stone-900 text-stone-300">
                 <div className="max-w-6xl mx-auto text-center">
-                    <p>&copy; Ayada Cliffs. All rights reserved.</p>
+                    <p>&copy; Ayada Cliff. All rights reserved.</p>
                 </div>
             </footer>
         </div>
