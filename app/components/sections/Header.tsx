@@ -1,5 +1,5 @@
 "use client";
-import React, { useMemo } from "react";
+import React from "react";
 import { ChevronRight, Menu, X } from "lucide-react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
@@ -7,7 +7,6 @@ import { COLORS } from "../../theme/colors";
 import { NAV_ITEMS, SECONDARY_NAV_ITEMS } from "../../data/Navigation";
 import Image from "next/image";
 
-// Types
 interface NavigationMenuProps {
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -19,138 +18,87 @@ interface HeaderProps {
   setIsMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-interface NavItemProps {
-  item: { name: string; link: string };
-  index: number;
-  onClick: () => void;
-  delay?: number;
-}
-
-// Constants
 const LOGO_PATHS = {
   mark: "/images/logo/ayadaclifflogo-mark.png",
   typo: "/images/logo/ayadaclifflogo-typo.png",
 } as const;
 
-const ANIMATION_VARIANTS = {
-  overlay: {
-    initial: { opacity: 0 },
-    animate: { opacity: 1 },
-    exit: { opacity: 0 },
-    transition: { duration: 0.2 },
-  },
-  navItem: {
-    initial: { opacity: 0, y: 20 },
-    animate: { opacity: 1, y: 0 },
-  },
+const VARIANTS = {
+  overlay: { initial: { opacity: 0 }, animate: { opacity: 1 }, exit: { opacity: 0 } },
+  navItem: { initial: { opacity: 0, y: 20 }, animate: { opacity: 1, y: 0 } },
 } as const;
 
-// Utility function for dynamic styles
-const getColorByScroll = (scrollY: number, isMenuOpen: boolean = false) => ({
+const getColors = (scrollY: number, isMenuOpen = false) => ({
   text: scrollY > 50 || isMenuOpen ? COLORS.dark : COLORS.light,
   border: scrollY > 50 ? COLORS.primary : COLORS.light,
   primary: COLORS.primary,
 });
 
-// Sub-components
-const Logo: React.FC<{ scrollY: number; isMobile?: boolean }> = ({
-  scrollY,
-  isMobile = false,
-}) => {
-  const logoColor = getColorByScroll(scrollY).text;
-
+const Logo = ({ scrollY, isMobile = false }: { scrollY: number; isMobile?: boolean }) => {
+  const color = getColors(scrollY).text;
   return (
-    <Link href="/">
-      <h1
-        className="josefin-sans text-2xl font-light tracking-widest"
-        style={{ color: logoColor }}
-      >
-        {isMobile ? (
-          <Image
-            src={LOGO_PATHS.typo}
-            alt="Ayada Cliff Logo"
-            width={180}
-            height={40}
-            className="w-45"
-          />
-        ) : (
-          <div className="flex items-center justify-center gap-4">
-            <Image
-              src={LOGO_PATHS.mark}
-              alt="Ayada Cliff Mark"
-              width={28}
-              height={28}
-              className="w-7"
-            />
-            <Image
-              src={LOGO_PATHS.typo}
-              alt="Ayada Cliff Typography"
-              width={180}
-              height={40}
-              className="w-45"
-            />
-          </div>
-        )}
-      </h1>
+    <Link href="/" aria-label="Ayada Cliff Home">
+      {isMobile ? (
+        <Image src={LOGO_PATHS.typo} alt="Ayada Cliff Logo" width={180} height={40} priority />
+      ) : (
+        <div className="flex items-center gap-4">
+          <Image src={LOGO_PATHS.mark} alt="Ayada Cliff Mark" width={28} height={28} priority />
+          <Image src={LOGO_PATHS.typo} alt="Ayada Cliff Typography" width={180} height={40} priority />
+        </div>
+      )}
     </Link>
   );
 };
 
-const ReserveButton: React.FC<{ scrollY: number; href?: string }> = ({
-  scrollY,
-  href = "/reserve",
-}) => {
-  const colors = getColorByScroll(scrollY);
+const ReserveButton = ({ href = "/reserve", color }: { href?: string; color: string }) => (
+  <Link href={href}>
+    <button
+      className="px-6 py-2 text-sm tracking-widest text-white transition-all duration-300 hover:bg-opacity-90"
+      style={{ backgroundColor: color }}
+    >
+      RESERVE
+    </button>
+  </Link>
+);
 
-  return (
-    <Link href={href}>
-      <button
-        className={`hover:bg-opacity-10 px-6 py-2 text-sm tracking-widest transition-all duration-300 bg-[${colors.primary}] text-white`}
-      >
-        RESERVE
-      </button>
-    </Link>
-  );
-};
-
-const NavItem: React.FC<NavItemProps> = ({
+const NavItem = ({
   item,
   index,
   onClick,
   delay = 0.1,
+}: {
+  item: { name: string; link: string };
+  index: number;
+  onClick: () => void;
+  delay?: number;
 }) => (
   <motion.li
-    initial={ANIMATION_VARIANTS.navItem.initial}
-    animate={ANIMATION_VARIANTS.navItem.animate}
+    initial={VARIANTS.navItem.initial}
+    animate={VARIANTS.navItem.animate}
     transition={{ delay: delay * index }}
   >
     <Link
       href={item.link}
-      className="group flex items-center justify-between text-2xl transition-all duration-300"
+      className="group flex items-center justify-between text-2xl transition-all duration-300 text-dark"
       onClick={onClick}
-      style={{ color: COLORS.dark }}
     >
       <span>{item.name}</span>
-      <ChevronRight
-        size={18}
-        className="opacity-0 transition-opacity group-hover:opacity-100"
-      />
+      <ChevronRight size={18} className="opacity-0 transition-opacity group-hover:opacity-100" />
     </Link>
   </motion.li>
 );
 
-const DesktopNavigation: React.FC<{ scrollY: number }> = ({ scrollY }) => {
-  const textColor = getColorByScroll(scrollY).text;
-
+const DesktopNavigation = ({ scrollY }: { scrollY: number }) => {
+  const color = getColors(scrollY).text;
   return (
-    <nav className="flex items-center">
+    <nav>
       <ul className="flex space-x-8">
-        {NAV_ITEMS.map((item, index) => (
-          <li key={`desktop-nav-${index}`}>
+        {NAV_ITEMS.map((item, i) => (
+          <li key={i}>
             <Link
               href={item.link}
-              className="group text-sm font-light tracking-wider transition-all duration-300 hover:opacity-75"
-              style={{ color: textColor }}
+              className="text-sm font-light tracking-wider transition-opacity hover:opacity-75"
+              style={{ color }}
             >
               {item.name}
             </Link>
@@ -161,18 +109,21 @@ const DesktopNavigation: React.FC<{ scrollY: number }> = ({ scrollY }) => {
   );
 };
 
-const MobileMenuButton: React.FC<{
+const MobileMenuButton = ({
+  isMenuOpen,
+  onClick,
+  scrollY,
+}: {
   isMenuOpen: boolean;
   onClick: () => void;
   scrollY: number;
-}> = ({ isMenuOpen, onClick, scrollY }) => {
-  const iconColor = getColorByScroll(scrollY, isMenuOpen).text;
-
+}) => {
+  const color = getColors(scrollY, isMenuOpen).text;
   return (
     <button
       onClick={onClick}
-      className="z-50 text-4xl focus:outline-none md:hidden"
-      style={{ color: iconColor }}
+      className="z-50 md:hidden"
+      style={{ color }}
       aria-label={isMenuOpen ? "Close menu" : "Open menu"}
     >
       {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
@@ -180,61 +131,32 @@ const MobileMenuButton: React.FC<{
   );
 };
 
-const NavigationMenu: React.FC<NavigationMenuProps> = ({
-  isOpen,
-  setIsOpen,
-}) => {
-  const closeMenu = () => setIsOpen(false);
-
+const NavigationMenu = ({ isOpen, setIsOpen }: NavigationMenuProps) => {
+  const close = () => setIsOpen(false);
   return (
     <AnimatePresence>
       {isOpen && (
         <motion.div
-          {...ANIMATION_VARIANTS.overlay}
+          {...VARIANTS.overlay}
+          transition={{ duration: 0.2 }}
           className="fixed inset-0 z-40 bg-white"
         >
-          <div className="container mx-auto h-full px-6 py-24">
-            <div className="grid h-full grid-cols-1 gap-12 md:grid-cols-2">
-              {/* Primary Navigation */}
-              <div className="space-y-8">
-                <nav>
-                  <ul className="space-y-6">
-                    {NAV_ITEMS.map((item, index) => (
-                      <NavItem
-                        key={`primary-nav-${index}`}
-                        item={item}
-                        index={index}
-                        onClick={closeMenu}
-                      />
-                    ))}
-                  </ul>
-                </nav>
-
-                <ReserveButton scrollY={0} />
-              </div>
-
-              {/* Secondary Navigation */}
-              <div className="space-y-8">
-                <h3
-                  className="text-sm tracking-widest"
-                  style={{ color: COLORS.primary }}
-                >
-                  INFORMATION
-                </h3>
-                <nav>
-                  <ul className="space-y-6">
-                    {SECONDARY_NAV_ITEMS.map((item, index) => (
-                      <NavItem
-                        key={`secondary-nav-${index}`}
-                        item={item}
-                        index={index}
-                        onClick={closeMenu}
-                        delay={0.1}
-                      />
-                    ))}
-                  </ul>
-                </nav>
-              </div>
+          <div className="container mx-auto h-full px-6 py-24 grid gap-12 md:grid-cols-2">
+            <div className="space-y-8">
+              <ul className="space-y-6">
+                {NAV_ITEMS.map((item, i) => (
+                  <NavItem key={i} item={item} index={i} onClick={close} />
+                ))}
+              </ul>
+              <ReserveButton color={COLORS.primary} />
+            </div>
+            <div className="space-y-8">
+              <h3 className="text-sm tracking-widest text-primary">INFORMATION</h3>
+              <ul className="space-y-6">
+                {SECONDARY_NAV_ITEMS.map((item, i) => (
+                  <NavItem key={i} item={item} index={i} onClick={close} />
+                ))}
+              </ul>
             </div>
           </div>
         </motion.div>
@@ -243,48 +165,31 @@ const NavigationMenu: React.FC<NavigationMenuProps> = ({
   );
 };
 
-const Header: React.FC<HeaderProps> = ({
-  scrollY,
-  isMenuOpen,
-  setIsMenuOpen,
-}) => {
+const Header = ({ scrollY, isMenuOpen, setIsMenuOpen }: HeaderProps) => {
+  const colors = getColors(scrollY, isMenuOpen);
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
-
-  const headerClasses = useMemo(
-    () =>
-      `fixed top-0 z-50 w-full transition-all duration-700 ${scrollY > 50 ? "bg-white py-2 shadow-md" : "bg-transparent py-6"
-      }`,
-    [scrollY],
-  );
+  const headerClasses =
+    `fixed top-0 z-50 w-full transition-all duration-700 ` +
+    (scrollY > 50 ? "bg-white py-2 shadow-md" : "bg-transparent py-6");
 
   return (
     <>
       <header className={headerClasses}>
-        {/* Mobile Header */}
-        <div className="container mx-auto flex items-center justify-between px-6 py-1 md:hidden">
-          <MobileMenuButton
-            isMenuOpen={isMenuOpen}
-            onClick={toggleMenu}
-            scrollY={scrollY}
-          />
-
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transform">
-            <Logo scrollY={scrollY} isMobile />
-          </div>
-
-          {/* Spacer for layout balance */}
-          <div />
+        {/* Mobile */}
+        <div className="container mx-auto flex items-center justify-between px-6 md:hidden">
+          <MobileMenuButton isMenuOpen={isMenuOpen} onClick={toggleMenu} scrollY={scrollY} />
+          <Logo scrollY={scrollY} isMobile />
+          <div /> {/* spacer */}
         </div>
 
-        {/* Desktop Header */}
-        <div className="container mx-auto hidden items-center justify-between px-6 py-1 md:flex">
+        {/* Desktop */}
+        <div className="container mx-auto hidden items-center justify-between px-6 md:flex">
           <Logo scrollY={scrollY} />
           <DesktopNavigation scrollY={scrollY} />
-          <ReserveButton scrollY={scrollY} />
+          <ReserveButton color={colors.primary} />
         </div>
       </header>
 
-      {/* Mobile Navigation Menu */}
       <NavigationMenu isOpen={isMenuOpen} setIsOpen={setIsMenuOpen} />
     </>
   );

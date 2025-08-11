@@ -1,424 +1,445 @@
-"use client"
-import React, { useState, useEffect, useRef } from "react";
+"use client";
+
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  useCallback,
+  useMemo,
+  KeyboardEvent,
+} from "react";
 import { X, ArrowLeft, ArrowRight, Camera } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import Header from "@/app/components/sections/Header";
 import Footer from "@/app/components/sections/Footer";
+import { Button } from "@/components/ui/button";
 import { COLORS } from "@/app/theme/colors";
+import Image from "next/image";
 
-
-// Type definitions
+/* ================== Types ================== */
 interface GalleryImage {
   id: number;
   src: string;
   alt: string;
-  category: string;
+  category: Category;
   title: string;
-  height: 'tall' | 'medium' | 'square';
+  height: "tall" | "medium" | "square";
 }
+type Category =
+  | "All"
+  | "Villas"
+  | "Interiors"
+  | "Views"
+  | "Dining"
+  | "Wellness"
+  | "Beach"
+  | "Gardens"
+  | "Amenities";
 
-interface HeaderProps {
-  scrollY: number;
-  isMenuOpen: boolean;
-  setIsMenuOpen: (open: boolean) => void;
-}
-
-interface ImageLoadStates {
-  [key: number]: boolean;
-}
-
-type NavigationDirection = 'next' | 'prev';
-type Category = "All" | "Villas" | "Interiors" | "Views" | "Dining" | "Wellness" | "Beach" | "Gardens" | "Amenities";
-
-
-const galleryImages: GalleryImage[] = [
-  {
-    id: 1,
-    src: "/images/ocean-haven/gallery/1.webp",
-    alt: "Villa Pool at Night",
-    category: "Villas",
-    title: "Ocean Haven Pool",
-    height: "medium"
-  },
-  {
-    id: 2,
-    src: "/images/ocean-haven/gallery/2.webp",
-    alt: "Bedroom Interior",
-    category: "Interiors",
-    title: "Cozy Bedroom",
-    height: "square"
-  },
-  {
-    id: 3,
-    src: "/images/ocean-haven/gallery/3.webp",
-    alt: "Living Area with TV",
-    category: "Interiors",
-    title: "Modern Living Room",
-    height: "square"
-  },
-  {
-    id: 4,
-    src: "/images/ocean-haven/gallery/4.webp",
-    alt: "Evening View with Palm Trees",
-    category: "Views",
-    title: "Evening Vibes",
-    height: "tall"
-  },
-  {
-    id: 5,
-    src: "/images/ocean-edge/gallery/1.webp",
-    alt: "Outdoor Dining Area",
-    category: "Dining",
-    title: "Terrace Dining",
-    height: "medium"
-  },
-  {
-    id: 6,
-    src: "/images/ocean-edge/gallery/2.webp",
-    alt: "Garden Walkway",
-    category: "Gardens",
-    title: "Garden Retreat",
-    height: "tall"
-  },
-  {
-    id: 7,
-    src: "/images/ocean-edge/gallery/3.webp",
-    alt: "Bright Bedroom Interior",
-    category: "Interiors",
-    title: "Sunlit Bedroom",
-    height: "square"
-  },
-  {
-    id: 8,
-    src: "/images/ocean-edge/gallery/4.webp",
-    alt: "Dining Area",
-    category: "Dining",
-    title: "Indoor Dining",
-    height: "medium"
-  },
-  {
-    id: 9,
-    src: "/images/ocean-edge/gallery/5.webp",
-    alt: "Poolside View",
-    category: "Amenities",
-    title: "Pool Escape",
-    height: "medium"
-  },
-  {
-    id: 10,
-    src: "/images/ocean-edge/gallery/6.webp",
-    alt: "Seaside Deck",
-    category: "Views",
-    title: "Ocean Deck",
-    height: "tall"
-  }
+/* ================== Data ================== */
+const GALLERY_IMAGES: GalleryImage[] = [
+  { id: 1, src: "/images/ocean-haven/gallery/1.webp", alt: "Villa Pool at Night", category: "Villas", title: "Ocean Haven Pool", height: "medium" },
+  { id: 2, src: "/images/ocean-haven/gallery/2.webp", alt: "Bedroom Interior", category: "Interiors", title: "Cozy Bedroom", height: "square" },
+  { id: 3, src: "/images/ocean-haven/gallery/3.webp", alt: "Living Area with TV", category: "Interiors", title: "Modern Living Room", height: "square" },
+  { id: 4, src: "/images/ocean-haven/gallery/4.webp", alt: "Evening View with Palm Trees", category: "Views", title: "Evening Vibes", height: "tall" },
+  { id: 5, src: "/images/ocean-edge/gallery/1.webp", alt: "Outdoor Dining Area", category: "Dining", title: "Terrace Dining", height: "medium" },
+  { id: 6, src: "/images/ocean-edge/gallery/2.webp", alt: "Garden Walkway", category: "Gardens", title: "Garden Retreat", height: "tall" },
+  { id: 7, src: "/images/ocean-edge/gallery/3.webp", alt: "Bright Bedroom Interior", category: "Interiors", title: "Sunlit Bedroom", height: "square" },
+  { id: 8, src: "/images/ocean-edge/gallery/4.webp", alt: "Dining Area", category: "Dining", title: "Indoor Dining", height: "medium" },
+  { id: 9, src: "/images/ocean-edge/gallery/5.webp", alt: "Poolside View", category: "Amenities", title: "Pool Escape", height: "medium" },
+  { id: 10, src: "/images/ocean-edge/gallery/6.webp", alt: "Seaside Deck", category: "Views", title: "Ocean Deck", height: "tall" },
 ];
 
+// Derived categories (keeps source single)
+const CATEGORY_OPTIONS: Category[] = [
+  "All",
+  ...Array.from(new Set(GALLERY_IMAGES.map((g) => g.category))).sort(),
+] as Category[];
 
-const categories: Category[] = ["All", "Interiors", "Views", "Dining", "Beach", "Gardens", "Amenities"];
-
+/* ================== Component ================== */
 const GalleryPage: React.FC = () => {
-  const [scrollY, setScrollY] = useState<number>(0);
-  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+  const [scrollY, setScrollY] = useState(0);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<Category>("All");
-  const [selectedImage, setSelectedImage] = useState<GalleryImage | null>(null);
-  const [isLightboxOpen, setIsLightboxOpen] = useState<boolean>(false);
-  const [imageLoadStates, setImageLoadStates] = useState<ImageLoadStates>({});
-  const galleryRef = useRef<HTMLDivElement | null>(null);
+  const [lightboxImage, setLightboxImage] = useState<GalleryImage | null>(null);
+  const [isLightboxOpen, setIsLightboxOpen] = useState(false);
 
-  // Handle scroll for parallax effects
+  const heroRef = useRef<HTMLDivElement | null>(null);
+  const itemRefs = useRef<Map<number, HTMLDivElement>>(new Map());
+  const observerRef = useRef<IntersectionObserver | null>(null);
+
+  /* -------- Scroll Handler (rAF throttled) -------- */
   useEffect(() => {
-    const handleScroll = (): void => {
-      setScrollY(window.scrollY);
+    let ticking = false;
+    const onScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          setScrollY(window.scrollY);
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Filter images based on selected category
-  const filteredImages: GalleryImage[] = selectedCategory === "All" 
-    ? galleryImages 
-    : galleryImages.filter((img: GalleryImage) => img.category === selectedCategory);
+  /* -------- Filtered Images (memo) -------- */
+  const filteredImages = useMemo(
+    () =>
+      selectedCategory === "All"
+        ? GALLERY_IMAGES
+        : GALLERY_IMAGES.filter((img) => img.category === selectedCategory),
+    [selectedCategory]
+  );
 
-  // Handle image load
-  const handleImageLoad = (imageId: number): void => {
-    setImageLoadStates((prev: ImageLoadStates) => ({
-      ...prev,
-      [imageId]: true
-    }));
-  };
+  /* -------- Intersection Observer for reveal animation -------- */
+  useEffect(() => {
+    if (observerRef.current) observerRef.current.disconnect();
 
-  // Open lightbox
-  const openLightbox = (image: GalleryImage): void => {
-    setSelectedImage(image);
+    observerRef.current = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const el = entry.target as HTMLElement;
+            if (entry.isIntersecting) {
+              el.classList.add("reveal-visible");
+              observerRef.current?.unobserve(el);
+            }
+        });
+      },
+      { threshold: 0.12, rootMargin: "40px 0px 0px 0px" }
+    );
+
+    itemRefs.current.forEach((node) => {
+      if (node) observerRef.current?.observe(node);
+    });
+
+    return () => observerRef.current?.disconnect();
+  }, [filteredImages]);
+
+  /* -------- Lightbox Controls -------- */
+  const openLightbox = useCallback((img: GalleryImage) => {
+    setLightboxImage(img);
     setIsLightboxOpen(true);
-    document.body.style.overflow = 'hidden';
-  };
+    document.body.style.overflow = "hidden";
+  }, []);
 
-  // Close lightbox
-  const closeLightbox = (): void => {
+  const closeLightbox = useCallback(() => {
     setIsLightboxOpen(false);
-    setSelectedImage(null);
-    document.body.style.overflow = 'unset';
-  };
+    setLightboxImage(null);
+    document.body.style.overflow = "";
+  }, []);
 
-  // Navigate in lightbox
-  const navigateLightbox = (direction: NavigationDirection): void => {
-    if (!selectedImage) return;
-    
-    const currentIndex: number = filteredImages.findIndex((img: GalleryImage) => img.id === selectedImage.id);
-    let newIndex: number;
-    
-    if (direction === 'next') {
-      newIndex = (currentIndex + 1) % filteredImages.length;
-    } else {
-      newIndex = currentIndex === 0 ? filteredImages.length - 1 : currentIndex - 1;
-    }
-    
-    setSelectedImage(filteredImages[newIndex]);
-  };
+  const navigateLightbox = useCallback(
+    (dir: "next" | "prev") => {
+      if (!lightboxImage) return;
+      const idx = filteredImages.findIndex((i) => i.id === lightboxImage.id);
+      if (idx === -1) return;
+      const nextIndex =
+        dir === "next"
+          ? (idx + 1) % filteredImages.length
+          : (idx - 1 + filteredImages.length) % filteredImages.length;
+      setLightboxImage(filteredImages[nextIndex]);
+    },
+    [lightboxImage, filteredImages]
+  );
 
-  // Get grid item classes based on height
-  const getGridItemClass = (height: GalleryImage['height'], index: number): string => {
-    const baseClass = "relative overflow-hidden rounded-lg shadow-sm hover:shadow-xl transition-all duration-700 cursor-pointer group";
-    
-    switch (height) {
-      case 'tall':
-        return `${baseClass} row-span-2`;
-      case 'medium':
-        return `${baseClass} row-span-1`;
-      case 'square':
-        return `${baseClass} row-span-1`;
+  /* -------- Keyboard Navigation -------- */
+  useEffect(() => {
+    if (!isLightboxOpen) return;
+    const onKey = (e: KeyboardEvent | any) => {
+      if (e.key === "Escape") closeLightbox();
+      else if (e.key === "ArrowRight") navigateLightbox("next");
+      else if (e.key === "ArrowLeft") navigateLightbox("prev");
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [isLightboxOpen, closeLightbox, navigateLightbox]);
+
+  /* -------- Preload Adjacent Lightbox Images -------- */
+  useEffect(() => {
+    if (!lightboxImage) return;
+    const idx = filteredImages.findIndex((i) => i.id === lightboxImage.id);
+    const preload = (i: number) => {
+      const img = filteredImages[i];
+      if (!img) return;
+      const preloadImg = new (window.Image)(1);
+      preloadImg.src = img.src;
+    };
+    preload((idx + 1) % filteredImages.length);
+    preload((idx - 1 + filteredImages.length) % filteredImages.length);
+  }, [lightboxImage, filteredImages]);
+
+  /* -------- Utility: register refs -------- */
+  const setItemRef = useCallback((id: number, node: HTMLDivElement | null) => {
+    if (node) itemRefs.current.set(id, node);
+    else itemRefs.current.delete(id);
+  }, []);
+
+  /* -------- Classes for Masonry item heights (optional) -------- */
+  const getHeightClass = (h: GalleryImage["height"]) => {
+    switch (h) {
+      case "tall":
+        return "md:row-span-2";
       default:
-        return `${baseClass} row-span-1`;
-    }
-  };
-
-  const getImageHeight = (height: GalleryImage['height']): string => {
-    switch (height) {
-      case 'tall':
-        return 'h-96 md:h-[500px]';
-      case 'medium':
-        return 'h-48 md:h-64';
-      case 'square':
-        return 'h-48 md:h-64';
-      default:
-        return 'h-48 md:h-64';
+        return "md:row-span-1";
     }
   };
 
   return (
-    <div 
+    <div
       className="min-h-screen"
       style={{ backgroundColor: COLORS.secondary, color: COLORS.dark }}
     >
-      <Header 
+      <Header
         scrollY={scrollY}
         isMenuOpen={isMenuOpen}
         setIsMenuOpen={setIsMenuOpen}
       />
 
-      {/* Hero Section */}
-      <div 
-        className="relative h-screen flex items-center justify-center overflow-hidden"
-        style={{
-          backgroundImage: 'url(/images/forest-path.webp)',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundAttachment: 'fixed'
-        }}
+      {/* Hero Section (avoid background-attachment: fixed for mobile perf) */}
+      <div
+        ref={heroRef}
+        className="relative flex h-[70vh] min-h-[520px] items-center justify-center overflow-hidden"
       >
-        <div 
-          className="absolute inset-0"
-          style={{ 
-            backgroundColor: COLORS.dark,
-            opacity: 0.4
-          }}
-        />
-        
-        <div 
-          className="relative z-10 text-center px-4"
-          style={{
-            transform: `translateY(${scrollY * 0.3}px)`
-          }}
+        <div className="absolute inset-0">
+          <Image
+            src="/images/forest-path.webp"
+            alt="Forest Path"
+            fill
+            priority
+            className="object-cover"
+            sizes="100vw"
+          />
+          <div
+            className="absolute inset-0"
+            style={{ backgroundColor: COLORS.dark, opacity: 0.4 }}
+          />
+        </div>
+        <div
+          className="relative z-10 px-4 text-center will-change-transform transition-transform"
+          style={{ transform: `translateY(${scrollY * 0.25}px)` }}
         >
           <div className="mb-6 flex justify-center">
-            <Camera 
+            <Camera
               className="h-12 w-12 md:h-16 md:w-16"
               style={{ color: COLORS.light }}
             />
           </div>
-          <h1 
-            className="text-4xl md:text-6xl lg:text-7xl font-light tracking-wider mb-4"
-            style={{ color: COLORS.light }}
-          >
-            GALLERY
-          </h1>
-          <p 
-            className="text-lg md:text-xl font-light tracking-wide opacity-90 max-w-2xl mx-auto"
-            style={{ color: COLORS.light }}
-          >
-            Discover the beauty and tranquility of AYADA CLIFF through our curated collection of moments
-          </p>
+            <h1
+              className="mb-4 text-4xl font-light tracking-wider md:text-6xl lg:text-7xl"
+              style={{ color: COLORS.light }}
+            >
+              GALLERY
+            </h1>
+            <p
+              className="mx-auto max-w-2xl text-lg font-light tracking-wide opacity-90 md:text-xl"
+              style={{ color: COLORS.light }}
+            >
+              Discover the beauty and tranquility of AYADA CLIFF through our
+              curated collection of moments
+            </p>
         </div>
       </div>
 
       {/* Category Filter */}
-      <div className="sticky top-20 z-30 py-6" style={{ backgroundColor: COLORS.secondary }}>
-        <div className="container mx-auto px-4">
-          <div className="flex flex-wrap justify-center gap-2 md:gap-4">
-            {categories.map((category: Category) => (
-              <Button
-                key={category}
-                onClick={() => setSelectedCategory(category)}
-                variant="ghost"
-                className={`px-4 py-2 text-xs md:text-sm font-light tracking-wider transition-all duration-300 ${
-                  selectedCategory === category 
-                    ? 'bg-opacity-20' 
-                    : 'hover:bg-opacity-10'
-                }`}
-                style={{
-                  color: selectedCategory === category ? COLORS.secondary :COLORS.primary,
-                  backgroundColor: selectedCategory === category ? COLORS.primary : 'transparent'
-                }}
-              >
-                {category.toUpperCase()}
-              </Button>
-            ))}
+      <div
+        className="sticky top-16 z-30 border-b border-white/5 backdrop-blur-md"
+        style={{ backgroundColor: `${COLORS.secondary}E6` }}
+      >
+        <div className="container mx-auto px-4 py-4 md:py-6">
+          <div className="flex flex-wrap justify-center gap-2 md:gap-3">
+            {CATEGORY_OPTIONS.map((c) => {
+              const active = c === selectedCategory;
+              return (
+                <Button
+                  key={c}
+                  onClick={() => setSelectedCategory(c)}
+                  variant="ghost"
+                  className={`px-4 py-2 text-xs md:text-sm font-light tracking-wider transition-colors ${
+                    active
+                      ? "shadow-sm"
+                      : "hover:bg-white/5 focus-visible:ring-1"
+                  }`}
+                  style={{
+                    backgroundColor: active ? COLORS.primary : "transparent",
+                    color: active ? COLORS.secondary : COLORS.primary,
+                  }}
+                  aria-pressed={active}
+                >
+                  {c.toUpperCase()}
+                </Button>
+              );
+            })}
           </div>
         </div>
       </div>
 
-      {/* Gallery Grid */}
-      <div className="container mx-auto px-4 py-8 md:py-12" ref={galleryRef}>
-        <div className="columns-1 md:columns-2 lg:columns-3 xl:columns-4 gap-4 md:gap-6">
-          {filteredImages.map((image: GalleryImage, index: number) => (
+      {/* Gallery Grid (CSS Masonry using columns) */}
+      <div className="container mx-auto px-4 py-10 md:py-14">
+        <div
+          className="
+            columns-1 gap-4
+            sm:columns-2
+            lg:columns-3
+            xl:columns-4
+            [column-fill:_balance]
+          "
+        >
+          {filteredImages.map((img, i) => (
             <div
-              key={image.id}
-              className="break-inside-avoid mb-4 md:mb-6 group cursor-pointer"
-              onClick={() => openLightbox(image)}
-              style={{
-                animationDelay: `${index * 0.1}s`,
-                animation: 'fadeInUp 0.8s ease-out forwards',
-                opacity: 0,
-                transform: 'translateY(30px)'
+              key={img.id}
+              ref={(node) => setItemRef(img.id, node)}
+              className={`group mb-4 break-inside-avoid overflow-hidden rounded-lg opacity-0 will-change-transform reveal-init cursor-zoom-in ${getHeightClass(
+                img.height
+              )}`}
+              onClick={() => openLightbox(img)}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") openLightbox(img);
               }}
+              style={{
+                transition:
+                  "opacity 0.6s ease, transform 0.6s ease, box-shadow 0.4s",
+                animationDelay: `${i * 40}ms`,
+              }}
+              aria-label={`${img.title} – open image`}
             >
-              <div className="relative overflow-hidden rounded-lg shadow-sm hover:shadow-xl transition-all duration-700">
-                <img
-                  src={image.src}
-                  alt={image.alt}
-                  className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105"
-                  onLoad={() => handleImageLoad(image.id)}
+              <div className="relative w-full overflow-hidden rounded-lg">
+                <Image
+                  src={img.src}
+                  alt={img.alt}
+                  width={800}
+                  height={1000}
+                  className="h-auto w-full scale-100 transform object-cover transition-transform duration-700 group-hover:scale-[1.04]"
                   loading="lazy"
+                  decoding="async"
+                  sizes="(max-width:768px) 100vw, (max-width:1280px) 50vw, 25vw"
                 />
-                
-                {/* Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                  <div className="absolute bottom-4 left-4 right-4">
-                    <h3 
-                      className="text-lg font-light tracking-wide mb-1"
-                      style={{ color: COLORS.light }}
-                    >
-                      {image.title}
-                    </h3>
-                    <p 
-                      className="text-xs font-light tracking-wider opacity-80"
-                      style={{ color: COLORS.light }}
-                    >
-                      {image.category.toUpperCase()}
-                    </p>
-                  </div>
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+                <div className="pointer-events-none absolute bottom-4 left-4 right-4 translate-y-3 opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
+                  <h3
+                    className="mb-1 text-lg font-light tracking-wide"
+                    style={{ color: COLORS.light }}
+                  >
+                    {img.title}
+                  </h3>
+                  <p
+                    className="text-xs font-light tracking-wider opacity-80"
+                    style={{ color: COLORS.light }}
+                  >
+                    {img.category.toUpperCase()}
+                  </p>
                 </div>
               </div>
             </div>
           ))}
+          {filteredImages.length === 0 && (
+            <div
+              className="py-20 text-center text-sm font-light opacity-70"
+              style={{ color: COLORS.primary }}
+            >
+              No images found in this category.
+            </div>
+          )}
         </div>
       </div>
 
       {/* Lightbox */}
-      {isLightboxOpen && selectedImage && (
-        <div 
+      {isLightboxOpen && lightboxImage && (
+        <div
           className="fixed inset-0 z-50 flex items-center justify-center p-4"
-          style={{ backgroundColor: 'rgba(0, 0, 0, 0.95)' }}
+          style={{ backgroundColor: "rgba(0,0,0,0.92)" }}
           onClick={closeLightbox}
+          role="dialog"
+          aria-modal="true"
+          aria-label={`Viewing ${lightboxImage.title}`}
         >
-          {/* Close button */}
-          <Button
+          {/* Close */}
+          <button
             onClick={closeLightbox}
-            variant="ghost"
-            size="icon"
-            className="absolute top-4 right-4 z-60 hover:bg-white/20"
-            style={{ color: COLORS.light }}
+            className="absolute right-4 top-4 rounded-full p-2 text-white/90 transition hover:bg-white/15 focus-visible:outline-none focus-visible:ring"
+            aria-label="Close lightbox"
           >
             <X className="h-6 w-6" />
-          </Button>
+          </button>
 
-          {/* Navigation buttons */}
-          <Button
-            onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
-              e.stopPropagation();
-              navigateLightbox('prev');
-            }}
-            variant="ghost"
-            size="icon"
-            className="absolute left-4 top-1/2 transform -translate-y-1/2 z-60 hover:bg-white/20"
-            style={{ color: COLORS.light }}
-          >
-            <ArrowLeft className="h-6 w-6" />
-          </Button>
+          {/* Prev */}
+          {filteredImages.length > 1 && (
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                navigateLightbox("prev");
+              }}
+              className="absolute left-3 top-1/2 -translate-y-1/2 rounded-full p-3 text-white/80 transition hover:bg-white/15 focus-visible:outline-none focus-visible:ring md:left-6"
+              aria-label="Previous image"
+            >
+              <ArrowLeft className="h-6 w-6" />
+            </button>
+          )}
 
-          <Button
-            onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
-              e.stopPropagation();
-              navigateLightbox('next');
-            }}
-            variant="ghost"
-            size="icon"
-            className="absolute right-4 top-1/2 transform -translate-y-1/2 z-60 hover:bg-white/20"
-            style={{ color: COLORS.light }}
-          >
-            <ArrowRight className="h-6 w-6" />
-          </Button>
+          {/* Next */}
+          {filteredImages.length > 1 && (
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                navigateLightbox("next");
+              }}
+              className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full p-3 text-white/80 transition hover:bg-white/15 focus-visible:outline-none focus-visible:ring md:right-6"
+              aria-label="Next image"
+            >
+              <ArrowRight className="h-6 w-6" />
+            </button>
+          )}
 
-          {/* Image */}
-          <div 
-            className="relative max-w-full max-h-full"
-            onClick={(e: React.MouseEvent<HTMLDivElement>) => e.stopPropagation()}
+          <div
+            className="relative max-h-[90vh] max-w-[92vw]"
+            onClick={(e) => e.stopPropagation()}
           >
-            <img
-              src={selectedImage.src}
-              alt={selectedImage.alt}
-              className="max-w-full max-h-[90vh] object-contain rounded-lg"
+            <Image
+              src={lightboxImage.src}
+              alt={lightboxImage.alt}
+              width={1600}
+              height={1200}
+              className="max-h-[90vh] w-auto rounded-lg object-contain"
+              priority
+              sizes="(max-width:768px) 90vw, 70vw"
             />
-            
-            {/* Image info */}
-            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6 rounded-b-lg">
-              <h3 
-                className="text-xl md:text-2xl font-light tracking-wide mb-2"
+            <div className="pointer-events-none absolute inset-x-0 bottom-0 rounded-b-lg bg-gradient-to-t from-black/85 to-transparent p-5">
+              <h3
+                className="mb-1 text-xl font-light tracking-wide md:text-2xl"
                 style={{ color: COLORS.light }}
               >
-                {selectedImage.title}
+                {lightboxImage.title}
               </h3>
-              <p 
-                className="text-sm font-light tracking-wider opacity-80"
+              <p
+                className="text-xs font-light tracking-wider opacity-80 md:text-sm"
                 style={{ color: COLORS.light }}
               >
-                {selectedImage.category.toUpperCase()}
+                {lightboxImage.category.toUpperCase()}
               </p>
             </div>
           </div>
         </div>
       )}
 
-      <Footer/>
+      <Footer />
 
-      <style jsx>{`
-        @keyframes fadeInUp {
-          to {
-            opacity: 1;
-            transform: translateY(0);
+      <style jsx global>{`
+        /* Reveal animation */
+        .reveal-init {
+          transform: translateY(26px);
+        }
+        .reveal-visible {
+          opacity: 1 !important;
+          transform: translateY(0) !important;
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .reveal-init,
+          .reveal-visible {
+            transition: none !important;
+            transform: none !important;
+            opacity: 1 !important;
           }
         }
       `}</style>
