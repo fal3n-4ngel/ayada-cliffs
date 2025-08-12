@@ -29,7 +29,6 @@ type Category =
   | "Villas"
   | "Interiors"
   | "Views"
-  | "Dining"
   | "Wellness"
   | "Beach"
   | "Gardens"
@@ -41,10 +40,10 @@ const GALLERY_IMAGES: GalleryImage[] = [
   { id: 2, src: "/images/ocean-haven/gallery/2.webp", alt: "Bedroom Interior", category: "Interiors", title: "Cozy Bedroom", height: "square" },
   { id: 3, src: "/images/ocean-haven/gallery/3.webp", alt: "Living Area with TV", category: "Interiors", title: "Modern Living Room", height: "square" },
   { id: 4, src: "/images/ocean-haven/gallery/4.webp", alt: "Evening View with Palm Trees", category: "Views", title: "Evening Vibes", height: "tall" },
-  { id: 5, src: "/images/ocean-edge/gallery/1.webp", alt: "Outdoor Dining Area", category: "Dining", title: "Terrace Dining", height: "medium" },
+  { id: 5, src: "/images/ocean-edge/gallery/1.webp", alt: "Outdoor Dining Area", category: "Amenities", title: "Terrace Dining", height: "medium" },
   { id: 6, src: "/images/ocean-edge/gallery/2.webp", alt: "Garden Walkway", category: "Gardens", title: "Garden Retreat", height: "tall" },
   { id: 7, src: "/images/ocean-edge/gallery/3.webp", alt: "Bright Bedroom Interior", category: "Interiors", title: "Sunlit Bedroom", height: "square" },
-  { id: 8, src: "/images/ocean-edge/gallery/4.webp", alt: "Dining Area", category: "Dining", title: "Indoor Dining", height: "medium" },
+  { id: 8, src: "/images/ocean-edge/gallery/4.webp", alt: "Dining Area", category: "Amenities", title: "Indoor Dining", height: "medium" },
   { id: 9, src: "/images/ocean-edge/gallery/5.webp", alt: "Poolside View", category: "Amenities", title: "Pool Escape", height: "medium" },
   { id: 10, src: "/images/ocean-edge/gallery/6.webp", alt: "Seaside Deck", category: "Views", title: "Ocean Deck", height: "tall" },
 ];

@@ -134,7 +134,7 @@ export default function CarouselSection() {
       </div>
 
       {/* Carousel */}
-      <div className="relative h-[500px] w-full max-w-5xl">
+      <div className="relative h-[600px] w-full max-w-7xl">
         <AnimatePresence initial={false} custom={direction}>
           <motion.div
             key={imageCount}
@@ -150,7 +150,7 @@ export default function CarouselSection() {
             onDragEnd={(_, dragInfo) => dragEndHandler(dragInfo)}
             className="absolute inset-0 flex cursor-grab items-center justify-center active:cursor-grabbing"
           >
-            <div className="relative h-full w-full max-w-[70vw]">
+            <div className="relative h-full w-full max-w-[80vw]">
               {/* Main Image */}
               <div className="relative h-full w-full rounded-2xl overflow-hidden shadow-2xl">
                 <Image
@@ -159,9 +159,9 @@ export default function CarouselSection() {
                   fill
                   priority
                   className="object-cover"
-                  sizes="(max-width: 768px) 90vw, 70vw"
+                  sizes="(max-width: 768px) 90vw, 70vw absolute top-0"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/20 to-transparent" />
               </div>
               
               {/* Description Card */}

@@ -303,7 +303,7 @@ const Header = ({ scrollY, isMenuOpen, setIsMenuOpen }: HeaderProps) => {
         </div>
 
         {/* Desktop */}
-        <div className="container mx-auto hidden items-center justify-between px-6 md:flex">
+        <div className="container mx-auto hidden items-center justify-between  md:flex">
           <Logo scrollY={scrollY} />
           <DesktopNavigation scrollY={scrollY} />
           <ReserveButton color={colors.primary} />
