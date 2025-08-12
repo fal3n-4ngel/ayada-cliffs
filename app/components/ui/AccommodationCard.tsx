@@ -40,7 +40,7 @@ const AccommodationCard: React.FC<{ item: Accommodation; index: number }> = ({
         />
         
         {/* Next.js Image with optimizations */}
-        <div className="relative aspect-[5/4] w-full overflow-hidden">
+        <div className="relative aspect-[6/5] w-full overflow-hidden">
           <Image
             src={item.image}
             alt={item.name}
@@ -62,7 +62,7 @@ const AccommodationCard: React.FC<{ item: Accommodation; index: number }> = ({
       </a>
 
       {/* Content Section */}
-      <div className="px-2">
+      <div className="px-2 pt-4">
         <motion.h3
           className="mb-3 text-xl md:text-2xl font-light tracking-wide leading-tight"
           style={{ color: COLORS.primary }}

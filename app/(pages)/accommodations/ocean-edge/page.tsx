@@ -3,6 +3,7 @@ import { useState, useEffect, useCallback, useMemo } from 'react';
 import Image from 'next/image';
 import { ChevronLeft, ChevronRight, X, Play, Pause, MapPin, Mountain, Waves, Users, Coffee, Home, Bath, Bed, Eye, Utensils } from 'lucide-react';
 import Header from '@/app/components/sections/Header';
+import Link from 'next/link';
 
 export default function OceanEdgePoolVilla() {
     const [isLoaded, setIsLoaded] = useState(false);
@@ -47,9 +48,9 @@ export default function OceanEdgePoolVilla() {
     // Auto-play functionality for gallery
     useEffect(() => {
         if (!isAutoPlaying) return;
-        
+
         const interval = setInterval(() => {
-            setCurrentGalleryIndex(prev => 
+            setCurrentGalleryIndex(prev =>
                 prev === galleryImages.length - 1 ? 0 : prev + 1
             );
         }, 3000);
@@ -58,43 +59,43 @@ export default function OceanEdgePoolVilla() {
     }, [isAutoPlaying, galleryImages.length]);
 
     const nextImage = useCallback(() => {
-        setCurrentGalleryIndex(prev => 
+        setCurrentGalleryIndex(prev =>
             prev === galleryImages.length - 1 ? 0 : prev + 1
         );
     }, [galleryImages.length]);
 
     const prevImage = useCallback(() => {
-        setCurrentGalleryIndex(prev => 
+        setCurrentGalleryIndex(prev =>
             prev === 0 ? galleryImages.length - 1 : prev - 1
         );
     }, [galleryImages.length]);
 
     // Villa features organized by category
     const villaFeatures = useMemo(() => [
-        { icon: <Mountain className="w-5 h-5" />, text: "Prime cliff-edge location with sea views" },
-        { icon: <Waves className="w-5 h-5" />, text: "Private pool in a landscaped garden" },
-        { icon: <Home className="w-5 h-5" />, text: "Expansive oceanfront balcony with seating" },
-        { icon: <Coffee className="w-5 h-5" />, text: "Deckside & private garden dining areas" },
-        { icon: <Eye className="w-5 h-5" />, text: "Special privacy window with ocean view" },
-        { icon: <MapPin className="w-5 h-5" />, text: "Short stroll to the beach" }
+        { icon: <Waves className="w-5 h-5" />, text: "Private infinity-style pool with uninterrupted ocean views" },
+        { icon: <Home className="w-5 h-5" />, text: "Traditional Kerala Padipura entrance to villa compound" },
+        { icon: <Eye className="w-5 h-5" />, text: "Panoramic sea views from villa, balcony & pool area" },
+        { icon: <Coffee className="w-5 h-5" />, text: "Pool deck dining area for intimate meals" },
+        { icon: <Bath className="w-5 h-5" />, text: "Private garden sanctuary with open-sky shower" },
+        { icon: <MapPin className="w-5 h-5" />, text: "Just steps from beach - watch fishermen & surfers daily" }
     ], []);
 
     const interiorFeatures = useMemo(() => [
-        { icon: <Eye className="w-5 h-5" />, text: "Full-length glass doors for sea views" },
-        { icon: <Home className="w-5 h-5" />, text: "Natural wooden flooring and ceiling" },
-        { icon: <Home className="w-5 h-5" />, text: "Traditional Kerala-inspired furniture" },
-        { icon: <Eye className="w-5 h-5" />, text: "Large windows for light and breeze" },
-        { icon: <Home className="w-5 h-5" />, text: "Warm, ambient lighting for cozy atmosphere" },
-        { icon: <Bed className="w-5 h-5" />, text: "Plush king-size bed with premium linens" }
+        { icon: <Home className="w-5 h-5" />, text: "Natural wooden ceiling & flooring with coastal furniture" },
+        { icon: <Eye className="w-5 h-5" />, text: "Full-length folding doors for seamless indoor-outdoor living" },
+        { icon: <Home className="w-5 h-5" />, text: "Warm traditional lighting for cosy ambience" },
+        { icon: <Eye className="w-5 h-5" />, text: "Floor-to-ceiling windows for natural light & sea views" },
+        { icon: <Bed className="w-5 h-5" />, text: "Luxury king-size bed with premium mattress" },
+        { icon: <Bath className="w-5 h-5" />, text: "Elegant bathroom with rain shower & high-end fittings" }
     ], []);
 
     const guestServices = useMemo(() => [
-        { icon: <Users className="w-5 h-5" />, text: "Dedicated Villa Host for personalized service" },
-        { icon: <Utensils className="w-5 h-5" />, text: "Private Chef (Kerala & international cuisine)" },
-        { icon: <Home className="w-5 h-5" />, text: "Daily discreet housekeeping" },
-        { icon: <Users className="w-5 h-5" />, text: "Night security & guest relations officer" },
-        { icon: <Eye className="w-5 h-5" />, text: "Cliffside gazebo access for sunset watching" },
-        { icon: <Coffee className="w-5 h-5" />, text: "Spa, massage & airport transfers (on request)" }
+        { icon: <Users className="w-5 h-5" />, text: "Dedicated villa host for discreet personalised service" },
+        { icon: <Utensils className="w-5 h-5" />, text: "Private chef & cooking classes available on request" },
+        { icon: <Home className="w-5 h-5" />, text: "Daily housekeeping service & premium toiletries" },
+        { icon: <Home className="w-5 h-5" />, text: "ABB intercom system for seamless communication" },
+        { icon: <Coffee className="w-5 h-5" />, text: "Complimentary high-speed Wi-Fi & Google Smart TV" },
+        { icon: <Users className="w-5 h-5" />, text: "Mitsubishi AC, mini-bar fridge & in-room safe" }
     ], []);
 
     return (
@@ -119,8 +120,8 @@ export default function OceanEdgePoolVilla() {
                     priority
                 />
                 <div className="absolute inset-0 bg-gradient-to-b from-black/40 to-black/40" />
-                
-                <div 
+
+                <div
                     className="text-center text-white px-6 max-w-5xl z-10 relative"
                     style={{ transform: `translateY(${scrollY * 0.1}px)` }}
                 >
@@ -130,11 +131,14 @@ export default function OceanEdgePoolVilla() {
                     <p className="text-xl md:text-2xl font-light mb-8 max-w-4xl mx-auto leading-relaxed">
                         Perched on a prime cliff edge with uninterrupted Arabian Sea views - where luxury meets dramatic coastal beauty
                     </p>
-                    <button className="bg-white text-stone-800 px-8 py-3 rounded-full hover:bg-stone-100 transition-all duration-300 transform hover:scale-105">
-                        Experience the Edge
-                    </button>
+                    <Link href={"/reserve"} className="inline-block">
+                        <button className="bg-white text-stone-800 px-8 py-3 rounded-full hover:bg-stone-100 transition-all duration-300 transform hover:scale-105">
+                            Experience the Edge
+                        </button>
+                    </Link>
+
                 </div>
-                
+
                 {/* Cliff edge indicator */}
                 <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white text-center z-10">
                     <div className="flex items-center gap-2 mb-2">
@@ -285,7 +289,7 @@ export default function OceanEdgePoolVilla() {
                                 priority={currentGalleryIndex === 0}
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
-                            
+
                             {/* Navigation Arrows */}
                             <button
                                 onClick={prevImage}
@@ -322,11 +326,10 @@ export default function OceanEdgePoolVilla() {
                             <button
                                 key={index}
                                 onClick={() => setCurrentGalleryIndex(index)}
-                                className={`relative h-20 rounded overflow-hidden transition-all ${
-                                    index === currentGalleryIndex 
-                                        ? 'ring-2 ring-stone-800 scale-105' 
-                                        : 'hover:scale-105 opacity-70 hover:opacity-100'
-                                }`}
+                                className={`relative h-20 rounded overflow-hidden transition-all ${index === currentGalleryIndex
+                                    ? 'ring-2 ring-stone-800 scale-105'
+                                    : 'hover:scale-105 opacity-70 hover:opacity-100'
+                                    }`}
                             >
                                 <Image
                                     src={image.src}
@@ -347,7 +350,7 @@ export default function OceanEdgePoolVilla() {
                     <h2 className="text-4xl font-light text-center mb-16 border-b border-stone-200 pb-4">
                         Features & Guest Services
                     </h2>
-                    
+
                     <div className="grid lg:grid-cols-3 gap-16">
                         <div className="space-y-6">
                             <div className="flex items-center gap-3 mb-8">
@@ -365,7 +368,7 @@ export default function OceanEdgePoolVilla() {
                                 ))}
                             </div>
                         </div>
-                        
+
                         <div className="space-y-6">
                             <div className="flex items-center gap-3 mb-8">
                                 <div className="bg-stone-100 p-3 rounded-full">
@@ -434,7 +437,7 @@ export default function OceanEdgePoolVilla() {
             {/* Footer */}
             <footer className="py-12 px-6 bg-stone-900 text-stone-300">
                 <div className="max-w-6xl mx-auto text-center">
-                    <p>&copy; Ayada Cliffs. All rights reserved.</p>
+                    <p>&copy; Ayada Cliff. All rights reserved.</p>
                 </div>
             </footer>
         </div>

@@ -28,7 +28,7 @@ const HeroSection = () => {
           }`}
         >
           <Image
-        src="/images/hero-bg (1).jpg"
+        src="/images/hero-bg (1).webp"
         alt="Hero Background"
         fill
         priority // Preload for instant render
@@ -63,7 +63,7 @@ const HeroSection = () => {
 
           {/* Logo */}
           <div
-            className={`mb-10 w-80 md:w-[45vw] transition-all delay-1200 duration-1500 ${
+            className={`md:mb-0 mb-10 w-80 md:w-[48vw] transition-all delay-1200 duration-1500 ${
               isLoaded ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"
             }`}
           >
@@ -79,12 +79,12 @@ const HeroSection = () => {
 
           {/* Location */}
           <p
-            className={`mb-12 text-sm font-light tracking-wider md:text-base transition-opacity delay-1400 duration-1500 ${
+            className={`mb-12 text-md font-light tracking-wider md:text-base text-center transition-opacity delay-1400 duration-1500 ${
               isLoaded ? "opacity-85" : "opacity-0"
             }`}
             style={{ color: COLORS.light }}
           >
-            Luxury Ocean View Pool Villa · Varkala, Kerala
+            Luxury Private Pool Beach Resort - Varkala, Kerala
           </p>
 
           {/* Button */}
