@@ -1,5 +1,5 @@
 export const NAV_ITEMS = [
-  { name: "STAY", link: "/#stay" },
+  { name: "VILLAS", link: "/#stay" },
   { name: "EXPERIENCES", link: "/#experiences" },
   { name: "DESTINATIONS", link: "/#destinations" },
   { name: "GALLERY", link: "/gallery" },

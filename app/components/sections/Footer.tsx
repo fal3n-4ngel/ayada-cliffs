@@ -61,27 +61,25 @@ const Footer = () => {
     {
       title: "Explore",
       links: [
-        { name: "Accommodations", url: "/accommodations" },
-        { name: "Experiences", url: "/experiences" },
-        { name: "Dining", url: "/dining" },
-        { name: "Wellness", url: "/wellness" },
+        { name: "Accommodations", url: "/#stay" },
+        { name: "Experiences", url: "/#experiences" },
+        { name: "Dining", url: "/gallery" },
+        { name: "Wellness", url: "/gallery" },
       ],
     },
     {
       title: "Information",
       links: [
-        { name: "About Us", url: "/about" },
-        { name: "Contact", url: "/contact" },
-        { name: "Location", url: "/location" },
+        { name: "Contact", url: "/#footer" },
+        { name: "Location", url: "/#location" },
         { name: "Gallery", url: "/gallery" },
       ],
     },
     {
       title: "Getting Here",
       links: [
-        { name: "Directions", url: "/directions" },
-        { name: "Transportation", url: "/transportation" },
-        { name: "Airport Transfer", url: "/airport-transfer" },
+        { name: "Directions", url: "https://www.google.com/maps?ll=8.763582,76.685863&z=20&t=h&hl=en&gl=IN&mapclient=embed&cid=4922930476359561407" },
+        { name: "Nearest Airport", url: "https://www.adani.com/thiruvananthapuram-airport" },
       ],
     },
   ];
@@ -90,6 +88,7 @@ const Footer = () => {
     <motion.footer
       ref={footerRef}
       className="relative overflow-hidden"
+      id="footer"
       style={{
         background: COLORS.secondary,
       }}
@@ -309,6 +308,7 @@ const Footer = () => {
           <motion.div
             className="relative overflow-hidden rounded-lg shadow-2xl"
             whileHover={{ scale: 1.01 }}
+            id="location"
             transition={{ duration: 0.3 }}
             // MODIFIED: Added event handlers to the map wrapper
             onClick={() => setIsMapActive(true)}
