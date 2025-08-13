@@ -244,34 +244,52 @@ const MobileMenuButton = ({
 
 const NavigationMenu = ({ isOpen, setIsOpen }: NavigationMenuProps) => {
   const close = () => setIsOpen(false);
+  
+  // Prevent body scroll when menu is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    
+    // Cleanup on unmount
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isOpen]);
+
   return (
     <AnimatePresence>
       {isOpen && (
         <motion.div
           {...VARIANTS.overlay}
           transition={{ duration: 0.2 }}
-          className="fixed inset-0 z-40 bg-white"
+          className="fixed inset-0 z-40 bg-white overflow-y-auto"
         >
-          <div className="container mx-auto h-full px-6 py-24 grid gap-12 md:grid-cols-2">
-            <div className="space-y-8">
-              <ul className="space-y-6">
-                {NAV_ITEMS.map((item, i) => (
-                  item.name === "VILLAS" ? (
-                    <MobileStayItem key={i} onClick={close} delay={0.1 * i} />
-                  ) : (
+          {/* Scrollable container with proper padding */}
+          <div className="min-h-full px-6 py-24">
+            <div className="container mx-auto grid gap-12 md:grid-cols-2">
+              <div className="space-y-8">
+                <ul className="space-y-6">
+                  {NAV_ITEMS.map((item, i) => (
+                    item.name === "VILLAS" ? (
+                      <MobileStayItem key={i} onClick={close} delay={0.1 * i} />
+                    ) : (
+                      <NavItem key={i} item={item} index={i} onClick={close} />
+                    )
+                  ))}
+                </ul>
+                <ReserveButton color={COLORS.primary} />
+              </div>
+              <div className="space-y-8">
+                <h3 className="text-sm tracking-widest text-primary">INFORMATION</h3>
+                <ul className="space-y-6">
+                  {SECONDARY_NAV_ITEMS.map((item, i) => (
                     <NavItem key={i} item={item} index={i} onClick={close} />
-                  )
-                ))}
-              </ul>
-              <ReserveButton color={COLORS.primary} />
-            </div>
-            <div className="space-y-8">
-              <h3 className="text-sm tracking-widest text-primary">INFORMATION</h3>
-              <ul className="space-y-6">
-                {SECONDARY_NAV_ITEMS.map((item, i) => (
-                  <NavItem key={i} item={item} index={i} onClick={close} />
-                ))}
-              </ul>
+                  ))}
+                </ul>
+              </div>
             </div>
           </div>
         </motion.div>
@@ -298,7 +316,7 @@ const Header = ({ scrollY, isMenuOpen, setIsMenuOpen }: HeaderProps) => {
         </div>
 
         {/* Desktop */}
-        <div className="container mx-auto hidden items-center justify-between  md:flex">
+        <div className="container mx-auto hidden items-center justify-between  md:flex px-2">
           <Logo scrollY={scrollY} />
           <DesktopNavigation scrollY={scrollY} />
           <ReserveButton color={colors.primary} />
