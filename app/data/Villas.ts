@@ -5,7 +5,7 @@ export const VILLAS = [
     description:
       "Wake up to Arabian Sea views from your bedroom, enjoy a private infinity-style pool, and relax in Kerala-inspired luxury surrounded by tropical gardens.",
     price: "",
-    maxGuests: 4,
+    maxGuests: 3,
     bedrooms: 1,
     image: "/images/ocean-haven.webp", // replace with actual path
     amenities: [
@@ -27,7 +27,7 @@ export const VILLAS = [
     description:
       "Perched on the cliff’s edge, this villa offers unmatched privacy and uninterrupted sea views, perfect for romantic getaways or serene escapes.",
     price: "",
-    maxGuests: 4,
+    maxGuests: 3,
     bedrooms: 1,
     image: "/images/ocean-edge.webp", // replace with actual path
     amenities: [

@@ -365,7 +365,7 @@ const Footer = () => {
             style={{ color: COLORS.primary, opacity: 0.5 }}
             whileHover={{ opacity: 0.7 }}
           >
-            © {new Date().getFullYear()} Ayada Cliff Beach Resort · All rights
+            © {new Date().getFullYear()} Ayada Cliff Beach Villas · All rights
             reserved
           </motion.p>
           <motion.p
