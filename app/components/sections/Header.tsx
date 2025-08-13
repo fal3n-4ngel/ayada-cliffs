@@ -4,7 +4,7 @@ import { ChevronRight, Menu, X, ChevronDown } from "lucide-react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { COLORS } from "../../theme/colors";
-import { NAV_ITEMS, SECONDARY_NAV_ITEMS } from "../../data/Navigation";
+import { NAV_ITEMS, SECONDARY_NAV_ITEMS, VILLAS_DROPDOWN_ITEMS } from "../../data/Navigation";
 import Image from "next/image";
 
 interface NavigationMenuProps {
@@ -32,11 +32,6 @@ const VARIANTS = {
     exit: { opacity: 0, y: -10 } 
   },
 } as const;
-
-const STAY_DROPDOWN_ITEMS = [
-  { name: "Ocean Edge Villa", link: "/ocean-edge" },
-  { name: "Ocean Haven Villa", link: "/ocean-haven" },
-];
 
 const getColors = (scrollY: number, isMenuOpen = false) => ({
   text: scrollY > 50 || isMenuOpen ? COLORS.dark : COLORS.light,
@@ -112,7 +107,7 @@ const MobileStayItem = ({ onClick, delay = 0.1 }: { onClick: () => void; delay?:
           onClick={() => setIsOpen(!isOpen)}
           className="group flex items-center justify-between text-2xl transition-all duration-300 text-dark w-full text-left"
         >
-          <span>STAY</span>
+          <span>VILLAS</span>
           <ChevronDown 
             size={18} 
             className={`transition-all duration-300 ${isOpen ? 'rotate-180' : ''}`} 
@@ -127,7 +122,7 @@ const MobileStayItem = ({ onClick, delay = 0.1 }: { onClick: () => void; delay?:
               transition={{ duration: 0.2 }}
               className="ml-4 space-y-3 overflow-hidden"
             >
-              {STAY_DROPDOWN_ITEMS.map((subItem, i) => (
+              {VILLAS_DROPDOWN_ITEMS.map((subItem, i) => (
                 <motion.li
                   key={i}
                   initial={{ opacity: 0, x: -20 }}
@@ -169,19 +164,19 @@ const DesktopNavigation = ({ scrollY }: { scrollY: number }) => {
 
   return (
     <nav>
-      <ul className="flex space-x-8">
+      <ul className="flex space-x-8 items-center">
         {NAV_ITEMS.map((item, i) => (
           <li 
             key={i} 
-            ref={item.name === "STAY" ? dropdownRef : null}
-            className={item.name === "STAY" ? "relative" : ""}
+            ref={item.name === "VILLAS" ? dropdownRef : null}
+            className={item.name === "VILLAS" ? "relative" : ""}
           >
-            {item.name === "STAY" ? (
+            {item.name === "VILLAS" ? (
               <div className="relative">
                 <button
                   onMouseEnter={() => setDropdownOpen(true)}
                   onMouseLeave={() => setDropdownOpen(false)}
-                  className="flex items-center space-x-1 text-sm font-light tracking-wider transition-opacity hover:opacity-75"
+                  className="flex items-center space-x-1 py-2 text-sm text-gray-700 hover:text-primary transition-colors"
                   style={{ color }}
                 >
                   <span>{item.name}</span>
@@ -196,7 +191,7 @@ const DesktopNavigation = ({ scrollY }: { scrollY: number }) => {
                       onMouseEnter={() => setDropdownOpen(true)}
                       onMouseLeave={() => setDropdownOpen(false)}
                     >
-                      {STAY_DROPDOWN_ITEMS.map((subItem, subIndex) => (
+                      {VILLAS_DROPDOWN_ITEMS.map((subItem, subIndex) => (
                         <Link
                           key={subIndex}
                           href={subItem.link}
@@ -261,7 +256,7 @@ const NavigationMenu = ({ isOpen, setIsOpen }: NavigationMenuProps) => {
             <div className="space-y-8">
               <ul className="space-y-6">
                 {NAV_ITEMS.map((item, i) => (
-                  item.name === "STAY" ? (
+                  item.name === "VILLAS" ? (
                     <MobileStayItem key={i} onClick={close} delay={0.1 * i} />
                   ) : (
                     <NavItem key={i} item={item} index={i} onClick={close} />
