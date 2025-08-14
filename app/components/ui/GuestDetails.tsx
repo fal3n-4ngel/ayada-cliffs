@@ -324,7 +324,7 @@ const GuestDetails: React.FC<GuestDetailsProps> = ({
               className="text-center text-xs font-light"
               style={{ color: COLORS.primary }}
             >
-              Your details will be sent to reserve@ayadacliff.com. Our team will
+              Your details will be sent to reservations@ayadacliff.com. Our team will
               contact you shortly to confirm your reservation.
             </p>
           </form>
