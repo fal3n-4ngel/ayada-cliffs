@@ -70,7 +70,7 @@ export async function POST(request: NextRequest) {
     const mailOptions = {
       from: "hello@adithyakrishnan.com",
       to: "reservations@ayadacliff.com",
-      cc: "adiadithyakrishnan@gmail.com",
+      cc: `${email}`,
       subject: `New Reservation Request - ${villaName} - ${name}`,
       replyTo: email,
       text: `
@@ -99,7 +99,7 @@ export async function POST(request: NextRequest) {
       <h2 style="color: #8B4D3E; margin: 0; font-weight: 600;">Reservation Request Submitted</h2>
       <p style="color: #6B5A53; font-size: 15px; margin-top: 10px;">
         Thank you for your reservation request. Your details have been sent to our reservations team at
-        <a href="mailto:reserve@ayadacliff.com" style="color: #8B4D3E; text-decoration: none;">reserve@ayadacliff.com</a>.
+        <a href="mailto:reservations@ayadacliff.com" style="color: #8B4D3E; text-decoration: none;">reservations@ayadacliff.com</a>.
         We will contact you shortly to confirm your stay.
       </p>
     </div>

@@ -227,7 +227,7 @@ export default function OceanHavenPoolVilla() {
                             <div>
                                 <h3 className="text-3xl font-light mb-6 text-stone-700">Private Pool & Garden Oasis</h3>
                                 <p className="text-stone-600 mb-6 leading-relaxed text-lg">
-                                    Your infinity-style pool awaits with a barefoot open-sky shower and elegant deckside dining area for unforgettable moments.
+                                    Your pool awaits with a barefoot open-sky shower and elegant deckside dining area for unforgettable moments.
                                 </p>
                                 <p className="text-stone-600 leading-relaxed text-lg">
                                     The landscaped garden features a traditional 'padipura' entrance with modern intercom system for seamless, discreet service.
@@ -235,7 +235,7 @@ export default function OceanHavenPoolVilla() {
                                 <div className="mt-6 flex items-center gap-4 text-stone-500">
                                     <div className="flex items-center gap-2">
                                         <Waves className="w-4 h-4" />
-                                        <span className="text-sm">Infinity Pool</span>
+                                        <span className="text-sm">Private Pool</span>
                                     </div>
                                     <div className="flex items-center gap-2">
                                         <Home className="w-4 h-4" />

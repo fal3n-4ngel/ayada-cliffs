@@ -61,7 +61,7 @@ const ConfirmationCard: React.FC<ConfirmationCardProps> = ({
       >
         Thank you for your reservation request. Your details have been sent to
         our reservations team at{" "}
-        <span className="font-medium">reserve@ayadacliff.com</span>. We will
+        <span className="font-medium">reservations@ayadacliff.com</span>. We will
         contact you shortly to confirm your stay.
       </p>
 

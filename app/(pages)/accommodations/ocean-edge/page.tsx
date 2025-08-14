@@ -72,7 +72,7 @@ export default function OceanEdgePoolVilla() {
 
     // Villa features organized by category
     const villaFeatures = useMemo(() => [
-        { icon: <Waves className="w-5 h-5" />, text: "Private infinity-style pool with uninterrupted ocean views" },
+        { icon: <Waves className="w-5 h-5" />, text: "Private pool with uninterrupted ocean views" },
         { icon: <Home className="w-5 h-5" />, text: "Traditional Kerala Padipura entrance to villa compound" },
         { icon: <Eye className="w-5 h-5" />, text: "Panoramic sea views from villa, balcony & pool area" },
         { icon: <Coffee className="w-5 h-5" />, text: "Pool deck dining area for intimate meals" },
