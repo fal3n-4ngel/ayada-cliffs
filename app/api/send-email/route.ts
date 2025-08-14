@@ -70,7 +70,7 @@ export async function POST(request: NextRequest) {
     const mailOptions = {
       from: "hello@adithyakrishnan.com",
       to: "reservations@ayadacliff.com",
-      cc: `${email}`,
+      cc: `info@ayadacliff.com, ${email}`,
       subject: `New Reservation Request - ${villaName} - ${name}`,
       replyTo: email,
       text: `
