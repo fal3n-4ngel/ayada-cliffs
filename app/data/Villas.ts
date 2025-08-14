@@ -11,7 +11,6 @@ export const VILLAS = [
     amenities: [
       "Clifftop Views",
       "Private Ocean View Pool",
-      "Beach Access",
       "Private Balcony",
       "WiFi",
       "Breakfast Included",
@@ -20,7 +19,7 @@ export const VILLAS = [
       "Panoramic Arabian Sea views",
       "Private balcony ideal for sunsets",
       "Kerala-inspired wooden interiors",
-      "Daily housekeeping service",
+      "Dedicated Villa Host & daily housekeeping",
     ],
   },
   {
@@ -39,15 +38,12 @@ export const VILLAS = [
       "WiFi",
       "Breakfast Included",
       "Beach Access",
-      
     ],
     features: [
       "Direct sea views from bedroom and garden",
       "Deckside dining area for romantic meals",
       "Luxury bathroom with glass-roof rain shower",
       "Dedicated Villa Host & daily housekeeping",
-      "Daily housekeeping service",
     ],
   },
-  
 ];

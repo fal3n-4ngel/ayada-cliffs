@@ -33,7 +33,7 @@ const VillaSelection: React.FC<VillaSelectionProps> = ({ selectedVilla, onVillaS
         {VILLAS.map((villa) => (
           <div
             key={villa.id}
-            className={`cursor-pointer overflow-hidden rounded-lg bg-white shadow-lg transition-all duration-300 ${
+            className={`cursor-pointer overflow-hidden h-full rounded-lg bg-white shadow-lg transition-all duration-300 ${
               selectedVilla?.id === villa.id
                 ? "ring-2 ring-opacity-50"
                 : "hover:shadow-xl"
@@ -45,12 +45,12 @@ const VillaSelection: React.FC<VillaSelectionProps> = ({ selectedVilla, onVillaS
             }
             onClick={() => onVillaSelect(villa)}
           >
-            <div className="grid gap-0 md:grid-cols-2 md:h-100">
+            <div className="grid gap-0 md:grid-cols-2 md:h-fit">
               <div className="relative ">
                 <img
                   src={villa.image}
                   alt={villa.name}
-                  className="w-full object-cover h-100"
+                  className="w-full object-cover h-full"
                 />
                 <div className="absolute top-4 right-4 rounded-full bg-white px-3 py-1">
                   <span
