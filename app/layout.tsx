@@ -20,54 +20,70 @@ export const josefinSans = Josefin_Sans({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: "AYADA CLIFF",
-  description: "Luxury Ocean View Private Pool Villas · Varkala, Kerala",
-  keywords: [
-    "Ayada Cliff",
-    "Varkala Villa",
-    "Luxury Stay Kerala",
-    "Ocean View Villa",
-    "Private Pool Varkala",
-    "Beach Villa Kerala",
-  ],
-  authors: [{ name: "Deflated Pappadam", url: "https://deflatedpappadam.com" }],
-  creator: "Ayada Cliff",
-  metadataBase: new URL("https://ayadacliff.com"),
-  // openGraph: {
-  //   title: "AYADA CLIFF – Luxury Ocean View Pool Villa in Varkala",
-  //   description: "Discover a luxurious escape at Ayada Cliff – an oceanfront private pool villa in the heart of Varkala, Kerala.",
-  //   url: "https://ayadacliff.com",
-  //   siteName: "AYADA CLIFF",
-  //   images: [
-  //     {
-  //       url: "https://ayadacliff.com/og-image.jpg", // Replace with your actual image
-  //       width: 1200,
-  //       height: 630,
-  //       alt: "AYADA CLIFF – Luxury Ocean View Villa",
-  //     },
-  //   ],
-  //   locale: "en_US",
-  //   type: "website",
-  // },
-  // twitter: {
-  //   card: "summary_large_image",
-  //   title: "AYADA CLIFF – Luxury Ocean View Pool Villa in Varkala",
-  //   description: "Indulge in luxury at AYADA CLIFF, a private oceanfront pool villa in Varkala, Kerala.",
-  //   creator: "@your_twitter_handle", // Replace if applicable
-  //   images: ["https://ayadacliff.com/og-image.jpg"],
-  // },
-  // icons: {
-  //   icon: "/favicon.ico",
-  //   apple: "/apple-touch-icon.png",
-  //   shortcut: "/favicon.ico",
-  // },
-};
-
 export const quicksand = Quicksand({
   variable: "--font-quicksand",
   subsets: ["latin"],
 });
+
+
+export const metadata: Metadata = {
+  title: "Ayada Cliff – Luxury Oceanfront Private Pool Villas in Varkala, Kerala",
+  description:
+    "Escape to Ayada Cliff – premium oceanfront villas with private pools, breathtaking cliffside views, and world-class hospitality in Varkala, Kerala.",
+  keywords: [
+    "Ayada Cliff",
+    "Varkala Villas",
+    "Luxury Villas Kerala",
+    "Oceanfront Villa Varkala",
+    "Private Pool Villa Varkala",
+    "Luxury Resort Kerala",
+    "Cliffside Villas Kerala",
+    "Ayada Cliff Resort",
+    "Beachfront Villas Kerala",
+    "Luxury Stay Varkala",
+    "Varkala",
+    "Kaapil",
+    "Edava",
+    "Beach Resort Varkala",
+    "Luxury Beach Resort Varkala",
+    "Ayada Cliff Beach Villas"
+
+  ],
+  authors: [{ name: "Deflated Pappadam", url: "https://deflatedpappadam.com" }],
+  creator: "Ayada Cliff",
+  metadataBase: new URL("https://ayadacliff.com"),
+  openGraph: {
+    title: "Ayada Cliff – Luxury Oceanfront Villas in Varkala",
+    description:
+      "Indulge in ultimate luxury at Ayada Cliff – private pool villas with panoramic Arabian Sea views, set atop Varkala's stunning cliffs.",
+    url: "https://ayadacliff.com",
+    siteName: "Ayada Cliff",
+    images: [
+      {
+        url: "https://ayadacliff.com/opengraph-image.jpg", 
+        width: 1200,
+        height: 630,
+        alt: "Ayada Cliff Luxury Ocean View Villa",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Ayada Cliff – Luxury Ocean View Villas in Varkala, Kerala",
+    description:
+      "Private oceanfront villas with pools, breathtaking sunsets, and luxury amenities – experience Ayada Cliff, Varkala.",
+    images: ["https://ayadacliff.com/opengraph-image.jpg"], // Replace with actual
+  },
+  icons: {
+    icon: "/favicon.ico",
+    apple: "/logo.png",
+    shortcut: "/favicon.ico",
+  },
+};
+
+
 
 export default function RootLayout({
   children,
