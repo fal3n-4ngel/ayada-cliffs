@@ -93,6 +93,13 @@ const CalendarView: React.FC<CalendarViewProps> = ({
 
     // Add cells for each day of the month
     for (let day = 1; day <= daysInMonth; day++) {
+      const date = new Date(year, month, day);
+
+      // 🚫 Prevent selecting past dates
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      const isPastDate = date < today;
+
       const isSelected = isDateSelected(day, month, year);
       const isArrival = isDateArrival(day, month, year);
       const isDeparture = isDateDeparture(day, month, year);
@@ -100,10 +107,16 @@ const CalendarView: React.FC<CalendarViewProps> = ({
       days.push(
         <td
           key={day}
-          className={`cursor-pointer p-2 text-center ${
-            isSelected ? "bg-opacity-20" : "hover:bg-opacity-10"
-          }`}
-          onClick={() => onDateSelect(day, month, year)}
+          className={`p-2 text-center ${
+            isPastDate
+              ? "cursor-not-allowed opacity-40"
+              : "hover:bg-opacity-10 cursor-pointer"
+          } ${isSelected ? "bg-opacity-20" : ""}`}
+          onClick={() => {
+            if (!isPastDate) {
+              onDateSelect(day, month, year);
+            }
+          }}
           style={{
             backgroundColor: isSelected ? COLORS.primary : "",
             opacity: isSelected ? 0.2 : 1,
