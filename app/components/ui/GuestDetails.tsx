@@ -341,8 +341,7 @@ const GuestDetails: React.FC<GuestDetailsProps> = ({
             className="text-center text-xs font-light"
             style={{ color: COLORS.primary, opacity: 0.8 }}
           >
-            You will be redirected to Booking.com to complete your secure
-            booking.
+            You will be redirected to Airbnb to complete your secure booking.
           </p>
         </div>
       </div>
