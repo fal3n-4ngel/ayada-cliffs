@@ -214,7 +214,7 @@ const Footer = () => {
                   className="mb-8 text-base font-light"
                   style={{ color: COLORS.primary, opacity: 0.8 }}
                 >
-                  Ayada Cliff Beach Resort
+                  Ayada Cliff Beach Villas
                   <br />
                   Vettakkada, Edava PO
                   <br />
