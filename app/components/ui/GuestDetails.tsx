@@ -10,6 +10,7 @@ import {
   MapPin,
   ExternalLink,
 } from "lucide-react";
+import Image from "next/image";
 import React from "react";
 
 type FormData = {
@@ -411,10 +412,12 @@ const GuestDetails: React.FC<GuestDetailsProps> = ({
           </div>
 
           {selectedVilla && (
-            <img
+            <Image
               src={selectedVilla.image}
               alt={selectedVilla.name}
               className="mb-4 h-48 w-full rounded-md object-cover"
+              width={500}
+              height={300}
             />
           )}
         </div>

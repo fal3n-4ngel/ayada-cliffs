@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { COLORS } from "../../theme/colors";
 import { ANIMATIONS } from "../../data/Animations";
 import { Plus } from "lucide-react";
+import Image from "next/image";
 
 interface Destination {
   id: number;
@@ -45,12 +46,14 @@ const DestinationCard: React.FC<DestinationCardProps> = ({ destination, isSelect
       
       {/* Image with hover effect */}
       <div className="absolute inset-0 overflow-hidden">
-        <img
+        <Image
           src={destination.image}
           alt={destination.name}
           className={`h-full w-full object-cover transition-all duration-1000 ${
             isSelected ? "scale-105" : "group-hover:scale-110"
           }`}
+          width={500}
+          height={300}
         />
       </div>
       

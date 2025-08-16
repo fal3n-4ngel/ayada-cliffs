@@ -2,6 +2,7 @@ import { VILLAS } from '@/app/data/Villas';
 import { COLORS } from '@/app/theme/colors';
 import { Villa } from '@/app/types/types';
 import { Check, Home, Users } from 'lucide-react';
+import Image from 'next/image';
 import React from 'react';
 
 interface VillaSelectionProps {
@@ -47,10 +48,12 @@ const VillaSelection: React.FC<VillaSelectionProps> = ({
             <div className="grid gap-0 md:grid-cols-2 md:h-fit">
               {/* Villa Image */}
               <div className="relative">
-                <img
+                <Image
                   src={villa.image}
                   alt={villa.name}
                   className="w-full object-cover h-full"
+                  width={500}
+                  height={300}
                 />
                 <div className="absolute top-4 right-4 rounded-full bg-white px-3 py-1 shadow-sm">
                   <span

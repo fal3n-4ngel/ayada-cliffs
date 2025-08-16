@@ -1,5 +1,6 @@
 import React from 'react'
 import { COLORS } from '../../theme/colors'
+import Image from 'next/image'
 
 function LogoFooterCard() {
   return (
@@ -10,10 +11,12 @@ function LogoFooterCard() {
         }}
       >
         <div className="mb-6">
-          <img
+          <Image
             src="/images/logo/ayadaclifflogo-mark.png"
             alt="AYADA CLIFF"
             className="w-42 md:w-[15vw]"
+            width={500}
+            height={300}
           />
         </div>
 
