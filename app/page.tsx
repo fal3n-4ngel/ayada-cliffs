@@ -8,12 +8,12 @@ import UnderMaintenancePage from "./components/sections/UnderMaintenance";
 import dynamic from "next/dynamic";
 
 const HeroSection = dynamic(() => import("./components/sections/HeroSection"), {
-  ssr: false,
+  ssr: true,
 });
 
 const IntroductionSection = dynamic(
   () => import("./components/sections/IntroductionSection"),
-  { ssr: false },
+  { ssr: true },
 );
 
 const AccommodationsSection = dynamic(
