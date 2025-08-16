@@ -56,7 +56,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Ayada Cliff – Luxury Oceanfront Villas in Varkala",
     description:
-      "Indulge in ultimate luxury at Ayada Cliff – private pool villas with panoramic Arabian Sea views, set atop Varkala's stunning cliffs.",
+      "Indulge in ultimate luxury at Ayada Cliff – private pool villas with panoramic Arabian Sea views, set atop Varkala &apos;s stunning cliffs.",
     url: "https://ayadacliff.com",
     siteName: "Ayada Cliff",
     images: [

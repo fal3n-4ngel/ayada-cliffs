@@ -207,7 +207,7 @@ export default function OceanHavenPoolVilla() {
                                     Indulge in the unique sky-view glass rain shower, where you can gaze at the open sky while maintaining complete privacy.
                                 </p>
                                 <p className="text-stone-600 leading-relaxed text-lg">
-                                    Thoughtfully placed windows connect you with nature's beauty while ensuring your intimate moments remain secluded and serene.
+                                    Thoughtfully placed windows connect you with nature&apos;s beauty while ensuring your intimate moments remain secluded and serene.
                                 </p>
                                 <div className="mt-6 flex items-center gap-4 text-stone-500">
                                     <div className="flex items-center gap-2">
@@ -230,7 +230,7 @@ export default function OceanHavenPoolVilla() {
                                     Your pool awaits with a barefoot open-sky shower and elegant deckside dining area for unforgettable moments.
                                 </p>
                                 <p className="text-stone-600 leading-relaxed text-lg">
-                                    The landscaped garden features a traditional 'padipura' entrance with modern intercom system for seamless, discreet service.
+                                    The landscaped garden features a traditional &lsquo;padipura&rsquo; entrance with modern intercom system for seamless, discreet service.
                                 </p>
                                 <div className="mt-6 flex items-center gap-4 text-stone-500">
                                     <div className="flex items-center gap-2">

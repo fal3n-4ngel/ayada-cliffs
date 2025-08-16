@@ -36,16 +36,86 @@ type Category =
 
 /* ================== Data ================== */
 const GALLERY_IMAGES: GalleryImage[] = [
-  { id: 1, src: "/images/ocean-haven/gallery/1.webp", alt: "Villa Pool at Night", category: "Villas", title: "Ocean Haven Pool", height: "medium" },
-  { id: 2, src: "/images/ocean-haven/gallery/2.webp", alt: "Bedroom Interior", category: "Interiors", title: "Cozy Bedroom", height: "square" },
-  { id: 3, src: "/images/ocean-haven/gallery/3.webp", alt: "Living Area with TV", category: "Interiors", title: "Modern Living Room", height: "square" },
-  { id: 4, src: "/images/ocean-haven/gallery/4.webp", alt: "Evening View with Palm Trees", category: "Views", title: "Evening Vibes", height: "tall" },
-  { id: 5, src: "/images/ocean-edge/gallery/1.webp", alt: "Outdoor Dining Area", category: "Amenities", title: "Terrace Dining", height: "medium" },
-  { id: 6, src: "/images/ocean-edge/gallery/2.webp", alt: "Garden Walkway", category: "Gardens", title: "Garden Retreat", height: "tall" },
-  { id: 7, src: "/images/ocean-edge/gallery/3.webp", alt: "Bright Bedroom Interior", category: "Interiors", title: "Sunlit Bedroom", height: "square" },
-  { id: 8, src: "/images/ocean-edge/gallery/4.webp", alt: "Dining Area", category: "Amenities", title: "Indoor Dining", height: "medium" },
-  { id: 9, src: "/images/ocean-edge/gallery/5.webp", alt: "Poolside View", category: "Amenities", title: "Pool Escape", height: "medium" },
-  { id: 10, src: "/images/ocean-edge/gallery/6.webp", alt: "Seaside Deck", category: "Views", title: "Ocean Deck", height: "tall" },
+  {
+    id: 1,
+    src: "/images/ocean-haven/gallery/1.webp",
+    alt: "Villa Pool at Night",
+    category: "Villas",
+    title: "Ocean Haven Pool",
+    height: "medium",
+  },
+  {
+    id: 2,
+    src: "/images/ocean-haven/gallery/2.webp",
+    alt: "Bedroom Interior",
+    category: "Interiors",
+    title: "Cozy Bedroom",
+    height: "square",
+  },
+  {
+    id: 3,
+    src: "/images/ocean-haven/gallery/3.webp",
+    alt: "Living Area with TV",
+    category: "Interiors",
+    title: "Modern Living Room",
+    height: "square",
+  },
+  {
+    id: 4,
+    src: "/images/ocean-haven/gallery/4.webp",
+    alt: "Evening View with Palm Trees",
+    category: "Views",
+    title: "Evening Vibes",
+    height: "tall",
+  },
+  {
+    id: 5,
+    src: "/images/ocean-edge/gallery/1.webp",
+    alt: "Outdoor Dining Area",
+    category: "Amenities",
+    title: "Terrace Dining",
+    height: "medium",
+  },
+  {
+    id: 6,
+    src: "/images/ocean-edge/gallery/2.webp",
+    alt: "Garden Walkway",
+    category: "Gardens",
+    title: "Garden Retreat",
+    height: "tall",
+  },
+  {
+    id: 7,
+    src: "/images/ocean-edge/gallery/3.webp",
+    alt: "Bright Bedroom Interior",
+    category: "Interiors",
+    title: "Sunlit Bedroom",
+    height: "square",
+  },
+  {
+    id: 8,
+    src: "/images/ocean-edge/gallery/4.webp",
+    alt: "Dining Area",
+    category: "Amenities",
+    title: "Indoor Dining",
+    height: "medium",
+  },
+  {
+    id: 9,
+    src: "/images/ocean-edge/gallery/5.webp",
+    alt: "Poolside View",
+    category: "Amenities",
+    title: "Pool Escape",
+    height: "medium",
+  },
+  {
+    id: 10,
+    src: "/images/ocean-edge/gallery/6.webp",
+    alt: "Seaside Deck",
+    category: "Views",
+    title: "Ocean Deck",
+    height: "tall",
+  },
 ];
 
 const CATEGORY_OPTIONS: Category[] = [
@@ -75,7 +145,7 @@ const GalleryPage: React.FC = () => {
         setScrollY(window.scrollY);
       });
     };
-    
+
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => {
       window.removeEventListener("scroll", onScroll);
@@ -88,7 +158,7 @@ const GalleryPage: React.FC = () => {
       selectedCategory === "All"
         ? GALLERY_IMAGES
         : GALLERY_IMAGES.filter((img) => img.category === selectedCategory),
-    [selectedCategory]
+    [selectedCategory],
   );
 
   // Enhanced intersection observer with smoother entrance animations
@@ -103,7 +173,8 @@ const GalleryPage: React.FC = () => {
             // Add a small delay for smoother staggered animation
             const delay = parseInt(el.dataset.index || "0") * 60;
             setTimeout(() => {
-              el.style.transition = "all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)";
+              el.style.transition =
+                "all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)";
               el.classList.add("opacity-100", "translate-y-0", "scale-100");
               el.classList.remove("opacity-0", "translate-y-8", "scale-95");
             }, delay);
@@ -111,7 +182,7 @@ const GalleryPage: React.FC = () => {
           }
         });
       },
-      { threshold: 0.15, rootMargin: "50px 0px 0px 0px" }
+      { threshold: 0.15, rootMargin: "50px 0px 0px 0px" },
     );
 
     itemRefs.current.forEach((node) => {
@@ -122,32 +193,35 @@ const GalleryPage: React.FC = () => {
   }, [filteredImages]);
 
   // Enhanced category change with smooth transition
-  const handleCategoryChange = useCallback((category: Category) => {
-    if (category === selectedCategory) return;
-    
-    setCategoryTransition(true);
-    
-    // Fade out current items
-    itemRefs.current.forEach((node) => {
-      if (node) {
-        node.style.transition = "all 0.3s ease-out";
-        node.classList.remove("opacity-100", "translate-y-0", "scale-100");
-        node.classList.add("opacity-0", "translate-y-4", "scale-98");
-      }
-    });
+  const handleCategoryChange = useCallback(
+    (category: Category) => {
+      if (category === selectedCategory) return;
 
-    setTimeout(() => {
-      setSelectedCategory(category);
-      setCategoryTransition(false);
-    }, 300);
-  }, [selectedCategory]);
+      setCategoryTransition(true);
+
+      // Fade out current items
+      itemRefs.current.forEach((node) => {
+        if (node) {
+          node.style.transition = "all 0.3s ease-out";
+          node.classList.remove("opacity-100", "translate-y-0", "scale-100");
+          node.classList.add("opacity-0", "translate-y-4", "scale-98");
+        }
+      });
+
+      setTimeout(() => {
+        setSelectedCategory(category);
+        setCategoryTransition(false);
+      }, 300);
+    },
+    [selectedCategory],
+  );
 
   // Enhanced lightbox with smoother animations
   const openLightbox = useCallback((img: GalleryImage) => {
     setLightboxImage(img);
     setIsLightboxAnimating(true);
     document.body.style.overflow = "hidden";
-    
+
     // Smooth fade-in animation
     requestAnimationFrame(() => {
       setIsLightboxOpen(true);
@@ -169,51 +243,57 @@ const GalleryPage: React.FC = () => {
   const navigateLightbox = useCallback(
     (dir: "next" | "prev") => {
       if (!lightboxImage || isLightboxAnimating) return;
-      
+
       const idx = filteredImages.findIndex((i) => i.id === lightboxImage.id);
       if (idx === -1) return;
-      
+
       const nextIndex =
         dir === "next"
           ? (idx + 1) % filteredImages.length
           : (idx - 1 + filteredImages.length) % filteredImages.length;
-      
+
       setIsLightboxAnimating(true);
-      
+
       // Smooth transition between images
       if (lightboxImageRef.current) {
-        lightboxImageRef.current.style.transition = "all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)";
-        lightboxImageRef.current.style.transform = `scale(0.95) ${dir === 'next' ? 'translateX(-20px)' : 'translateX(20px)'}`;
+        lightboxImageRef.current.style.transition =
+          "all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)";
+        lightboxImageRef.current.style.transform = `scale(0.95) ${dir === "next" ? "translateX(-20px)" : "translateX(20px)"}`;
         lightboxImageRef.current.style.opacity = "0.7";
       }
-      
+
       setTimeout(() => {
         setLightboxImage(filteredImages[nextIndex]);
-        
+
         if (lightboxImageRef.current) {
-          lightboxImageRef.current.style.transform = `scale(1.05) ${dir === 'next' ? 'translateX(20px)' : 'translateX(-20px)'}`;
-          
+          lightboxImageRef.current.style.transform = `scale(1.05) ${dir === "next" ? "translateX(20px)" : "translateX(-20px)"}`;
+
           requestAnimationFrame(() => {
             if (lightboxImageRef.current) {
-              lightboxImageRef.current.style.transform = "scale(1) translateX(0)";
+              lightboxImageRef.current.style.transform =
+                "scale(1) translateX(0)";
               lightboxImageRef.current.style.opacity = "1";
             }
           });
         }
-        
+
         setTimeout(() => setIsLightboxAnimating(false), 300);
       }, 150);
     },
-    [lightboxImage, filteredImages, isLightboxAnimating]
+    [lightboxImage, filteredImages, isLightboxAnimating],
   );
 
   useEffect(() => {
     if (!isLightboxOpen) return;
-    const onKey = (e: KeyboardEvent | any) => {
+
+    const onKey = (e: globalThis.KeyboardEvent) => {
       if (e.key === "Escape") closeLightbox();
-      else if (e.key === "ArrowRight" && !isLightboxAnimating) navigateLightbox("next");
-      else if (e.key === "ArrowLeft" && !isLightboxAnimating) navigateLightbox("prev");
+      else if (e.key === "ArrowRight" && !isLightboxAnimating)
+        navigateLightbox("next");
+      else if (e.key === "ArrowLeft" && !isLightboxAnimating)
+        navigateLightbox("prev");
     };
+
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [isLightboxOpen, closeLightbox, navigateLightbox, isLightboxAnimating]);
@@ -225,7 +305,7 @@ const GalleryPage: React.FC = () => {
     const preload = (i: number) => {
       const img = filteredImages[i];
       if (!img) return;
-      const preloadImg = new (window.Image)(1);
+      const preloadImg = new window.Image(1);
       preloadImg.src = img.src;
     };
     preload((idx + 1) % filteredImages.length);
@@ -269,30 +349,32 @@ const GalleryPage: React.FC = () => {
             fill
             priority
             className="object-cover transition-transform duration-700 ease-out"
-            style={{ transform: `translateY(${scrollY * 0.15}px) scale(${1 + scrollY * 0.0002})` }}
+            style={{
+              transform: `translateY(${scrollY * 0.15}px) scale(${1 + scrollY * 0.0002})`,
+            }}
             sizes="100vw"
           />
           <div
             className="absolute inset-0 transition-opacity duration-700"
-            style={{ 
-              backgroundColor: COLORS.dark, 
-              opacity: Math.min(0.4 + scrollY * 0.0008, 0.7)
+            style={{
+              backgroundColor: COLORS.dark,
+              opacity: Math.min(0.4 + scrollY * 0.0008, 0.7),
             }}
           />
         </div>
         <div
           className="relative z-10 px-4 text-center transition-all duration-700 ease-out"
-          style={{ 
+          style={{
             transform: `translateY(${scrollY * 0.3}px)`,
-            opacity: Math.max(1 - scrollY * 0.002, 0.3)
+            opacity: Math.max(1 - scrollY * 0.002, 0.3),
           }}
         >
           <div className="mb-6 flex justify-center">
             <Camera
-              className="h-12 w-12 md:h-16 md:w-16 animate-pulse"
-              style={{ 
+              className="h-12 w-12 animate-pulse md:h-16 md:w-16"
+              style={{
                 color: COLORS.light,
-                animationDuration: '3s'
+                animationDuration: "3s",
               }}
             />
           </div>
@@ -303,7 +385,7 @@ const GalleryPage: React.FC = () => {
             GALLERY
           </h1>
           <p
-            className="mx-auto max-w-2xl text-lg font-light tracking-wide opacity-90 transition-all duration-1000 delay-200 ease-out md:text-xl"
+            className="mx-auto max-w-2xl text-lg font-light tracking-wide opacity-90 transition-all delay-200 duration-1000 ease-out md:text-xl"
             style={{ color: COLORS.light }}
           >
             Discover the beauty and tranquility of AYADA CLIFF through our
@@ -326,10 +408,11 @@ const GalleryPage: React.FC = () => {
                   key={c}
                   onClick={() => handleCategoryChange(c)}
                   variant="ghost"
-                  className={`px-4 py-2 text-xs md:text-sm font-light tracking-wider transition-all duration-300 ease-out transform hover:scale-105 ${active
-                      ? "shadow-lg scale-105"
+                  className={`transform px-4 py-2 text-xs font-light tracking-wider transition-all duration-300 ease-out hover:scale-105 md:text-sm ${
+                    active
+                      ? "scale-105 shadow-lg"
                       : "hover:bg-white/10 hover:shadow-md focus-visible:ring-1"
-                    }`}
+                  }`}
                   style={{
                     backgroundColor: active ? COLORS.primary : "transparent",
                     color: active ? COLORS.secondary : COLORS.primary,
@@ -348,22 +431,14 @@ const GalleryPage: React.FC = () => {
 
       {/* Enhanced gallery grid */}
       <div className="container mx-auto px-4 py-10 md:py-14">
-        <div
-          className="
-            columns-1 gap-4
-            sm:columns-2
-            lg:columns-3
-            xl:columns-4
-            [column-fill:_balance]
-          "
-        >
+        <div className="columns-1 gap-4 [column-fill:_balance] sm:columns-2 lg:columns-3 xl:columns-4">
           {filteredImages.map((img, i) => (
             <div
               key={`${img.id}-${selectedCategory}`}
               ref={(node) => setItemRef(img.id, node)}
               data-index={i}
-              className={`group mb-4 break-inside-avoid overflow-hidden rounded-lg transform opacity-0 translate-y-8 scale-95 cursor-zoom-in ${getHeightClass(
-                img.height
+              className={`group mb-4 translate-y-8 scale-95 transform cursor-zoom-in break-inside-avoid overflow-hidden rounded-lg opacity-0 ${getHeightClass(
+                img.height,
               )}`}
               onClick={() => openLightbox(img)}
               role="button"
@@ -385,15 +460,15 @@ const GalleryPage: React.FC = () => {
                   sizes="(max-width:768px) 100vw, (max-width:1280px) 50vw, 25vw"
                 />
                 <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 transition-all duration-500 ease-out group-hover:opacity-100" />
-                <div className="pointer-events-none absolute bottom-4 left-4 right-4 translate-y-6 opacity-0 transition-all duration-500 ease-out group-hover:translate-y-0 group-hover:opacity-100">
+                <div className="pointer-events-none absolute right-4 bottom-4 left-4 translate-y-6 opacity-0 transition-all duration-500 ease-out group-hover:translate-y-0 group-hover:opacity-100">
                   <h3
-                    className="mb-1 text-lg font-light tracking-wide transform transition-transform duration-500 ease-out group-hover:scale-105"
+                    className="mb-1 transform text-lg font-light tracking-wide transition-transform duration-500 ease-out group-hover:scale-105"
                     style={{ color: COLORS.light }}
                   >
                     {img.title}
                   </h3>
                   <p
-                    className="text-xs font-light tracking-wider opacity-80 transform transition-all duration-500 delay-100 ease-out group-hover:scale-105"
+                    className="transform text-xs font-light tracking-wider opacity-80 transition-all delay-100 duration-500 ease-out group-hover:scale-105"
                     style={{ color: COLORS.light }}
                   >
                     {img.category.toUpperCase()}
@@ -417,7 +492,9 @@ const GalleryPage: React.FC = () => {
       {isLightboxOpen && lightboxImage && (
         <div
           className={`fixed inset-0 z-50 flex items-center justify-center p-4 transition-all duration-400 ease-out ${
-            isLightboxAnimating && !isLightboxOpen ? 'opacity-0 scale-95' : 'opacity-100 scale-100'
+            isLightboxAnimating && !isLightboxOpen
+              ? "scale-95 opacity-0"
+              : "scale-100 opacity-100"
           }`}
           style={{ backgroundColor: "rgba(0,0,0,0.92)" }}
           onClick={closeLightbox}
@@ -427,7 +504,7 @@ const GalleryPage: React.FC = () => {
         >
           <button
             onClick={closeLightbox}
-            className="absolute right-4 top-4 rounded-full p-2 text-white/90 transition-all duration-300 ease-out hover:bg-white/20 hover:scale-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50"
+            className="absolute top-4 right-4 rounded-full p-2 text-white/90 transition-all duration-300 ease-out hover:scale-110 hover:bg-white/20 focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:outline-none"
             aria-label="Close lightbox"
           >
             <X className="h-6 w-6" />
@@ -440,7 +517,7 @@ const GalleryPage: React.FC = () => {
                   e.stopPropagation();
                   if (!isLightboxAnimating) navigateLightbox("prev");
                 }}
-                className="absolute left-3 top-1/2 -translate-y-1/2 rounded-full p-3 text-white/80 transition-all duration-300 ease-out hover:bg-white/20 hover:scale-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 md:left-6"
+                className="absolute top-1/2 left-3 -translate-y-1/2 rounded-full p-3 text-white/80 transition-all duration-300 ease-out hover:scale-110 hover:bg-white/20 focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:outline-none md:left-6"
                 aria-label="Previous image"
                 disabled={isLightboxAnimating}
               >
@@ -451,7 +528,7 @@ const GalleryPage: React.FC = () => {
                   e.stopPropagation();
                   if (!isLightboxAnimating) navigateLightbox("next");
                 }}
-                className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full p-3 text-white/80 transition-all duration-300 ease-out hover:bg-white/20 hover:scale-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 md:right-6"
+                className="absolute top-1/2 right-3 -translate-y-1/2 rounded-full p-3 text-white/80 transition-all duration-300 ease-out hover:scale-110 hover:bg-white/20 focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:outline-none md:right-6"
                 aria-label="Next image"
                 disabled={isLightboxAnimating}
               >
@@ -482,7 +559,7 @@ const GalleryPage: React.FC = () => {
                 {lightboxImage.title}
               </h3>
               <p
-                className="text-xs font-light tracking-wider opacity-80 transition-all duration-500 delay-100 ease-out md:text-sm"
+                className="text-xs font-light tracking-wider opacity-80 transition-all delay-100 duration-500 ease-out md:text-sm"
                 style={{ color: COLORS.light }}
               >
                 {lightboxImage.category.toUpperCase()}

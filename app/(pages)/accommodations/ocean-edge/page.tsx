@@ -165,7 +165,7 @@ export default function OceanEdgePoolVilla() {
                                     Immerse yourself in your private pool, surrounded by lush landscaping with the constant, calming sound of waves below.
                                 </p>
                                 <p className="text-stone-600 leading-relaxed text-lg">
-                                    Dine romantically at the deckside area or discover the garden's special privacy window that reveals the magnificent Arabian Sea in all its glory.
+                                    Dine romantically at the deckside area or discover the garden&apos;s special privacy window that reveals the magnificent Arabian Sea in all its glory.
                                 </p>
                                 <div className="mt-6 flex items-center gap-4 text-stone-500">
                                     <div className="flex items-center gap-2">
@@ -228,7 +228,7 @@ export default function OceanEdgePoolVilla() {
                             <div>
                                 <h3 className="text-3xl font-light mb-6 text-stone-700">Unforgettable Balcony Moments</h3>
                                 <p className="text-stone-600 mb-6 leading-relaxed text-lg">
-                                    Your expansive oceanfront balcony offers front-row seats to nature's daily spectacle - from sunrise coffee to sunset cocktails.
+                                    Your expansive oceanfront balcony offers front-row seats to nature&apos;s daily spectacle - from sunrise coffee to sunset cocktails.
                                 </p>
                                 <p className="text-stone-600 leading-relaxed text-lg">
                                     Transform any evening into a special occasion with our romantic private dining experience, creating memories against the backdrop of the infinite Arabian Sea.
@@ -412,7 +412,7 @@ export default function OceanEdgePoolVilla() {
                     <Mountain className="w-16 h-16 mx-auto mb-8 text-stone-300" />
                     <h2 className="text-4xl font-light mb-6">The Ultimate Cliff Edge Experience</h2>
                     <p className="text-xl mb-8 text-stone-300 max-w-3xl mx-auto leading-relaxed">
-                        Wake up to the Arabian Sea stretching endlessly before you. This isn't just accommodation - it's a front-row seat to one of nature's most spectacular shows, where dramatic cliffs meet infinite ocean.
+                        Wake up to the Arabian Sea stretching endlessly before you. This isn&apos;t just accommodation - it&apos;s a front-row seat to one of nature&apos;s most spectacular shows, where dramatic cliffs meet infinite ocean.
                     </p>
                     <div className="grid md:grid-cols-3 gap-8 mt-12">
                         <div className="text-center">

@@ -301,7 +301,7 @@ const Footer = () => {
               className="text-base font-light max-w-2xl mx-auto"
               style={{ color: COLORS.primary, opacity: 0.7 }}
             >
-              Our property is just a short walk from the beach, 15 minutes from Varkala town, and only 1 hour from Trivandrum International Airport. It's easy to reach and perfectly located for both relaxation and exploring the area.
+              Our property is just a short walk from the beach, 15 minutes from Varkala town, and only 1 hour from Trivandrum International Airport. It&apos;s easy to reach and perfectly located for both relaxation and exploring the area.
             </motion.p>
           </div>
 

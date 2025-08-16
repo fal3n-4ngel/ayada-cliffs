@@ -40,7 +40,7 @@ const VillaSelection: React.FC<VillaSelectionProps> = ({
             }`}
             style={
               selectedVilla?.id === villa.id
-                ? { ['--villa-ring-color' as any]: COLORS.primary }
+                ? { ['--villa-ring-color' as string]: COLORS.primary }
                 : undefined
             }
           >
