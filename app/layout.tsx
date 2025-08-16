@@ -8,21 +8,25 @@ import { ViewTransitions } from "next-view-transitions";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
+  display: "swap"
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+  display: "swap",
 });
 
 export const josefinSans = Josefin_Sans({
   variable: "--font-josefin-sans",
   subsets: ["latin"],
+  display: "swap",
 });
 
 export const quicksand = Quicksand({
   variable: "--font-quicksand",
   subsets: ["latin"],
+  display: "swap",
 });
 
 

@@ -1,17 +1,38 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Header from "./components/sections/Header";
-import HeroSection from "./components/sections/HeroSection";
-import IntroductionSection from "./components/sections/IntroductionSection";
-import AccommodationsSection from "./components/sections/AccommodationsSection";
-import DestinationsSection from "./components/sections/DestinationsSection";
-import ExperienceSection from "./components/sections/ExperienceSection";
 import Footer from "./components/sections/Footer";
 import LoadingScreen from "./loading";
-import CarouselSection from "./components/sections/CarouselSection";
 import PageTransition from "./components/PageTransition";
-import LogoFooterCard from "./components/ui/LogoFooterCard";
-import ComingSoonPage from "./components/ComingSoon";
+import UnderMaintenancePage from "./components/sections/UnderMaintenance";
+import dynamic from "next/dynamic";
+
+const HeroSection = dynamic(() => import("./components/sections/HeroSection"), {
+  ssr: false,
+});
+
+const IntroductionSection = dynamic(
+  () => import("./components/sections/IntroductionSection"),
+  { ssr: false },
+);
+
+const AccommodationsSection = dynamic(
+  () => import("./components/sections/AccommodationsSection"),
+  { ssr: false },
+);
+
+const DestinationsSection = dynamic(
+  () => import("./components/sections/DestinationsSection"),
+  { ssr: false },
+);
+const CarouselSection = dynamic(
+  () => import("./components/sections/CarouselSection"),
+  { ssr: false },
+);
+const ExperienceSection = dynamic(
+  () => import("./components/sections/ExperienceSection"),
+  { ssr: false },
+);
 
 const AyadaCLIFFPage = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -19,7 +40,12 @@ const AyadaCLIFFPage = () => {
   const [selectedFeature, setSelectedFeature] = useState(0);
   const [loading, setLoading] = useState(true);
 
-  const [prodEnvironment, setProdEnvironment] = useState("development");
+  // ✅ Explicit cast + default
+  const prodEnvironment: "development" | "production" | "maintenance" =
+    (process.env.NEXT_PUBLIC_ENVIRONMENT as
+      | "development"
+      | "production"
+      | "maintenance") || "development";
 
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY);
@@ -30,17 +56,13 @@ const AyadaCLIFFPage = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 2500);
+    }, 4000);
 
     return () => clearTimeout(timer);
   }, []);
 
   useEffect(() => {
-    if (loading) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
+    document.body.style.overflow = loading ? "hidden" : "";
     return () => {
       document.body.style.overflow = "";
     };
@@ -50,10 +72,10 @@ const AyadaCLIFFPage = () => {
     return <LoadingScreen />;
   }
 
-  if (prodEnvironment === "production") {
+  if (prodEnvironment === "maintenance") {
     return (
       <div className="fixed inset-0 z-50 flex items-center justify-center bg-white">
-        <ComingSoonPage />
+        <UnderMaintenancePage />
       </div>
     );
   }
@@ -69,7 +91,6 @@ const AyadaCLIFFPage = () => {
       <HeroSection />
 
       <IntroductionSection />
-
       <AccommodationsSection />
       <CarouselSection />
       <ExperienceSection />
@@ -78,8 +99,6 @@ const AyadaCLIFFPage = () => {
         selectedFeature={selectedFeature}
         setSelectedFeature={setSelectedFeature}
       />
-
-      {/* <LogoFooterCard /> */}
 
       <Footer />
     </div>
