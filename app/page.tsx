@@ -6,10 +6,9 @@ import LoadingScreen from "./loading";
 import PageTransition from "./components/PageTransition";
 import UnderMaintenancePage from "./components/sections/UnderMaintenance";
 import dynamic from "next/dynamic";
+import HeroSection from "./components/sections/HeroSection";
 
-const HeroSection = dynamic(() => import("./components/sections/HeroSection"), {
-  ssr: true,
-});
+
 
 const IntroductionSection = dynamic(
   () => import("./components/sections/IntroductionSection"),
