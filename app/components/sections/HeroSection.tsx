@@ -8,34 +8,26 @@ const COLORS = {
 };
 
 const HeroSection = () => {
-  const [isLoaded, setIsLoaded] = useState(true); // Directly initialized to true
-
-  interface FadeClassParams {
-    loaded: boolean;
-    delay: number;
-  }
-
-  const fadeClass = ({ loaded, delay }: FadeClassParams): string =>
-    `transition-all duration-1000 ${loaded ? `opacity-100 delay-${delay}` : "opacity-0"}`;
+  const [isLoaded, setIsLoaded] = useState(false); // ✅ start as false
 
   return (
     <section className="relative h-screen overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0">
         <div
-          className={`absolute inset-0 transition-all duration-[2500ms] ease-out ${
+          className={`absolute inset-0 transition-all duration-[2000ms] ease-out ${
             isLoaded ? "scale-100 opacity-100" : "scale-105 opacity-0"
           }`}
         >
           <Image
-        src="/images/hero-bg (1).webp"
-        alt="Hero Background"
-        fill
-        priority // Preload for instant render
-        sizes="100vw"
-        className="object-cover"
-        onLoadingComplete={() => setIsLoaded(true)} // Trigger animation only after load
-      />
+            src="/images/hero-bg (1).webp"
+            alt="Hero Background"
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover"
+            onLoadingComplete={() => setIsLoaded(true)}
+          />
           <div className="absolute inset-0 bg-black/50"></div>
           <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/40"></div>
         </div>
@@ -46,14 +38,14 @@ const HeroSection = () => {
         <div className="container mx-auto max-w-4xl flex flex-col items-center">
           {/* Divider line */}
           <div
-            className={`mb-6 h-px bg-white/70 transition-all duration-1000 delay-800 ${
-              isLoaded ? "w-15 opacity-70" : "w-0 opacity-0"
+            className={`mb-6 h-px bg-white/70 transition-all duration-1000 delay-700 ${
+              isLoaded ? "w-16 opacity-70" : "w-0 opacity-0"
             }`}
           ></div>
 
           {/* Tagline */}
           <span
-            className={`mb-5 text-xs tracking-widest uppercase transition-all delay-1000 duration-1000 ${
+            className={`mb-5 text-xs tracking-widest uppercase transition-all duration-700 delay-800 ${
               isLoaded ? "translate-y-0 opacity-90" : "translate-y-2 opacity-0"
             }`}
             style={{ color: COLORS.light }}
@@ -63,7 +55,7 @@ const HeroSection = () => {
 
           {/* Logo */}
           <div
-            className={`md:mb-0 mb-10 w-80 md:w-[48vw] transition-all delay-1200 duration-1500 ${
+            className={`md:mb-0 mb-10 w-80 md:w-[48vw] transition-all duration-1000 delay-1000 ${
               isLoaded ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"
             }`}
           >
@@ -79,17 +71,17 @@ const HeroSection = () => {
 
           {/* Location */}
           <p
-            className={`mb-12 text-md font-light tracking-wider md:text-base text-center transition-opacity delay-1400 duration-1500 ${
+            className={`mb-12 text-md font-light tracking-wider md:text-base text-center transition-opacity duration-1000 delay-1200 ${
               isLoaded ? "opacity-85" : "opacity-0"
             }`}
             style={{ color: COLORS.light }}
           >
-            Luxury Private Pool Beach Resort - Varkala, Kerala
+            Luxury Private Pool Beach Villas - Varkala, Kerala
           </p>
 
           {/* Button */}
           <div
-            className={`mt-4 transition-all delay-1600 duration-1000 ${
+            className={`mt-4 transition-all duration-700 delay-1400 ${
               isLoaded ? "translate-y-0 opacity-100" : "translate-y-5 opacity-0"
             }`}
           >
@@ -108,15 +100,12 @@ const HeroSection = () => {
 
       {/* Scroll indicator */}
       <div
-        className={`absolute bottom-12 left-1/2 -translate-x-1/2 transform transition-opacity delay-2000 duration-1000 ${
+        className={`absolute bottom-12 left-1/2 -translate-x-1/2 transition-opacity duration-700 delay-1600 ${
           isLoaded ? "opacity-80" : "opacity-0"
         }`}
       >
         <div
-          className="group flex cursor-pointer flex-col items-center"
-          style={{
-            animation: isLoaded ? "bounce 2s infinite 2s" : "none",
-          }}
+          className="group flex cursor-pointer flex-col items-center animate-bounce"
           onClick={() => {
             window.scrollTo({ top: window.innerHeight, behavior: "smooth" });
           }}
@@ -130,15 +119,6 @@ const HeroSection = () => {
           />
         </div>
       </div>
-
-      {/* Animation keyframes */}
-      <style jsx>{`
-        @keyframes bounce {
-          0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-          40% { transform: translateY(-8px); }
-          60% { transform: translateY(-4px); }
-        }
-      `}</style>
     </section>
   );
 };

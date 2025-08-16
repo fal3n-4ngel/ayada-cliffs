@@ -58,7 +58,7 @@ const Logo = ({ scrollY, isMobile = false }: { scrollY: number; isMobile?: boole
 const ReserveButton = ({ href = "/reserve", color }: { href?: string; color: string }) => (
   <Link href={href}>
     <button
-      className="px-6 py-2 text-sm tracking-widest text-white transition-all duration-300 hover:bg-opacity-90"
+      className="px-6 py-2 text-sm tracking-widest text-white transition-all duration-300 hover:bg-opacity-90 cursor-pointer"
       style={{ backgroundColor: color }}
     >
       BOOK NOW

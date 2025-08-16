@@ -46,7 +46,8 @@ export const metadata: Metadata = {
     "Edava",
     "Beach Resort Varkala",
     "Luxury Beach Resort Varkala",
-    "Ayada Cliff Beach Villas"
+    "Ayada Cliff Beach Villas",
+    "Ayada Cliff Luxury Villas",
 
   ],
   authors: [{ name: "Deflated Pappadam", url: "https://deflatedpappadam.com" }],

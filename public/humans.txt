@@ -1,0 +1,48 @@
+_______________________________________________________________________________
+
+DESIGNER | デザイナー
+Deflated-Pappadam  
+
+github.com/Deflated-Pappadam  
+www.ayadacliff.com  
+
+_______________________________________________________________________________
+
+TECHNOLOGY | テクノロジー
+
+React (via Next.js)  
+Next.js  
+Tailwind CSS  
+TypeScript  
+Vercel Font Loader (Geist)  
+
+_______________________________________________________________________________
+
+FONTS | フォント
+
+Geist (via next/font)  
+
+_______________________________________________________________________________
+
+GRAPHIC ASSETS | グラフィック素材
+
+Components: shadcn/ui  
+Images: Ayada Cliff  
+
+_______________________________________________________________________________
+
+DEVELOPERS | 開発者
+
+• Adithya Krishnan  
+• Ritin D George  
+• Vinu B Kurup  
+• Rhon S George  
+
+_______________________________________________________________________________
+
+PROJECT | プロジェクト
+
+Commissioned by Ayada Cliff Beach Villas  
+Client: Rizwan Biswar  
+
+_______________________________________________________________________________
