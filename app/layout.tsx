@@ -4,11 +4,12 @@ import "./globals.css";
 import LenisProvider from "./components/LenisProvider";
 import PageTransition from "./components/PageTransition";
 import { ViewTransitions } from "next-view-transitions";
+import AnalyticsProvider from "./components/ui/AnalyticsProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
-  display: "swap"
+  display: "swap",
 });
 
 const geistMono = Geist_Mono({
@@ -29,9 +30,9 @@ export const quicksand = Quicksand({
   display: "swap",
 });
 
-
 export const metadata: Metadata = {
-  title: "Ayada Cliff – Luxury Oceanfront Private Pool Villas in Varkala, Kerala",
+  title:
+    "Ayada Cliff – Luxury Oceanfront Private Pool Villas in Varkala, Kerala",
   description:
     "Escape to Ayada Cliff – premium oceanfront villas with private pools, breathtaking cliffside views, and world-class hospitality in Varkala, Kerala.",
   keywords: [
@@ -52,7 +53,6 @@ export const metadata: Metadata = {
     "Luxury Beach Resort Varkala",
     "Ayada Cliff Beach Villas",
     "Ayada Cliff Luxury Villas",
-
   ],
   authors: [{ name: "Deflated Pappadam", url: "https://deflatedpappadam.com" }],
   creator: "Ayada Cliff",
@@ -65,7 +65,7 @@ export const metadata: Metadata = {
     siteName: "Ayada Cliff",
     images: [
       {
-        url: "https://ayadacliff.com/opengraph-image.jpg", 
+        url: "https://ayadacliff.com/opengraph-image.jpg",
         width: 1200,
         height: 630,
         alt: "Ayada Cliff Luxury Ocean View Villa",
@@ -88,8 +88,6 @@ export const metadata: Metadata = {
   },
 };
 
-
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -100,10 +98,12 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${josefinSans.variable} quicksand hide-scrollbar antialiased`}
       >
-        <ViewTransitions>
-          <PageTransition />
-          <LenisProvider>{children}</LenisProvider>
-        </ViewTransitions>
+        <AnalyticsProvider>
+          <ViewTransitions>
+            <PageTransition />
+            <LenisProvider>{children}</LenisProvider>
+          </ViewTransitions>
+        </AnalyticsProvider>
       </body>
     </html>
   );
