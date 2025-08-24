@@ -5,7 +5,8 @@ import LenisProvider from "./components/LenisProvider";
 import PageTransition from "./components/PageTransition";
 import { ViewTransitions } from "next-view-transitions";
 import AnalyticsProvider from "./components/ui/AnalyticsProvider";
-
+import { Analytics } from "@vercel/analytics/next"
+import { SpeedInsights } from "@vercel/speed-insights/next"
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -98,6 +99,8 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${josefinSans.variable} quicksand hide-scrollbar antialiased`}
       >
+        <Analytics />
+        <SpeedInsights />
         <AnalyticsProvider>
           <ViewTransitions>
             <PageTransition />
